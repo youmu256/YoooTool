@@ -1,0 +1,6 @@
+D:\VS2015Work\YoooTool\YoooTool\bin\Debug\YoooTool.exe.config
+D:\VS2015Work\YoooTool\YoooTool\bin\Debug\YoooTool.exe
+D:\VS2015Work\YoooTool\YoooTool\bin\Debug\YoooTool.pdb
+D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.csprojResolveAssemblyReference.cache
+D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.exe
+D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.pdb

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YoooTool.Code;
+using YoooTool.Code.Slk;
+using YoooTool.Code.Utils;
 
 namespace YoooTool
 {
@@ -16,16 +18,15 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
-            /*
-            Random random = new Random();
-            for (int i = 0; i < 10000; i++)
-            {
-                Console.WriteLine(random.NextDouble()*100);
-            }
+            new Slk().Test();
             Console.ReadKey();
             return;
-            */
-            RandomPool<Item> rp = new RandomPool<Item>();
+            var game = new Game();
+            game.Init();
+            game.StartRun();
+            Console.ReadKey();
+            return;
+            RandomWeightPool<Item> rp = new RandomWeightPool<Item>();
             rp.SetItemWeight(new Item() {Name = "5"}, 5);
             rp.SetItemWeight(new Item() {Name = "10"}, 10);
             Dictionary<Item,int> counter = new Dictionary<Item, int>();

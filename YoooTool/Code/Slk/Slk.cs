@@ -463,8 +463,24 @@ namespace YoooTool.Code.Slk
             UnitTab.Slk_DeSerialize(folder + "SLK_Unit.csv");
             SpawnnerTab.Slk_DeSerialize(folder + "SLK_Spawnner.csv");
             EnemyGroupTab.Slk_DeSerialize(folder + "SLK_EnemyGroup.csv");
-
         }
+
+        public T GetSlkData<T>(string id) where T:SlkDataObject
+        {
+            if (typeof(T) == typeof(SLK_Unit))
+            {
+                return UnitTab.GetData(id) as T;
+            }else if (typeof(T) == typeof(SLK_EnemySpawnner))
+            {
+                return SpawnnerTab.GetData(id) as T;
+            }
+            else if (typeof(T) == typeof(SLK_EnemyGroup))
+            {
+                return EnemyGroupTab.GetData(id) as T;
+            }
+            return null;
+        }
+
 
         public void Test()
         {

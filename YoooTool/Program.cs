@@ -16,26 +16,19 @@ namespace YoooTool
             public string Name;
         }
 
-        static void Main(string[] args)
+        static void RandomPoolTest()
         {
-            new Slk().Test();
-            Console.ReadKey();
-            return;
-            var game = new Game();
-            game.Init();
-            game.StartRun();
-            Console.ReadKey();
-            return;
+
             RandomWeightPool<Item> rp = new RandomWeightPool<Item>();
-            rp.SetItemWeight(new Item() {Name = "5"}, 5);
-            rp.SetItemWeight(new Item() {Name = "10"}, 10);
-            Dictionary<Item,int> counter = new Dictionary<Item, int>();
+            rp.SetItemWeight(new Item() { Name = "5" }, 5);
+            rp.SetItemWeight(new Item() { Name = "10" }, 10);
+            Dictionary<Item, int> counter = new Dictionary<Item, int>();
             for (int i = 0; i < 100000; i++)
             {
                 var it = rp.GetItem();
                 if (!counter.ContainsKey(it))
                 {
-                    counter.Add(it,0);
+                    counter.Add(it, 0);
                 }
                 counter[it]++;
             }
@@ -44,8 +37,20 @@ namespace YoooTool
             {
                 Console.WriteLine(p.Key.Name + "__" + p.Value);
             }
-
             Console.ReadKey();
+        }
+
+        static void Main(string[] args)
+        {
+            //new Slk().Test();
+            //Console.ReadKey();
+            //return;
+            var game = new Game();
+            game.Init();
+            game.StartRun();
+            Console.ReadKey();
+            return;
+
         }
     }
 }

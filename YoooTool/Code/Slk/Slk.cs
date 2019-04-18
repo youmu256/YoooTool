@@ -116,8 +116,6 @@ namespace YoooTool.Code.Slk
         }
     }
 
-
-    
     public abstract class SlkDataObject :ISlkSerialize
     {
         /// <summary>
@@ -226,6 +224,33 @@ namespace YoooTool.Code.Slk
         public abstract void Slk_DeSerialize(object data);
     }
 
+    /// <summary>
+    /// 交互对象
+    /// </summary>
+    public class SLK_Interactive : SlkDataObject
+    {
+        [SlkProperty(1)]
+        public string WeUnitTypeId { get; set; }
+        [SlkProperty(2)]
+        public string Desc { get; set; }
+
+        public override string Slk_Serialize()
+        {
+            return GetProperty2Csv();
+        }
+
+        public override void Slk_DeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+                Id = srr[0];
+                WeUnitTypeId = srr[1];
+                Desc = srr[2];
+            }
+        }
+    }
+
     public class SLK_Unit : SlkDataObject
     {
         [SlkProperty(1)]
@@ -299,7 +324,6 @@ namespace YoooTool.Code.Slk
         }
     }
 
-
     public class SlkData_Handler<T> : ISlkSerialize where T: SlkDataObject 
     {
         protected Dictionary<string,T> IdMap = new Dictionary<string, T>();
@@ -362,10 +386,86 @@ namespace YoooTool.Code.Slk
             }
         }
         #endregion
+        
+    }
+
+
+    public class SLK_Room : SlkDataObject
+    {
+        //alive room = enemySpawnner
+        //battle room = enemyGroup
+        //interactive room = 
+
+        public SlkDataObject GetSlkData()
+        {
+            //by key and id to get slk data
+            return null;
+        }
+        
+        /// <summary>
+        /// 表示类型 /现在先不需要 直接整合到ID中
+        /// </summary>
+        [SlkProperty(1)]
+        public string Key { get; set; }
+        /// <summary>
+        /// 引用的一个配置 解析的时候根据ID得到具体类型的配置
+        /// SLK_EnemyGroup / SLK_EnemySpawnner
+        /// </summary>
+        [SlkProperty(2)]
+        public string ConfigId { get; set; }
+        
+        [SlkProperty(3)]
+        public string Desc { get; set; }
+
+        public override string Slk_Serialize()
+        {
+            return GetProperty2Csv();
+        }
+
+        public override void Slk_DeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+                Id = srr[0];
+                Key = srr[1];
+                ConfigId = srr[2];
+                Desc = srr[3];
+            }
+        }
+    }
+    
+
+
+
+    public class Level
+    {
+        //list of rooms
+
+        public List<string> RoomList = new List<string>();
+
+        public void Export2Jass()
+        {
+
+        }
 
     }
+
     public class Slk
     {
+        public static SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
+        public static SlkData_Handler<SLK_EnemySpawnner> SpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
+        public static SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
+
+        public void Init()
+        {
+            string folder = "";
+            UnitTab.Slk_DeSerialize(folder + "SLK_Unit.csv");
+            SpawnnerTab.Slk_DeSerialize(folder + "SLK_Spawnner.csv");
+            EnemyGroupTab.Slk_DeSerialize(folder + "SLK_EnemyGroup.csv");
+
+        }
+
         public void Test()
         {
             SlkData_Handler<SLK_Unit> unitTab = new SlkData_Handler<SLK_Unit>();

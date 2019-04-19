@@ -42,9 +42,9 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
-            //new Slk().Test();
-            //Console.ReadKey();
-            //return;
+            new Slk().Test();
+            Console.ReadKey();
+            return;
             var game = new Game();
             game.Init();
             game.StartRun();

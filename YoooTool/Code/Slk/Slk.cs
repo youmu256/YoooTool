@@ -102,6 +102,12 @@ namespace YoooTool.Code.Slk
         void Slk_DeSerialize(object data);
     }
 
+    public interface IExport2Jass
+    {
+        string GetJass();
+    }
+
+
     /// <summary>
     /// 避免Index相同！
     /// </summary>
@@ -390,7 +396,7 @@ namespace YoooTool.Code.Slk
     }
 
 
-    public class SLK_Room : SlkDataObject
+    public class SLK_Room : SlkDataObject, IExport2Jass
     {
         //alive room = enemySpawnner
         //battle room = enemyGroup
@@ -433,6 +439,12 @@ namespace YoooTool.Code.Slk
                 Desc = srr[3];
             }
         }
+
+        public string GetJass()
+        {
+            
+            return null;
+        }
     }
     
 
@@ -446,9 +458,15 @@ namespace YoooTool.Code.Slk
 
         public void Export2Jass()
         {
-
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < RoomList.Count; i++)
+            {
+                SLK_Room room = null;//TODO GET SLK DATA
+                string roomJass = room.GetJass();
+                sb.AppendLine(string.Format("set dataArr[{0}] = \"{1}\"", i, ""));
+            }
+            sb.AppendLine(string.Format("RecordConfig({0})",RoomList.Count));
         }
-
     }
 
     public class Slk
@@ -456,6 +474,7 @@ namespace YoooTool.Code.Slk
         public static SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
         public static SlkData_Handler<SLK_EnemySpawnner> SpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
         public static SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
+        public static SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
 
         public void Init()
         {
@@ -463,6 +482,7 @@ namespace YoooTool.Code.Slk
             UnitTab.Slk_DeSerialize(folder + "SLK_Unit.csv");
             SpawnnerTab.Slk_DeSerialize(folder + "SLK_Spawnner.csv");
             EnemyGroupTab.Slk_DeSerialize(folder + "SLK_EnemyGroup.csv");
+            RoomTab.Slk_DeSerialize(folder + "SLK_Room.csv");
         }
 
         public T GetSlkData<T>(string id) where T:SlkDataObject
@@ -516,6 +536,17 @@ namespace YoooTool.Code.Slk
                 }
             });
             File.WriteAllText("SLK_EnemyGroup.csv", enemyGroupTab.Slk_Serialize());
+
+            SlkData_Handler<SLK_Room> roomTab = new SlkData_Handler<SLK_Room>();
+            roomTab.AddData(new SLK_Room()
+            {
+                Id = "Room_1",
+                Key = "B",
+                ConfigId = "EnemyGroup_1",
+                Desc = "Battle"
+            });
+            File.WriteAllText("SLK_Room.csv", roomTab.Slk_Serialize());
+
             return;
             SlkData_Handler<SLK_Unit> newTab = new SlkData_Handler<SLK_Unit>();
             newTab.Slk_DeSerialize("SLK_Unit.csv");

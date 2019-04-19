@@ -332,7 +332,8 @@ namespace YoooTool.Code.Slk
 
         public override string GetJass()
         {
-            return string.Format("{0}_{1}_{2}","B",Level,Index);
+            string jass = string.Format("{0}@{1}", Level,Index);
+            return String.Format("{0}#{1}", "EnemyGroup", jass);
         }
     }
 
@@ -365,7 +366,8 @@ namespace YoooTool.Code.Slk
         public override string GetJass()
         {
             //对应WE解析所需
-            return String.Format("{0}_{1}","S",GetProperty2Csv());
+            string jass = string.Format("{0}@{1}@{2}", LastTime,Interval,SlkParseUtil.IdPool2Config(EnemyIdPool));
+            return String.Format("{0}#{1}","EnemySpawn",jass);
             //return Id;
         }
     }
@@ -533,6 +535,11 @@ namespace YoooTool.Code.Slk
             }
             sb.AppendLine(string.Format("RecordConfig({0})", RoomList.Count));
             File.WriteAllText("Level.jass", sb.ToString());
+        }
+
+        public void ExportEnemySpawnner2Jass()
+        {
+            //导出Spawnner 的jass
         }
 
         public void ExportEnemyGroup2Jass()

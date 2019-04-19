@@ -1,0 +1,123 @@
+library StringLib
+	globals
+		public string array SplitedSrr
+		public integer SplitedSrr_Length = 0
+    endglobals
+	public function GetCharAt takes string s ,integer index returns string
+		return ""
+		//TODO
+	endfunction
+	public function GetLength takes string s returns integer
+		return StringLength(s)
+	endfunction
+	
+	public function Replace takes string s ,string fromString,string toString returns string
+		//same as split
+		local string each
+		local string back
+		integer matchIndex = 0
+		local integer i = 0
+		local sLength = GetLength(s)
+		local fLength = GetLength(fromString)
+		local boolean curMatch = false
+		local boolean matchOk = false
+		local boolean needAppendBack = false
+		local string curChar
+		loop
+			exitwhen i> sLength
+			set i = i + 1
+			set curMatch = false
+			set matchOk = false
+			set needAppendBack = false
+			set curChar = GetCharAt(s,i)
+			if( curChar == GetCharAt(fromString,matchIndex) then
+				set curMatch = true
+			endif
+			if(curMatch == true) then
+				if(matchIndex<fLength) then
+					set matchIndex  = matchIndex + 1
+				endif
+				if(matchIndex == fLength) then
+					set back = ""
+					set matchIndex = 0
+					set matchOk = true
+				else
+					set back = back + curChar
+				endif
+			else
+				set needAppendBack = true
+				set matchIndex = 0
+			endif
+			if (matchOk == true) then
+				set each = each + toString
+			endif
+			if(needAppendBack == true)then
+				set each = each +back
+				set back = ""
+			endif
+			if(curMatch ==false)then
+				set each = each +curChar
+			endif
+			
+		endloop
+		
+		return each
+	endfunction
+	
+	public function Split takes string s ,string flag returns integer
+		local string each
+		local string back
+		integer matchIndex = 0
+		local integer i = 0
+		local sLength = GetLength(s)
+		local fLength = GetLength(flag)
+		local boolean curMatch = false
+		local boolean matchOk = false
+		local boolean needAppendBack = false
+		local string curChar
+		loop
+			exitwhen i> sLength
+			set i = i + 1
+			set curMatch = false
+			set matchOk = false
+			set needAppendBack = false
+			set curChar = GetCharAt(s,i)
+			if( curChar == GetCharAt(flag,matchIndex) then
+				set curMatch = true
+			endif
+			if(curMatch == true) then
+				if(matchIndex<fLength) then
+					set matchIndex  = matchIndex + 1
+				endif
+				if(matchIndex == fLength) then
+					set back = ""
+					set matchIndex = 0
+					set matchOk = true
+				else
+					set back = back + curChar
+				endif
+			else
+				set needAppendBack = true
+				set matchIndex = 0
+			endif
+			if (matchOk == true) then
+				//get each
+				set SplitedSrr_Length = SplitedSrr_Length + 1
+				set SplitedSrr[SplitedSrr_Length + 1] = each
+				set each = ""
+			endif
+			if(needAppendBack == true)then
+				set each = each +back
+				set back = ""
+			endif
+			if(curMatch ==false)then
+				set each = each +curChar
+			endif
+			
+		endloop
+		//get each
+		set SplitedSrr_Length = SplitedSrr_Length + 1
+		set SplitedSrr[SplitedSrr_Length + 1] = each
+		return SplitedSrr_Length
+	endfunction
+endlibrary

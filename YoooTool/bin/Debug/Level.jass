@@ -1,3 +1,3 @@
-set dataArr[1] = "B_1_1"
-set dataArr[2] = "S_EnemySpawnner_1,30,2,enemy_1|10;enemy_2|10;bigEnemy_1|5;bigEnemy_2|5"
+set dataArr[1] = "EnemyGroup#1@1"
+set dataArr[2] = "EnemySpawn#30@2@enemy_1|10;enemy_2|10;bigEnemy_1|5;bigEnemy_2|5"
 RecordConfig(2)

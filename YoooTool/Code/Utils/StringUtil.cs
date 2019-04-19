@@ -11,6 +11,7 @@ namespace YoooTool.Code.Utils
 
         public static string Replace(string content, string from,string to)
         {
+            //调用Split后再拼接也可以实现，不需要这些重复代码
 
             StringBuilder passedString = new StringBuilder();
             StringBuilder backString = new StringBuilder();//开始匹配但是最终没完全匹配的缓存
@@ -65,7 +66,6 @@ namespace YoooTool.Code.Utils
         public static string[] Split(string content, string flag)
         {
             string[] srr = new string[0];
-            Console.WriteLine(content);
             StringBuilder backString = new StringBuilder();//开始匹配但是最终没完全匹配的缓存
             StringBuilder eachString = new StringBuilder();
             int matchIndex = 0;

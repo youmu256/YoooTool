@@ -1,0 +1,74 @@
+library WeightPool
+	globals
+		private hashtable ht = InitHashtable()
+		private integer poolLength = 0
+    endglobals
+	
+	public function GetPoolHash takes string poolName returns integer
+		return StringHash(poolName + "_Pool")
+	endfunction
+	
+	public function GetRandom_Int takes string poolName returns integer data
+		local integer pk = GetPoolHash(poolName)
+		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))
+		local real totalWeight = LoadReal(ht,pk,StringHash("totalWeight"))
+		local integer i = 0
+		local real lastWeight = 0
+		local real random = GetRandomReal(0,totalWeight)
+		local real weight
+		loop
+			exitwhen i > itemLength
+			set i = i + 1
+			set weight = LoadReal(ht,pk,StringHash("weight_"+I2S(itemLength)))
+			if(random >= lastWeight && random< lastWeight + weight)then
+				exitwhen true
+			endif
+		endloop
+		return LoadInteger(ht,pk,StringHash("data_"+I2S(i)))
+	endfunction
+	
+	//don't regist a int over one times
+	public function RegistPool_Int takes string poolName, integer data, real weight returns nothing
+		local integer pk = GetPoolHash(poolName)
+		
+		//---pool item length
+		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))
+		local real totalWeight = LoadReal(ht,pk,StringHash("totalWeight"))
+		set itemLength = itemLength + 1
+		//save item
+		call SaveInteger(ht,pk,StringHash("data_"+I2S(itemLength)),data)
+		//save item weight
+		call SaveReal(ht,pk,StringHash("weight_"+I2S(itemLength)),weight)
+		
+		set totalWeight = totalWeight + weight //maybe need to fix when re regist one data
+		call SaveReal(ht,pk,StringHash("totalWeight"),totalWeight)
+		
+		call SaveInteger(ht,pk,StringHash("itemLength"),itemLength)
+	endfunction
+	
+endlibrary
+
+library EnemySpawnner
+	//lasttime interval pool
+	//save pool use hashTable, pk = "<name>_weightPool",ck = "<name>_1",integer data
+	globals
+		public string array IdArr
+		public integer Spawnner_Length = 0
+    endglobals
+	
+	public function SetConfig takes string config returns nothing
+	
+		//auto generate by tools
+		local string poolName = "spawnnerPool"
+		local integer data = 0
+		local integer weight = 0
+		
+		//regist pool data
+		WeightPool_RegistPool_Int(poolName,data,weight)
+		
+		
+		set Spawnner_Length = Spawnner_Length + 1
+	endfunction
+	
+	
+endlibrary

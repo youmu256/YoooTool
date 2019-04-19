@@ -67,14 +67,6 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
-            var srr = StringUtil.Split("abcddcba", "cd");
-            foreach (var s in srr)
-            {
-                Console.WriteLine(s);
-            }
-            
-            Console.ReadKey();
-            return;
             Slk.CreateInstance();
             var l = new Level();
             l.TestInit();

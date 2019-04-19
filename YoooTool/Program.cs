@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YoooTool.Code;
 using YoooTool.Code.Slk;
@@ -11,6 +12,30 @@ namespace YoooTool
 {
     class Program
     {
+        public class Parent
+        {
+            public string Name;
+        }
+
+        public class Child:Parent
+        {
+            
+        }
+        public class Room<T> where  T: Parent
+        {
+            public List<T> List = new List<T>();
+        }
+
+        public class PC_Test
+        {
+            public static void Test()
+            {
+                List<Room<Parent>> rooms = new List<Room<Parent>>();
+                var room = new Room<Child>();
+                //rooms.Add(room); how to make this
+            }
+        }
+
         public class Item
         {
             public string Name;
@@ -42,7 +67,21 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
-            new Slk().Test();
+            var srr = StringUtil.Split("abcddcba", "cd");
+            foreach (var s in srr)
+            {
+                Console.WriteLine(s);
+            }
+            
+            Console.ReadKey();
+            return;
+            Slk.CreateInstance();
+            var l = new Level();
+            l.TestInit();
+            l.Export();
+            Console.ReadKey();
+            return;
+            new Slk().OutPutTest();
             Console.ReadKey();
             return;
             var game = new Game();

@@ -49,6 +49,7 @@
     <Compile Include="Code\Slk\Slk_ObjectDefine.cs" />
     <Compile Include="Code\Utils\CsvReader.cs" />
     <Compile Include="Code\Utils\RandomWeightPool.cs" />
+    <Compile Include="Code\Utils\StringUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

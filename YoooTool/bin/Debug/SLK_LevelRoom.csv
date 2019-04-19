@@ -1,2 +1,3 @@
 Id,Key,ConfigId,Desc
 Room_1,B,EnemyGroup_1,Battle
+Room_2,L,EnemySpawnner_1,BattleInTime

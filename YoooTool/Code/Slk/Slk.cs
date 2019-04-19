@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -122,8 +123,9 @@ namespace YoooTool.Code.Slk
         }
     }
 
-    public abstract class SlkDataObject :ISlkSerialize
+    public abstract class SlkDataObject :ISlkSerialize, IExport2Jass
     {
+        public SlkDataObject() { }
         /// <summary>
         /// 索引ID
         /// </summary>
@@ -228,6 +230,16 @@ namespace YoooTool.Code.Slk
         public abstract string Slk_Serialize();
 
         public abstract void Slk_DeSerialize(object data);
+        public abstract string GetJass();
+    }
+
+    public class SlkDataObjectFactory<T> where T: SlkDataObject
+    {
+        public static T Create()
+        {
+            var constructorInfo = typeof(T).GetConstructor(Type.EmptyTypes);
+            return constructorInfo.Invoke(null) as T;
+        }
     }
 
     /// <summary>
@@ -255,6 +267,11 @@ namespace YoooTool.Code.Slk
                 Desc = srr[2];
             }
         }
+
+        public override string GetJass()
+        {
+            return WeUnitTypeId;
+        }
     }
 
     public class SLK_Unit : SlkDataObject
@@ -279,11 +296,20 @@ namespace YoooTool.Code.Slk
                 Desc = srr[2];
             }
         }
+
+        public override string GetJass()
+        {
+            return WeUnitTypeId;
+        }
     }
 
     public class SLK_EnemyGroup : SlkDataObject
     {
         [SlkProperty(1)]
+        public int Level { get; set; }
+        [SlkProperty(2)]
+        public int Index { get; set; }
+        [SlkProperty(3)]
         public List<string> EnemyList { get; set; }
 
         public override string Slk_Serialize()
@@ -297,9 +323,16 @@ namespace YoooTool.Code.Slk
             if (srr != null)
             {
                 Id = srr[0];
+                Level = int.Parse(srr[1]);
+                Index = int.Parse(srr[2]);
                 //拆分content
-                EnemyList = SlkParseUtil.Config2IdList(srr[1]);
+                EnemyList = SlkParseUtil.Config2IdList(srr[3]);
             }
+        }
+
+        public override string GetJass()
+        {
+            return string.Format("{0}_{1}_{2}","B",Level,Index);
         }
     }
 
@@ -328,10 +361,28 @@ namespace YoooTool.Code.Slk
                 EnemyIdPool = SlkParseUtil.Config2IdPool(srr[3]);
             }
         }
+
+        public override string GetJass()
+        {
+            //对应WE解析所需
+            return String.Format("{0}_{1}","S",GetProperty2Csv());
+            //return Id;
+        }
     }
 
-    public class SlkData_Handler<T> : ISlkSerialize where T: SlkDataObject 
+    public class SlkData_Handler<T> : ISlkSerialize where T: SlkDataObject
     {
+        //reflect call
+        public void RegistToMap(Dictionary<string, SlkDataObject> map)
+        {
+            //Console.WriteLine(this.GetType().Name + " Call Regist");
+            foreach (var pair in IdMap)
+            {
+                //Console.WriteLine(pair.Key + " , " + pair.Value);
+                map.Add(pair.Key,pair.Value);
+            }
+        }
+
         protected Dictionary<string,T> IdMap = new Dictionary<string, T>();
 
         public T GetData(string id)
@@ -355,8 +406,12 @@ namespace YoooTool.Code.Slk
             return true;
         }
 
+        public List<T> GetAllData()
+        {
+            return IdMap.Values.ToList();
+        }
+
         #region ISlkSerialize
-        //JSON XML CSV ??
 
         public string Slk_Serialize()
         {
@@ -386,9 +441,9 @@ namespace YoooTool.Code.Slk
                 {
                     srr[j-1] = reader[i,j];
                 }
-                SlkDataObject unit = new SLK_Unit();
-                unit.Slk_DeSerialize(srr);
-                AddData((T) unit);
+                T t = SlkDataObjectFactory<T>.Create();
+                t.Slk_DeSerialize(srr);
+                AddData(t);
             }
         }
         #endregion
@@ -396,18 +451,8 @@ namespace YoooTool.Code.Slk
     }
 
 
-    public class SLK_Room : SlkDataObject, IExport2Jass
+    public class SLK_Room : SlkDataObject
     {
-        //alive room = enemySpawnner
-        //battle room = enemyGroup
-        //interactive room = 
-
-        public SlkDataObject GetSlkData()
-        {
-            //by key and id to get slk data
-            return null;
-        }
-        
         /// <summary>
         /// 表示类型 /现在先不需要 直接整合到ID中
         /// </summary>
@@ -440,72 +485,141 @@ namespace YoooTool.Code.Slk
             }
         }
 
-        public string GetJass()
+        public override string GetJass()
         {
-            
+            //直接就是引用的
+            SlkDataObject data = Slk.Instance.GetSlkData(ConfigId);
+            if (data != null)
+            {
+                return data.GetJass();
+            }
             return null;
         }
     }
-    
+
 
 
 
     public class Level
     {
+        public void TestInit()
+        {
+            RoomList.Add("Room_1");
+            RoomList.Add("Room_2");
+        }
+
         //list of rooms
 
         public List<string> RoomList = new List<string>();
 
-        public void Export2Jass()
+        public void Export()
         {
+            ExportEnemyGroup2Jass();
+            ExportLevel2Jass();
+        }
+
+        public void ExportLevel2Jass()
+        {
+            //关卡配置导出
+            //Group导出
+
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < RoomList.Count; i++)
             {
-                SLK_Room room = null;//TODO GET SLK DATA
+                SLK_Room room = Slk.Instance.GetSlkData(RoomList[i]) as SLK_Room;
+                if (room == null) continue;
                 string roomJass = room.GetJass();
-                sb.AppendLine(string.Format("set dataArr[{0}] = \"{1}\"", i, ""));
+                sb.AppendLine(string.Format("set dataArr[{0}] = \"{1}\"", i+1, roomJass));
             }
-            sb.AppendLine(string.Format("RecordConfig({0})",RoomList.Count));
+            sb.AppendLine(string.Format("RecordConfig({0})", RoomList.Count));
+            File.WriteAllText("Level.jass", sb.ToString());
         }
+
+        public void ExportEnemyGroup2Jass()
+        {
+            //导出EnemyGroup
+            StringBuilder sb = new StringBuilder();
+            var list = Slk.Instance.EnemyGroupTab.GetAllData();
+            for (int i = 0; i < list.Count; i++)
+            {
+                var data = list[i];
+                for (int j = 0; j < data.EnemyList.Count; j++)
+                {
+                    var enemy = Slk.Instance.GetSlkData(data.EnemyList[j]) as SLK_Unit;
+                    sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j+1, enemy.WeUnitTypeId));
+                }
+                sb.AppendLine(string.Format("set dataLength = {0}", data.EnemyList.Count));
+                sb.AppendLine(string.Format("RecordCurrentToLevel({0})", data.Level));
+            }
+            File.WriteAllText("EnemyGroup.jass", sb.ToString());
+        }
+
     }
 
     public class Slk
     {
-        public static SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
-        public static SlkData_Handler<SLK_EnemySpawnner> SpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
-        public static SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
-        public static SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
+
+        public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
+        public  SlkData_Handler<SLK_EnemySpawnner> EnemySpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
+        public  SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
+        public  SlkData_Handler<SLK_Room> LevelRoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
+
+        //public string Name { get; set; }
+
+        public static Slk Instance { get; private set; }
+
+        public static Slk CreateInstance()
+        {
+            Instance = new Slk();
+            Instance.Init();
+            return Instance;
+        }
 
         public void Init()
         {
             string folder = "";
             UnitTab.Slk_DeSerialize(folder + "SLK_Unit.csv");
-            SpawnnerTab.Slk_DeSerialize(folder + "SLK_Spawnner.csv");
+            EnemySpawnnerTab.Slk_DeSerialize(folder + "SLK_EnemySpawnner.csv");
             EnemyGroupTab.Slk_DeSerialize(folder + "SLK_EnemyGroup.csv");
-            RoomTab.Slk_DeSerialize(folder + "SLK_Room.csv");
+            LevelRoomTab.Slk_DeSerialize(folder + "SLK_LevelRoom.csv");
+            SearchMapInit();
         }
 
-        public T GetSlkData<T>(string id) where T:SlkDataObject
+        //protected Dictionary<string,SlkData_Handler<SlkDataObject>> SearchCacheMap = new Dictionary<string, SlkData_Handler<SlkDataObject>>();
+
+        protected Dictionary<string,SlkDataObject> SlkIdSearchMap = new Dictionary<string, SlkDataObject>();
+        
+        void SearchMapInit()
         {
-            if (typeof(T) == typeof(SLK_Unit))
+            var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+            foreach (var propertyInfo in properties)
             {
-                return UnitTab.GetData(id) as T;
-            }else if (typeof(T) == typeof(SLK_EnemySpawnner))
-            {
-                return SpawnnerTab.GetData(id) as T;
+                //GetGenericTypeDefinition
+                var reg = propertyInfo.PropertyType.GetMethod("RegistToMap", BindingFlags.Public | BindingFlags.Instance);
+                reg.Invoke(propertyInfo.GetValue(this), new object[] {SlkIdSearchMap});
             }
-            else if (typeof(T) == typeof(SLK_EnemyGroup))
-            {
-                return EnemyGroupTab.GetData(id) as T;
-            }
-            return null;
         }
-
-
-        public void Test()
+        
+        public SlkDataObject GetSlkData(string cfgId)
+        {
+            //遍历所有slk helper查找一次
+            //cfgId = cfgId.ToUpper();
+            //string cfgType = cfgId.Substring(0, cfgId.IndexOf("_", StringComparison.Ordinal));
+            //SlkData_Handler<SlkDataObject> slkHelper = null;
+            SlkDataObject data;
+            SlkIdSearchMap.TryGetValue(cfgId, out data);
+            if(data==null)
+                Console.WriteLine("Error: Not Find : " + cfgId);
+            return data;
+        }
+        
+        public void OutPutTest()
         {
             SlkData_Handler<SLK_Unit> unitTab = new SlkData_Handler<SLK_Unit>();
-            unitTab.AddData(new SLK_Unit() {Id = "Unit_1", WeUnitTypeId = "'e000'",Desc = "small elf"});
+            unitTab.AddData(new SLK_Unit() { Id = "enemy_1", WeUnitTypeId = "'e000'", Desc = "small elf"});
+            unitTab.AddData(new SLK_Unit() { Id = "enemy_2", WeUnitTypeId = "'e001'", Desc = "small elf"});
+            unitTab.AddData(new SLK_Unit() { Id = "bigenemy_1", WeUnitTypeId = "'e002'", Desc = "big elf" });
+            unitTab.AddData(new SLK_Unit() { Id = "bigenemy_2", WeUnitTypeId = "'e003'", Desc = "big elf" });
             File.WriteAllText("SLK_Unit.csv", unitTab.Slk_Serialize());
             
             SlkData_Handler<SLK_EnemySpawnner> spawnnerTab = new SlkData_Handler<SLK_EnemySpawnner>();
@@ -527,6 +641,8 @@ namespace YoooTool.Code.Slk
             enemyGroupTab.AddData(new SLK_EnemyGroup()
             {
                 Id = "EnemyGroup_1",
+                Level = 1,
+                Index = 1,
                 EnemyList = new List<string>()
                 {
                     "enemy_1",
@@ -545,7 +661,7 @@ namespace YoooTool.Code.Slk
                 ConfigId = "EnemyGroup_1",
                 Desc = "Battle"
             });
-            File.WriteAllText("SLK_Room.csv", roomTab.Slk_Serialize());
+            File.WriteAllText("SLK_LevelRoom.csv", roomTab.Slk_Serialize());
 
             return;
             SlkData_Handler<SLK_Unit> newTab = new SlkData_Handler<SLK_Unit>();

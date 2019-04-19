@@ -1,0 +1,40 @@
+
+library EnemySpawnnerLib requires WeightPoolLib
+	//lasttime interval pool
+	//save pool use hashTable, pk = "<name>_weightPool",ck = "<name>_1",integer data
+	globals
+		public string array IdArr
+		public integer Spawnner_Length = 0
+    endglobals
+	
+    public function Test takes nothing returns nothing
+        local integer i = 0
+        local integer data = 0
+        local string poolName = "Test"
+        call WeightPoolLib_RegistPool_Int(poolName,10,10)
+        call WeightPoolLib_RegistPool_Int(poolName,2,2)
+        loop
+            exitwhen i >= 100
+            set i = i + 1
+            set data = WeightPoolLib_GetRandom_Int(poolName)
+            call DisplayTextToPlayer( GetLocalPlayer(), 0, 0, "Index:" +I2S(i) +">>>"+I2S(data) )
+        endloop
+        
+    endfunction
+    
+	public function SetConfig takes string cfg returns nothing
+	
+		//auto generate by tools
+		local string poolName = "spawnnerPool"
+		local integer data = 0
+		local integer weight = 0
+		
+		//regist pool data
+		//call WeightPool_RegistPool_Int(poolName,data,weight)
+		
+		
+		set Spawnner_Length = Spawnner_Length + 1
+	endfunction
+	
+	
+endlibrary

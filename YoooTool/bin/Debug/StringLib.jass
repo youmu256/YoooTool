@@ -4,8 +4,7 @@ library StringLib
 		public integer SplitedSrr_Length = 0
     endglobals
 	public function GetCharAt takes string s ,integer index returns string
-		return ""
-		//TODO
+		return SubString(s, index, index+1)
 	endfunction
 	public function GetLength takes string s returns integer
 		return StringLength(s)
@@ -13,24 +12,24 @@ library StringLib
 	
 	public function Replace takes string s ,string fromString,string toString returns string
 		//same as split
-		local string each
-		local string back
-		integer matchIndex = 0
+		local string each =""
+		local string back = ""
+		local integer matchIndex = 0
 		local integer i = 0
-		local sLength = GetLength(s)
-		local fLength = GetLength(fromString)
+		local integer sLength = GetLength(s)
+		local integer fLength = GetLength(fromString)
 		local boolean curMatch = false
 		local boolean matchOk = false
 		local boolean needAppendBack = false
-		local string curChar
+		local string curChar =""
 		loop
 			exitwhen i> sLength
 			set i = i + 1
 			set curMatch = false
 			set matchOk = false
 			set needAppendBack = false
-			set curChar = GetCharAt(s,i)
-			if( curChar == GetCharAt(fromString,matchIndex) then
+			set curChar = GetCharAt(s,i-1)
+			if( curChar == GetCharAt(fromString,matchIndex)) then
 				set curMatch = true
 			endif
 			if(curMatch == true) then
@@ -65,24 +64,25 @@ library StringLib
 	endfunction
 	
 	public function Split takes string s ,string flag returns integer
-		local string each
-		local string back
-		integer matchIndex = 0
+		local string each = ""
+		local string back = ""
+		local integer matchIndex = 0
 		local integer i = 0
-		local sLength = GetLength(s)
-		local fLength = GetLength(flag)
+		local integer sLength = GetLength(s)
+		local integer fLength = GetLength(flag)
 		local boolean curMatch = false
 		local boolean matchOk = false
 		local boolean needAppendBack = false
-		local string curChar
+		local string curChar = ""
+        set SplitedSrr_Length = 0 //start from 1
 		loop
 			exitwhen i> sLength
 			set i = i + 1
 			set curMatch = false
 			set matchOk = false
 			set needAppendBack = false
-			set curChar = GetCharAt(s,i)
-			if( curChar == GetCharAt(flag,matchIndex) then
+			set curChar = GetCharAt(s,i-1)
+			if( curChar == GetCharAt(flag,matchIndex)) then
 				set curMatch = true
 			endif
 			if(curMatch == true) then
@@ -113,11 +113,10 @@ library StringLib
 			if(curMatch ==false)then
 				set each = each +curChar
 			endif
-			
 		endloop
 		//get each
+        set SplitedSrr[SplitedSrr_Length + 1] = each
 		set SplitedSrr_Length = SplitedSrr_Length + 1
-		set SplitedSrr[SplitedSrr_Length + 1] = each
 		return SplitedSrr_Length
 	endfunction
 endlibrary

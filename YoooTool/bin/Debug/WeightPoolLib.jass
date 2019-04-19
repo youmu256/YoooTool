@@ -1,4 +1,4 @@
-library WeightPool
+library WeightPoolLib
 	globals
 		private hashtable ht = InitHashtable()
 		private integer poolLength = 0
@@ -17,10 +17,10 @@ library WeightPool
 		local real random = GetRandomReal(0,totalWeight)
 		local real weight
 		loop
-			exitwhen i > itemLength
+			exitwhen i >= itemLength
 			set i = i + 1
-			set weight = LoadReal(ht,pk,StringHash("weight_"+I2S(itemLength)))
-			if(random >= lastWeight && random< lastWeight + weight)then
+			set weight = LoadReal(ht,pk,StringHash("weight_"+I2S(i)))
+			if(random >= lastWeight && random< (lastWeight + weight))then
 				exitwhen true
 			endif
 		endloop
@@ -45,30 +45,5 @@ library WeightPool
 		
 		call SaveInteger(ht,pk,StringHash("itemLength"),itemLength)
 	endfunction
-	
-endlibrary
-
-library EnemySpawnner
-	//lasttime interval pool
-	//save pool use hashTable, pk = "<name>_weightPool",ck = "<name>_1",integer data
-	globals
-		public string array IdArr
-		public integer Spawnner_Length = 0
-    endglobals
-	
-	public function SetConfig takes string config returns nothing
-	
-		//auto generate by tools
-		local string poolName = "spawnnerPool"
-		local integer data = 0
-		local integer weight = 0
-		
-		//regist pool data
-		WeightPool_RegistPool_Int(poolName,data,weight)
-		
-		
-		set Spawnner_Length = Spawnner_Length + 1
-	endfunction
-	
 	
 endlibrary

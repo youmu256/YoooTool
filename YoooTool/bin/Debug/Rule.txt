@@ -1,0 +1,26 @@
+level
+	room = "roomAction#config1@config2@config3"
+
+随机战斗组
+RandomEnemyGroup
+	level
+
+
+//基础对象
+SLK_EnemyGroup
+SLK_EnemySpawnner
+SLK_Interactive
+SLK_Unit
+
+//关卡抽象
+
+SLK_RoomRule //引用基础对象，并且决定在关卡中使用的规则
+	_Battle
+		certain enemyGroup
+		random enemyGroup
+	_Alive
+		spawnner
+	_Interactive
+		certain type
+		random type
+SLK_LevelRoom //房间，引用RoomRule - 关卡Level引用该对象 

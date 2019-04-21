@@ -1,3 +1,6 @@
 Id,Key,ConfigId,Desc
-Room_1,B,EnemyGroup_1,Battle
-Room_2,L,EnemySpawnner_1,BattleInTime
+Room_1,B,Rule_1,Battle
+Room_2,L,Rule_2,BattleInTime
+Room_3,I,Rule_3,Interact
+Room_4,,Rule_4,RandomBattle
+Room_5,,Rule_5,RandomInteract

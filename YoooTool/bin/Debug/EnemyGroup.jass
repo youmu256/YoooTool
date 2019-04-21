@@ -3,4 +3,4 @@ set dataArr[2] = 'e000'
 set dataArr[3] = 'e001'
 set dataArr[4] = 'e001'
 set dataLength = 4
-RecordCurrentToLevel(1)
+call RecordCurrentToLevel(1)

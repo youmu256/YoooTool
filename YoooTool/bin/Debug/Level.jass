@@ -1,3 +1,6 @@
-set dataArr[1] = "EnemyGroup#1@1"
-set dataArr[2] = "EnemySpawn#30@2@enemy_1|10;enemy_2|10;bigEnemy_1|5;bigEnemy_2|5"
-RecordConfig(2)
+set DungeonLevel_dataArr[1] = "Battle#EnemyGroup_1"
+set DungeonLevel_dataArr[2] = "Alive#EnemySpawnner_1"
+set DungeonLevel_dataArr[3] = "Interact#Interact_1"
+set DungeonLevel_dataArr[4] = "RandomBattle#1@?"
+set DungeonLevel_dataArr[5] = "RandomInteract#"
+call RecordConfig(5)

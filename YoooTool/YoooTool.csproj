@@ -46,7 +46,8 @@
     <Compile Include="Code\Game.cs" />
     <Compile Include="Code\LevelCfg.cs" />
     <Compile Include="Code\Slk\Slk.cs" />
-    <Compile Include="Code\Slk\Slk_ObjectDefine.cs" />
+    <Compile Include="Code\Slk\SlkDataObject.cs" />
+    <Compile Include="Code\Slk\SlkParseUtil.cs" />
     <Compile Include="Code\Utils\CsvReader.cs" />
     <Compile Include="Code\Utils\RandomWeightPool.cs" />
     <Compile Include="Code\Utils\StringUtil.cs" />

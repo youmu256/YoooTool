@@ -1,0 +1,6 @@
+Id,Type,Parameters
+Rule_1,Battle,EnemyGroup_1
+Rule_2,Alive,EnemySpawnner_1
+Rule_3,Interact,Interact_1
+Rule_4,RandomBattle,1@?
+Rule_5,RandomInteract,

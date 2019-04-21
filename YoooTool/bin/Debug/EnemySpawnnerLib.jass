@@ -1,10 +1,8 @@
 
 library EnemySpawnnerLib requires WeightPoolLib
-	//lasttime interval pool
-	//save pool use hashTable, pk = "<name>_weightPool",ck = "<name>_1",integer data
+	
 	globals
-		public string array IdArr
-		public integer Spawnner_Length = 0
+		private hashtable ht = WeightPoolLib__ht
     endglobals
 	
     public function Test takes nothing returns nothing
@@ -22,19 +20,64 @@ library EnemySpawnnerLib requires WeightPoolLib
         
     endfunction
     
-	public function SetConfig takes string cfg returns nothing
-	
-		//auto generate by tools
-		local string poolName = "spawnnerPool"
-		local integer data = 0
-		local integer weight = 0
-		
-		//regist pool data
-		//call WeightPool_RegistPool_Int(poolName,data,weight)
-		
-		
-		set Spawnner_Length = Spawnner_Length + 1
+	public function GetRandomEnemy takes string poolName returns integer
+		return WeightPoolLib_GetRandom_Int(poolName)
 	endfunction
 	
+	public function GetCfg_Real takes string poolName,string parameterName returns real
+		local integer pk = WeightPoolLib_GetPoolHash(poolName)
+		return LoadReal(ht,pk,StringHash(parameterName))
+	endfunction
+	
+	
+	private function RecordSpawnnerCfg takes string poolName,real lastTime,real interval returns nothing
+		local integer pk = WeightPoolLib_GetPoolHash(poolName)
+		call SaveReal(ht,pk,StringHash("lastTime"),lastTime)
+		call SaveReal(ht,pk,StringHash("interval"),interval)
+		
+	endfunction
+	
+	public function SetConfig takes string cfg returns nothing
+		call WeightPool_RegistPool_Int(poolName,data,weight)
+		call RecordSpawnnerCfg(poolName,lastTime,interval)
+	endfunction
+	
+	
+	function Spawnner_Action takes nothing returns nothing
+		local timer t = GetExpiredTimer()
+		local string poolName = LoadString(ht,GetHandleId(t),'name')
+		local real time = LoadReal(ht,GetHandleId(t),'time')
+		local real lastTime = GetCfg_Real(poolName,"lastTime")
+		
+		local unit enemy
+		local player p = udg_Dungeon_EnemyPlayer
+		local integer uid = GetRandomEnemy(poolName)
+		local real xx = 0
+		local real yy = 0
+		
+		//update time 
+		set time = time + TimerGetElapsed(t)
+		call SaveReal(ht,GetHandleId(t),'time',time)
+		//enemy create
+		set enemy = CreateUnit(p, uid, xx, yy, 0)
+		
+		//check end
+		if time >= lastTime then
+			call FlushChildHashtable(ht, GetHandleId(t))
+			call DestroyTimer(t)
+		endif
+		set t = null
+		set enemy = null
+	endfunction
+	
+	public function StartSpawnner takes string poolName,Rect rect returns nothing
+		local timer t = new Timer()
+		local real interval = GetCfg_Real(poolName,"interval")
+		
+		call SaveString(ht,GetHandleId(t),'name',poolName)
+		call SaveReal(ht,GetHandleId(t),'time',0)
+		call TimerStart(t, interval, true, function Spawnner_Action)
+		set t = null
+	endfunction
 	
 endlibrary

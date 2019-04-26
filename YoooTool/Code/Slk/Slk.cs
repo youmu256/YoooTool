@@ -266,37 +266,30 @@ namespace YoooTool.Code.Slk
 
     public class Level
     {
+        static Random random = new Random();
+
         //1 2 3 4 5   2 4 5 1 3
         public static void ReChaos( int max)
         {
             int length = max;
             int[] arr = new int[length];
             int[] srr = new int[length];
-
             int index = 0;
             for (int i = 1; i <= max; i++)
             {
                 arr[index] = i;
                 index++;
             }
-            Random random = new Random();
-
-            index = 0;
-            while (max>0)
+            for (int i = 0; i < max; i++)
             {
-                int ri = random.Next(1, max);
-                int temp = arr[max];
-                arr[max] = arr[ri];
-                arr[ri] = temp;
-                max--;
-                srr[index] = arr[max];
-                index++;
+                int ri = random.Next(0, max -1 - i);
+                srr[i] = arr[ri];
+                arr[ri] = arr[max - 1 - i];
             }
             foreach (var i in srr)
             {
-                Console.WriteLine(i);
+                Console.Write( i + ",");
             }
-
         }
 
         public bool IsChaosLevel = false; // 是否为乱序关卡-不按照顺序来安排房间。

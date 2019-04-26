@@ -67,6 +67,22 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
+            /*
+            Random random = new Random();
+            for (int i = 0; i < 100; i++)
+            {
+                Console.WriteLine(random.Next(1,10));
+            }
+            */
+            
+            for (int i = 0; i < 15; i++)
+            {
+                Level.ReChaos(5);
+                Console.WriteLine("");
+            }
+            
+            Console.ReadKey();
+            return;
             Slk.CreateInstance();
             var l = new Level();
             l.TestInit();

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
 
 namespace YoooTool.Code.Utils
 {
@@ -186,36 +187,48 @@ namespace YoooTool.Code.Utils
             {
                 this.encoding = Encoding.Default;
             }
-            StreamReader sr = new StreamReader(this.fileName, this.encoding);
-            string csvDataLine = "";
-            while (true)
+            StreamReader sr;//= new StreamReader(this.fileName, this.encoding);
+            //FileStream fs = new FileStream(fileName, FileMode.Open);
+
+            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                string fileDataLine = sr.ReadLine();
-                if (fileDataLine == null)
+                using (sr = new StreamReader(fs, this.encoding))
                 {
-                    break;
-                }
-                if (csvDataLine == "")
-                {
-                    csvDataLine = fileDataLine;
-                }
-                else
-                {
-                    csvDataLine += "\r\n" + fileDataLine;
-                }
-                //如果包含偶数个引号，说明该行数据中出现回车符或包含逗号
-                if (!IfOddQuota(csvDataLine))
-                {
-                    AddNewDataLine(csvDataLine);
-                    csvDataLine = "";
+                    string csvDataLine = "";
+                    while (true)
+                    {
+                        string fileDataLine = sr.ReadLine();
+                        if (fileDataLine == null)
+                        {
+                            break;
+                        }
+                        if (csvDataLine == "")
+                        {
+                            csvDataLine = fileDataLine;
+                        }
+                        else
+                        {
+                            csvDataLine += "\r\n" + fileDataLine;
+                        }
+                        //如果包含偶数个引号，说明该行数据中出现回车符或包含逗号
+                        if (!IfOddQuota(csvDataLine))
+                        {
+                            AddNewDataLine(csvDataLine);
+                            csvDataLine = "";
+                        }
+                    }
+                    sr.Close();
+                    fs.Close();
+                    //数据行出现奇数个引号
+                    if (csvDataLine.Length > 0)
+                    {
+                        throw new Exception("CSV文件的格式有错误");
+                    }
                 }
             }
-            sr.Close();
-            //数据行出现奇数个引号
-            if (csvDataLine.Length > 0)
-            {
-                throw new Exception("CSV文件的格式有错误");
-            }
+
+            
+            
         }
         /// <summary>
         /// 判断字符串是否包含奇数个引号

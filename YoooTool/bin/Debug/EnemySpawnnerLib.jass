@@ -1,25 +1,10 @@
 
-library EnemySpawnnerLib requires WeightPoolLib
+library EnemySpawnnerLib  initializer EsInit requires WeightPoolLib
 	
 	globals
-		private hashtable ht = WeightPoolLib__ht
+		private hashtable ht = null
     endglobals
-	
-    public function Test takes nothing returns nothing
-        local integer i = 0
-        local integer data = 0
-        local string poolName = "Test"
-        call WeightPoolLib_RegistPool_Int(poolName,10,10)
-        call WeightPoolLib_RegistPool_Int(poolName,2,2)
-        loop
-            exitwhen i >= 100
-            set i = i + 1
-            set data = WeightPoolLib_GetRandom_Int(poolName)
-            call DisplayTextToPlayer( GetLocalPlayer(), 0, 0, "Index:" +I2S(i) +">>>"+I2S(data) )
-        endloop
-        
-    endfunction
-    
+
 	public function GetRandomEnemy takes string poolName returns integer
 		return WeightPoolLib_GetRandom_Int(poolName)
 	endfunction
@@ -37,47 +22,61 @@ library EnemySpawnnerLib requires WeightPoolLib
 		
 	endfunction
 	
-	public function SetConfig takes string cfg returns nothing
-		call WeightPool_RegistPool_Int(poolName,data,weight)
-		call RecordSpawnnerCfg(poolName,lastTime,interval)
+    //注册内容
+	public function SetConfig takes nothing returns nothing
+		//call WeightPoolLib_RegistPool_Int(cfg,data,weight)
+		//call RecordSpawnnerCfg(cfg,lastTime,interval)
+        
+        call WeightPoolLib_RegistPool_Int("EnemySpawnner_1",'e000',10.00)
+        call RecordSpawnnerCfg("EnemySpawnner_1",30.00,2.00)
+        
 	endfunction
 	
+    
 	
 	function Spawnner_Action takes nothing returns nothing
 		local timer t = GetExpiredTimer()
-		local string poolName = LoadString(ht,GetHandleId(t),'name')
-		local real time = LoadReal(ht,GetHandleId(t),'time')
+        local integer pk = GetHandleId(t)
+		local string poolName = LoadStr(ht,pk,'name')
+		local real time = LoadReal(ht,pk,'time')
 		local real lastTime = GetCfg_Real(poolName,"lastTime")
 		
-		local unit enemy
+		local unit enemy = null
 		local player p = udg_Dungeon_EnemyPlayer
 		local integer uid = GetRandomEnemy(poolName)
-		local real xx = 0
-		local real yy = 0
+        local rect zone = LoadRectHandle(ht,pk,'rect')
+		local real xx = GetRandomReal(GetRectMinX(zone),GetRectMaxX(zone))
+		local real yy = GetRandomReal(GetRectMinY(zone),GetRectMaxY(zone))
 		
 		//update time 
 		set time = time + TimerGetElapsed(t)
-		call SaveReal(ht,GetHandleId(t),'time',time)
+		call SaveReal(ht,pk,'time',time)
 		//enemy create
 		set enemy = CreateUnit(p, uid, xx, yy, 0)
 		
 		//check end
-		if time >= lastTime then
-			call FlushChildHashtable(ht, GetHandleId(t))
+		if ( time >= lastTime) then
+			call FlushChildHashtable(ht, pk)
 			call DestroyTimer(t)
 		endif
 		set t = null
 		set enemy = null
 	endfunction
-	
-	public function StartSpawnner takes string poolName,Rect rect returns nothing
-		local timer t = new Timer()
-		local real interval = GetCfg_Real(poolName,"interval")
+
 		
-		call SaveString(ht,GetHandleId(t),'name',poolName)
+	public function StartSpawnner takes string poolName,rect zone returns nothing
+		local timer t = CreateTimer()
+		local real interval = GetCfg_Real(poolName,"interval")
+		call SaveStr(ht,GetHandleId(t),'name',poolName)
 		call SaveReal(ht,GetHandleId(t),'time',0)
+        call SaveRectHandle(ht,GetHandleId(t),'rect',zone)
 		call TimerStart(t, interval, true, function Spawnner_Action)
 		set t = null
 	endfunction
-	
+    
+    private function EsInit takes nothing returns nothing
+        set ht = WeightPoolLib___ht
+        call SetConfig()
+    endfunction
+    
 endlibrary

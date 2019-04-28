@@ -261,37 +261,56 @@ namespace YoooTool.Code.Slk
         }
     }
 
-
-    #endregion
-
-    public class Level
+    public class SLK_Level : SlkDataObject
     {
-        static Random random = new Random();
+        /// <summary>
+        /// 表示类型 /现在先不需要 直接整合到ID中
+        /// </summary>
+        [SlkProperty(1)]
+        public string Key { get; set; }
+        /// <summary>
+        /// 引用的一个配置 解析的时候根据ID得到具体类型的配置
+        /// SLK_EnemyGroup / SLK_EnemySpawnner
+        /// </summary>
+        [SlkProperty(2)]
+        public string ConfigId { get; set; }
 
-        //1 2 3 4 5   2 4 5 1 3
-        public static void ReChaos( int max)
+        [SlkProperty(3)]
+        public string Desc { get; set; }
+
+        public override string Slk_Serialize()
         {
-            int length = max;
-            int[] arr = new int[length];
-            int[] srr = new int[length];
-            int index = 0;
-            for (int i = 1; i <= max; i++)
+            return GetProperty2Csv();
+        }
+
+        public override void Slk_DeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
             {
-                arr[index] = i;
-                index++;
-            }
-            for (int i = 0; i < max; i++)
-            {
-                int ri = random.Next(0, max -1 - i);
-                srr[i] = arr[ri];
-                arr[ri] = arr[max - 1 - i];
-            }
-            foreach (var i in srr)
-            {
-                Console.Write( i + ",");
+                Id = srr[0];
+                Key = srr[1];
+                ConfigId = srr[2];
+                Desc = srr[3];
             }
         }
 
+        public override string GetJass()
+        {
+            //直接就是引用的
+            SlkDataObject data = Slk.Instance.GetSlkData(ConfigId);
+            if (data != null)
+            {
+                return data.GetJass();
+            }
+            return null;
+        }
+    }
+
+    #endregion
+
+    public class LevelManager
+    {
         public bool IsChaosLevel = false; // 是否为乱序关卡-不按照顺序来安排房间。
         public void TestInit()
         {
@@ -323,7 +342,7 @@ namespace YoooTool.Code.Slk
                 string roomJass = room.GetJass();
                 sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, roomJass));
             }
-            sb.AppendLine(string.Format("call RecordConfig({0})", RoomList.Count));
+            sb.AppendLine(string.Format("call RecordConfig({0},{1})", RoomList.Count,true));
             File.WriteAllText("Level.jass", sb.ToString());
         }
 
@@ -343,7 +362,7 @@ namespace YoooTool.Code.Slk
                 {
                     var data = Slk.Instance.GetSlkData(pair.Key)?.GetJass();
                     var weight = pair.Value.ToString("f2");
-                    sb.AppendLine(string.Format("call WeightPool_RegistPool_Int(\"{0}\",{1},{2})", poolName, data, weight));
+                    sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", poolName, data, weight));
                 }
                 sb.AppendLine(string.Format("call RecordSpawnnerCfg(\"{0}\",{1},{2})", poolName, lastTime, interval));
                 sb.AppendLine(string.Format("//--ConfigEnd--{0}--", poolName));
@@ -458,7 +477,7 @@ namespace YoooTool.Code.Slk
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
         public  SlkData_Handler<SLK_EnemySpawnner> EnemySpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
         public  SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
-        public  SlkData_Handler<SLK_Room> LevelRoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
+        public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_RoomRule> RoomRuleTab { get; set; } = new SlkData_Handler<SLK_RoomRule>();
 
         //public string Name { get; set; }
@@ -479,7 +498,7 @@ namespace YoooTool.Code.Slk
             UnitTab.Slk_DeSerialize(folder + "SLK_Unit.csv");
             EnemySpawnnerTab.Slk_DeSerialize(folder + "SLK_EnemySpawnner.csv");
             EnemyGroupTab.Slk_DeSerialize(folder + "SLK_EnemyGroup.csv");
-            LevelRoomTab.Slk_DeSerialize(folder + "SLK_LevelRoom.csv");
+            RoomTab.Slk_DeSerialize(folder + "SLK_Room.csv");
             RoomRuleTab.Slk_DeSerialize(folder + "SLK_RoomRule.csv");
             SearchMapInit();
         }

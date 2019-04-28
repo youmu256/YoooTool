@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using YoooTool.Code;
 using YoooTool.Code.Slk;
 using YoooTool.Code.Utils;
@@ -67,27 +68,14 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
-            /*
-            Random random = new Random();
-            for (int i = 0; i < 100; i++)
-            {
-                Console.WriteLine(random.Next(1,10));
-            }
-            */
-            
-            for (int i = 0; i < 15; i++)
-            {
-                Level.ReChaos(5);
-                Console.WriteLine("");
-            }
-            
-            Console.ReadKey();
-            return;
             Slk.CreateInstance();
-            var l = new Level();
+            /*
+            var l = new LevelManager();
             l.TestInit();
             l.Export();
             Console.ReadKey();
+            */
+            OpenLevelForm();
             return;
             new Slk().OutPutTest();
             Console.ReadKey();
@@ -99,5 +87,13 @@ namespace YoooTool
             return;
 
         }
+
+        static void OpenLevelForm()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LevelEdit());
+        }
+
     }
 }

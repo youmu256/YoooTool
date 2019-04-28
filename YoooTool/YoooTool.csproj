@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,17 +47,29 @@
   <ItemGroup>
     <Compile Include="Code\Game.cs" />
     <Compile Include="Code\LevelCfg.cs" />
+    <Compile Include="Code\Form\LevelEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Form\LevelEdit.Designer.cs">
+      <DependentUpon>LevelEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Code\Slk\Slk.cs" />
     <Compile Include="Code\Slk\SlkDataObject.cs" />
     <Compile Include="Code\Slk\SlkParseUtil.cs" />
     <Compile Include="Code\Utils\CsvReader.cs" />
     <Compile Include="Code\Utils\RandomWeightPool.cs" />
     <Compile Include="Code\Utils\StringUtil.cs" />
+    <Compile Include="Code\VO\LevelVo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Code\Form\LevelEdit.resx">
+      <DependentUpon>LevelEdit.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

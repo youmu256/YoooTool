@@ -390,6 +390,32 @@ namespace YoooTool.Code.Slk
         }
     }
 
+    public class Level
+    {
+        /// <summary>
+        /// 是否随机打乱顺序
+        /// </summary>
+        public bool IsRandom { get; set; }
+
+        /// <summary>
+        /// 通过所需要的最小房间数量
+        /// </summary>
+        public int MinRoomCount { get; set; }
+        /// <summary>
+        /// 任务房间-必须通过的房间
+        /// </summary>
+        public string MissionRoom { get; set; }
+        /// <summary>
+        /// 包含的房间列表
+        /// </summary>
+        public List<string> RefRooms { get; set; }
+
+        /// <summary>
+        /// 奖励等级
+        /// </summary>
+        public int RewardLevel { get; set; }
+    }
+
     public class SlkData_Handler<T> : ISlkSerialize where T: SlkDataObject
     {
         //reflect call

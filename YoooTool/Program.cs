@@ -75,7 +75,8 @@ namespace YoooTool
             l.Export();
             Console.ReadKey();
             */
-            OpenLevelForm();
+            //OpenLevelForm();
+            Console.ReadKey();
             return;
             new Slk().OutPutTest();
             Console.ReadKey();

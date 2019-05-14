@@ -311,43 +311,22 @@ namespace YoooTool.Code.Slk
 
     
 
-    public class LevelManager
+    public class ExportHelper
     {
-        public bool IsChaosLevel = false; // 是否为乱序关卡-不按照顺序来安排房间。
-        public void TestInit()
+        public void ExportLevel2Jass(Level level)
         {
-            RoomList.Add("Room_1");
-            RoomList.Add("Room_2");
-            RoomList.Add("Room_3");
-            RoomList.Add("Room_4");
-            RoomList.Add("Room_5");
-        }
-        //list of rooms
-        public List<string> RoomList = new List<string>();
-
-        public Level CurrentLevel;
-        public List<Level> Levels = new List<Level>();
-
-        public void Export()
-        {
-            ExportEnemyGroup2Jass();
-            ExportLevel2Jass();
-            ExportEnemySpawnner2Jass();
-        }
-
-        public void ExportLevel2Jass()
-        {
+            var roomList = level.RefRooms;
             //关卡配置导出
             //Group导出
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < RoomList.Count; i++)
+            for (int i = 0; i < roomList.Count; i++)
             {
-                SLK_Room room = SlkManager.Instance.GetSlkData(RoomList[i]) as SLK_Room;
+                SLK_Room room = SlkManager.Instance.GetSlkData(roomList[i]) as SLK_Room;
                 if (room == null) continue;
                 string roomJass = room.GetJass();
                 sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, roomJass));
             }
-            sb.AppendLine(string.Format("call RecordConfig({0},{1})", RoomList.Count,true));
+            sb.AppendLine(string.Format("call RecordConfig({0},{1})", roomList.Count,level.IsRandom));
             File.WriteAllText("Level.jass", sb.ToString());
         }
 

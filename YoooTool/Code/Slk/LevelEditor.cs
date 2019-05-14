@@ -21,7 +21,7 @@ namespace YoooTool.Code.Slk
 
         public void LoadLevel(string levelId)
         {
-            
+            //EditLevel = SlkManager.Instance.
         }
 
         public void SaveLevel()
@@ -41,7 +41,7 @@ namespace YoooTool.Code.Slk
 
         public void DrawLevelGui()
         {
-
+            //WinForm
         }
 
         #region Detail Operation

@@ -65,7 +65,7 @@ namespace YoooTool
             }
             Console.ReadKey();
         }
-
+        [STAThread]
         static void Main(string[] args)
         {
             SlkManager.CreateInstance();

@@ -21,6 +21,7 @@ namespace YoooTool.Code
 
         void LoadRooms()
         {
+            comboBox1.Items.Clear();
             var rooms = SlkManager.Instance.RoomTab.GetAllData();
             int index = 0;
             //var font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -37,6 +38,7 @@ namespace YoooTool.Code
                 cb.Size = new System.Drawing.Size(100, 24);
                 cb.CheckedChanged += CbOnCheckedChanged;
                 cb.Tag = slkRoom.Id;
+                comboBox1.Items.Add(cb.Text);
                 this.RoomsContent.Controls.Add(cb);
                 index++;
             }

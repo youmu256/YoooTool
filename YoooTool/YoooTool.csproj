@@ -53,6 +53,7 @@
     <Compile Include="Code\Form\LevelEdit.Designer.cs">
       <DependentUpon>LevelEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\Slk\LevelEditor.cs" />
     <Compile Include="Code\Slk\Slk.cs" />
     <Compile Include="Code\Slk\SlkDataObject.cs" />
     <Compile Include="Code\Slk\SlkParseUtil.cs" />

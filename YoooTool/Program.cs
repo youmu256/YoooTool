@@ -68,17 +68,17 @@ namespace YoooTool
 
         static void Main(string[] args)
         {
-            Slk.CreateInstance();
+            SlkManager.CreateInstance();
             /*
             var l = new LevelManager();
             l.TestInit();
             l.Export();
             Console.ReadKey();
             */
-            //OpenLevelForm();
+            OpenLevelForm();
             Console.ReadKey();
             return;
-            new Slk().OutPutTest();
+            new SlkManager().OutPutTest();
             Console.ReadKey();
             return;
             var game = new Game();

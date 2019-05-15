@@ -47,9 +47,6 @@ namespace YoooTool.Code.Slk
     {
         [SlkProperty(1)]
         public string WeUnitTypeId { get; set; }
-
-        [SlkProperty(2)]
-        public string Desc { get; set; }
         
         public override string Slk_Serialize()
         {
@@ -63,7 +60,6 @@ namespace YoooTool.Code.Slk
             {
                 Id = srr[0];
                 WeUnitTypeId = srr[1];
-                Desc = srr[2];
             }
         }
         public override string GetJass()
@@ -77,8 +73,7 @@ namespace YoooTool.Code.Slk
         [SlkProperty(1)]
         public string WeUnitTypeId { get; set; }
         [SlkProperty(2)]
-        public string Desc { get; set; }
-
+        public int CombatPower { get; set; }
         public override string Slk_Serialize()
         {
             return GetProperty2Csv();
@@ -91,7 +86,7 @@ namespace YoooTool.Code.Slk
             {
                 Id = srr[0];
                 WeUnitTypeId = srr[1];
-                Desc = srr[2];
+                CombatPower = int.Parse(srr[2]);
             }
         }
 
@@ -215,10 +210,7 @@ namespace YoooTool.Code.Slk
         /// </summary>
         [SlkProperty(1)]
         public string ConfigId { get; set; }
-
-        [SlkProperty(2)]
-        public string Desc { get; set; }
-
+        
         public override string Slk_Serialize()
         {
             return GetProperty2Csv();
@@ -231,7 +223,6 @@ namespace YoooTool.Code.Slk
             {
                 Id = srr[0];
                 ConfigId = srr[1];
-                Desc = srr[2];
             }
         }
 
@@ -243,13 +234,6 @@ namespace YoooTool.Code.Slk
     }
     public class Slk_Level : SlkDataObject
     {
-        public static Slk_Level TestLevel { get; } = new Slk_Level()
-        {
-            IsRandom = true,
-            Id = "testLevel",
-            RefRooms = new List<string>() { "Room_1", "Room_2", "Room_3" }
-        };
-
         /// <summary>
         /// 是否随机打乱顺序
         /// </summary>
@@ -525,15 +509,15 @@ namespace YoooTool.Code.Slk
         public void OutPutTest()
         {
             SlkData_Handler<SLK_Interact> interTab = new SlkData_Handler<SLK_Interact>();
-            interTab.AddData(new SLK_Interact() { Id = "Interact_1", WeUnitTypeId = "'e000'", Desc = "备注1" });
-            interTab.AddData(new SLK_Interact() { Id = "Interact_2", WeUnitTypeId = "'e001'", Desc = "备注2" });
+            interTab.AddData(new SLK_Interact() { Id = "Interact_1", WeUnitTypeId = "'e000'" });
+            interTab.AddData(new SLK_Interact() { Id = "Interact_2", WeUnitTypeId = "'e001'"});
             File.WriteAllText("SLK_Interact.csv", interTab.Slk_Serialize());
             return;
             SlkData_Handler<SLK_Unit> unitTab = new SlkData_Handler<SLK_Unit>();
-            unitTab.AddData(new SLK_Unit() { Id = "enemy_1", WeUnitTypeId = "'e000'", Desc = "small elf"});
-            unitTab.AddData(new SLK_Unit() { Id = "enemy_2", WeUnitTypeId = "'e001'", Desc = "small elf"});
-            unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_1", WeUnitTypeId = "'e002'", Desc = "big elf" });
-            unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_2", WeUnitTypeId = "'e003'", Desc = "big elf" });
+            unitTab.AddData(new SLK_Unit() { Id = "enemy_1", WeUnitTypeId = "'e000'",});
+            unitTab.AddData(new SLK_Unit() { Id = "enemy_2", WeUnitTypeId = "'e001'",});
+            unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_1", WeUnitTypeId = "'e002'", });
+            unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_2", WeUnitTypeId = "'e003'", });
             File.WriteAllText("SLK_Unit.csv", unitTab.Slk_Serialize());
 
             SlkData_Handler<SLK_EnemySpawnner> spawnnerTab = new SlkData_Handler<SLK_EnemySpawnner>();
@@ -572,7 +556,6 @@ namespace YoooTool.Code.Slk
             {
                 Id = "Room_1",
                 ConfigId = "EnemyGroup_1",
-                Desc = "Battle"
             });
             File.WriteAllText("SLK_LevelRoom.csv", roomTab.Slk_Serialize());
 
@@ -580,7 +563,6 @@ namespace YoooTool.Code.Slk
             SlkData_Handler<SLK_Unit> newTab = new SlkData_Handler<SLK_Unit>();
             newTab.Slk_DeSerialize("SLK_Unit.csv");
             Console.WriteLine("====================");
-            Console.WriteLine(newTab.GetData("1").Desc);
         }
     }
 }

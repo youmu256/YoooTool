@@ -1,0 +1,4 @@
+set DungeonLevel_dataArr[1] = "Battle#EnemyGroup_1"
+set DungeonLevel_dataArr[2] = "Alive#EnemySpawnner_1"
+set DungeonLevel_dataArr[3] = "Interact#Interact_1"
+call RecordConfig(3,true)

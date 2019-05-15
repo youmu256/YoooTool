@@ -69,13 +69,15 @@ namespace YoooTool
         static void Main(string[] args)
         {
             SlkManager.CreateInstance();
+            var export = new ExportHelper();
+            export.ExportLevel2Jass(Slk_Level.TestLevel);
             /*
             var l = new LevelManager();
             l.TestInit();
             l.Export();
             Console.ReadKey();
             */
-            OpenLevelForm();
+            //OpenLevelForm();
             Console.ReadKey();
             return;
             new SlkManager().OutPutTest();

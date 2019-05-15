@@ -171,8 +171,6 @@ namespace YoooTool.Code.Slk
     }
 
 
-    #region RoomRule
-
     public enum RuleType
     {
         Battle,
@@ -181,9 +179,7 @@ namespace YoooTool.Code.Slk
         Interact,
         RandomInteract,
     }
-
-    //RoomRule => ConfigId 关联配置
-    public class SLK_RoomRule :  SlkDataObject
+    public class SLK_RoomRule : SlkDataObject
     {
         [SlkProperty(1)]
         public RuleType Type { get; set; }
@@ -200,7 +196,7 @@ namespace YoooTool.Code.Slk
             {
                 Id = srr[0];
                 RuleType pType;
-                Enum.TryParse(srr[1],out pType);
+                Enum.TryParse(srr[1], out pType);
                 Type = pType;
                 Parameters = srr[2];
             }
@@ -211,25 +207,16 @@ namespace YoooTool.Code.Slk
             return string.Format("{0}#{1}", Type, Parameters);
         }
     }
-
-    #endregion
-
-
     public class SLK_Room : SlkDataObject
     {
         /// <summary>
-        /// 表示类型 /现在先不需要 直接整合到ID中
-        /// </summary>
-        [SlkProperty(1)]
-        public string Key { get; set; }
-        /// <summary>
         /// 引用的一个配置 解析的时候根据ID得到具体类型的配置
         /// SLK_EnemyGroup / SLK_EnemySpawnner
         /// </summary>
-        [SlkProperty(2)]
+        [SlkProperty(1)]
         public string ConfigId { get; set; }
 
-        [SlkProperty(3)]
+        [SlkProperty(2)]
         public string Desc { get; set; }
 
         public override string Slk_Serialize()
@@ -243,9 +230,8 @@ namespace YoooTool.Code.Slk
             if (srr != null)
             {
                 Id = srr[0];
-                Key = srr[1];
-                ConfigId = srr[2];
-                Desc = srr[3];
+                ConfigId = srr[1];
+                Desc = srr[2];
             }
         }
 
@@ -260,24 +246,41 @@ namespace YoooTool.Code.Slk
             return null;
         }
     }
-
-    public class SLK_Level : SlkDataObject
+    public class Slk_Level : SlkDataObject
     {
+        public static Slk_Level TestLevel { get; } = new Slk_Level()
+        {
+            IsRandom = true,
+            Id = "testLevel",
+            RefRooms = new List<string>() { "Room_1", "Room_2", "Room_3" }
+        };
+
         /// <summary>
-        /// 表示类型 /现在先不需要 直接整合到ID中
+        /// 是否随机打乱顺序
         /// </summary>
         [SlkProperty(1)]
-        public string Key { get; set; }
+        public bool IsRandom { get; set; }
         /// <summary>
-        /// 引用的一个配置 解析的时候根据ID得到具体类型的配置
-        /// SLK_EnemyGroup / SLK_EnemySpawnner
+        /// 包含的房间列表
         /// </summary>
         [SlkProperty(2)]
-        public string ConfigId { get; set; }
+        public List<string> RefRooms { get; set; }
 
-        [SlkProperty(3)]
-        public string Desc { get; set; }
 
+        /* TODO 将来实现
+        /// <summary>
+        /// 通过所需要的最小房间数量
+        /// </summary>
+        public int MinRoomCount { get; set; }
+        /// <summary>
+        /// 任务房间-必须通过的房间
+        /// </summary>
+        public string MissionRoom { get; set; }
+        /// <summary>
+        /// 奖励等级
+        /// </summary>
+        public int RewardLevel { get; set; }
+        */
         public override string Slk_Serialize()
         {
             return GetProperty2Csv();
@@ -289,31 +292,20 @@ namespace YoooTool.Code.Slk
             if (srr != null)
             {
                 Id = srr[0];
-                Key = srr[1];
-                ConfigId = srr[2];
-                Desc = srr[3];
+                IsRandom = bool.Parse(srr[1]);
+                RefRooms = SlkParseUtil.Config2IdList(srr[2]);
             }
         }
 
         public override string GetJass()
         {
-            //直接就是引用的
-            SlkDataObject data = SlkManager.Instance.GetSlkData(ConfigId);
-            if (data != null)
-            {
-                return data.GetJass();
-            }
-            return null;
+            return "";
         }
     }
-
     #endregion
-
-    
-
     public class ExportHelper
     {
-        public void ExportLevel2Jass(Level level)
+        public void ExportLevel2Jass(Slk_Level level)
         {
             var roomList = level.RefRooms;
             //关卡配置导出
@@ -322,12 +314,19 @@ namespace YoooTool.Code.Slk
             for (int i = 0; i < roomList.Count; i++)
             {
                 SLK_Room room = SlkManager.Instance.GetSlkData(roomList[i]) as SLK_Room;
-                if (room == null) continue;
-                string roomJass = room.GetJass();
+                string roomJass;
+                if (room == null)
+                {
+                    roomJass = "无效房间引用 : " +roomList[i];
+                }
+                else
+                {
+                    roomJass = room.GetJass();
+                }
                 sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, roomJass));
             }
-            sb.AppendLine(string.Format("call RecordConfig({0},{1})", roomList.Count,level.IsRandom));
-            File.WriteAllText("Level.jass", sb.ToString());
+            sb.AppendLine(string.Format("call RecordConfig({0},{1})", roomList.Count,level.IsRandom.ToString().ToLower()));
+            File.WriteAllText("LevelCfg/Level.jass", sb.ToString());
         }
 
         public void ExportEnemySpawnner2Jass()
@@ -357,6 +356,7 @@ namespace YoooTool.Code.Slk
         public void ExportEnemyGroup2Jass()
         {
             //导出EnemyGroup
+            //EnemyGroup需要重新审视..实际JASS引用的是2个坐标，再存一个ID映射2个坐标？
             StringBuilder sb = new StringBuilder();
             var list = SlkManager.Instance.EnemyGroupTab.GetAllData();
             for (int i = 0; i < list.Count; i++)
@@ -372,35 +372,6 @@ namespace YoooTool.Code.Slk
             }
             File.WriteAllText("EnemyGroup.jass", sb.ToString());
         }
-    }
-
-    public class Level
-    {
-        public string LevelId { get; set; }
-        /// <summary>
-        /// 是否随机打乱顺序
-        /// </summary>
-        public bool IsRandom { get; set; }
-        /// <summary>
-        /// 包含的房间列表
-        /// </summary>
-        public List<string> RefRooms { get; set; }
-
-
-        /* TODO 将来实现
-        /// <summary>
-        /// 通过所需要的最小房间数量
-        /// </summary>
-        public int MinRoomCount { get; set; }
-        /// <summary>
-        /// 任务房间-必须通过的房间
-        /// </summary>
-        public string MissionRoom { get; set; }
-        /// <summary>
-        /// 奖励等级
-        /// </summary>
-        public int RewardLevel { get; set; }
-        */
     }
 
     public class SlkData_Handler<T> : ISlkSerialize where T: SlkDataObject
@@ -490,8 +461,9 @@ namespace YoooTool.Code.Slk
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
         public  SlkData_Handler<SLK_EnemySpawnner> EnemySpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
         public  SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
-        public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_RoomRule> RoomRuleTab { get; set; } = new SlkData_Handler<SLK_RoomRule>();
+        public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
+        public SlkData_Handler<Slk_Level> LevelTab { get; set; } = new SlkData_Handler<Slk_Level>();
 
         //public string Name { get; set; }
 
@@ -513,6 +485,7 @@ namespace YoooTool.Code.Slk
             EnemyGroupTab.Slk_DeSerialize(folder + "SLK_EnemyGroup.csv");
             RoomTab.Slk_DeSerialize(folder + "SLK_Room.csv");
             RoomRuleTab.Slk_DeSerialize(folder + "SLK_RoomRule.csv");
+            LevelTab.Slk_DeSerialize(folder + "Slk_Level.csv");
             SearchMapInit();
         }
 
@@ -593,7 +566,6 @@ namespace YoooTool.Code.Slk
             roomTab.AddData(new SLK_Room()
             {
                 Id = "Room_1",
-                Key = "B",
                 ConfigId = "EnemyGroup_1",
                 Desc = "Battle"
             });

@@ -1,6 +1,6 @@
-Id,Type,Parameters
-Rule_1,Battle,EnemyGroup_1
-Rule_2,Alive,EnemySpawnner_1
-Rule_3,Interact,Interact_1
-Rule_4,RandomBattle,1@?
-Rule_5,RandomInteract,
+Id,Type,Parameters,
+Rule_1,Battle,EnemyGroup_1,固定战斗类型
+Rule_2,Alive,EnemySpawnner_1,怪物池战斗
+Rule_3,Interact,Interact_1,固定交互对象
+Rule_4,RandomBattle,1@?,随机固定战斗
+Rule_5,RandomInteract,,随机交互对象

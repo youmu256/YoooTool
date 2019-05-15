@@ -12,11 +12,11 @@ namespace YoooTool.Code.Slk
         {
 
         }
-        public Level EditLevel { get; private set; } = new Level();
+        public Slk_Level EditLevel { get; private set; } = new Slk_Level();
         
         public void NewLevel()
         {
-            EditLevel = new Level();
+            EditLevel = new Slk_Level();
         }
 
         public void LoadLevel(string levelId)
@@ -26,7 +26,7 @@ namespace YoooTool.Code.Slk
 
         public void SaveLevel()
         {
-            if (string.IsNullOrEmpty(EditLevel.LevelId))
+            if (string.IsNullOrEmpty(EditLevel.Id))
             {
                 return;
             }
@@ -71,7 +71,7 @@ namespace YoooTool.Code.Slk
         }
         public void Level_SetId(string levelId)
         {
-            EditLevel.LevelId = levelId;
+            EditLevel.Id = levelId;
         }
         public void Level_SetRandomSort(bool isRandom)
         {

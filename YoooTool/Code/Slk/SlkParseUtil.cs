@@ -12,7 +12,7 @@ namespace YoooTool.Code.Slk
     {
         public static string GetIdRefObjectJass<T>(string id) where  T: SlkDataObject
         {
-            T slkDataObject = SlkManager.Instance.GetSlkData(id) as T;
+            T slkDataObject = SlkManager.Instance.GetSlkData<T>(id) as T;
             if (slkDataObject == null)
             {
                 return "InVaild Id Ref : " + id;

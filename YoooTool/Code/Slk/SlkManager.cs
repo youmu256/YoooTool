@@ -368,11 +368,11 @@ namespace YoooTool.Code.Slk
         //reflect call
         public void RegistToMap(Dictionary<string, SlkDataObject> map)
         {
-            //Console.WriteLine(this.GetType().Name + " Call Regist");
+            //add type as key ext? typeof(T).Name +
             foreach (var pair in IdMap)
             {
-                //Console.WriteLine(pair.Key + " , " + pair.Value);
-                map.Add(pair.Key,pair.Value);
+                string fkey = SlkManager.SlkIdSearchFix<T>(pair.Key);
+                map.Add(fkey,pair.Value);
             }
         }
 
@@ -460,8 +460,11 @@ namespace YoooTool.Code.Slk
 
         public static SlkManager CreateInstance()
         {
-            Instance = new SlkManager();
-            Instance.Init();
+            if (Instance == null)
+            {
+                Instance = new SlkManager();
+                Instance.Init();
+            }
             return Instance;
         }
 
@@ -480,10 +483,25 @@ namespace YoooTool.Code.Slk
 
         //protected Dictionary<string,SlkData_Handler<SlkDataObject>> SearchCacheMap = new Dictionary<string, SlkData_Handler<SlkDataObject>>();
 
+
+        public static string SlkIdSearchFix<T>(string id) where T : SlkDataObject
+        {
+            return typeof(T).Name + "@" + id;
+        }
+
+        public static Type SlkIdSearchFix2Type(string fixId)
+        {
+            int end = fixId.IndexOf("@", StringComparison.Ordinal);
+            string typeName = fixId.Substring(0, end);
+            return Assembly.GetAssembly(typeof(SlkDataObject)).GetType(typeof(SlkDataObject).Namespace +"."+ typeName);
+        }
+        //ID会自动添加类型作为前缀
         protected Dictionary<string,SlkDataObject> SlkIdSearchMap = new Dictionary<string, SlkDataObject>();
         
         void SearchMapInit()
         {
+            //Console.WriteLine(UnitTab.GetType().GetGenericArguments()[0]);//SLK_Unit
+
             var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
             foreach (var propertyInfo in properties)
             {
@@ -493,16 +511,28 @@ namespace YoooTool.Code.Slk
             }
         }
         
-        public SlkDataObject GetSlkData(string cfgId)
+        public SlkDataObject GetSlkData<T>(string cfgId) where T : SlkDataObject
         {
-            //遍历所有slk helper查找一次
-            //cfgId = cfgId.ToUpper();
-            //string cfgType = cfgId.Substring(0, cfgId.IndexOf("_", StringComparison.Ordinal));
-            //SlkData_Handler<SlkDataObject> slkHelper = null;
             SlkDataObject data;
-            SlkIdSearchMap.TryGetValue(cfgId, out data);
-            if(data==null)
-                Console.WriteLine("Error: Not Find : " + cfgId);
+            if (!typeof(T).IsSubclassOf(typeof(SlkDataObject)))
+            {
+                //说明传入的就是 SlkDataObject -此时丢失了参考-
+                Console.WriteLine(string.Format("[Error] Not Find Id: {0} / {1}",cfgId, "Can't Find SlkDataObject as T"));
+                var list = SlkIdSearchMap.Keys.Where(s => s.Contains(cfgId)).ToList();
+                string wantList = "";
+                foreach (var ids in list)
+                {
+                    wantList += string.Format("[{0}]", SlkIdSearchFix2Type(ids)?.Name);
+                }
+                Console.WriteLine(string.Format("[{0}] You May Want {1}", "Suggest",wantList));
+                //尝试搜索？
+                return null;
+            }
+            SlkIdSearchMap.TryGetValue(SlkIdSearchFix<T>(cfgId), out data);
+            if (data == null)
+            {
+                Console.WriteLine(string.Format("[Error] Not Find Id: {0} / {1}",cfgId,typeof(T)));
+            }
             return data;
         }
         

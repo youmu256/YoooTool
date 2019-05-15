@@ -72,7 +72,7 @@ namespace YoooTool
             var export = new ExportHelper();
             //export.ExportLevel2Jass(Slk_Level.TestLevel);
             export.ExportAllLevel2Jass();
-
+            SlkManager.Instance.GetSlkData<SlkDataObject>("Room_1");
             /*
             var l = new LevelManager();
             l.TestInit();

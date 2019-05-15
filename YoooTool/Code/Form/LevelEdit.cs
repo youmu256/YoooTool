@@ -33,7 +33,7 @@ namespace YoooTool.Code
                 cb.Location = new Point(0,0);
                 cb.Name = "room_" + index;
                 cb.TabIndex = index;
-                cb.Text = slkRoom.Id + "/" + slkRoom.Desc;
+                cb.Text = slkRoom.Id + "/";
                 cb.UseVisualStyleBackColor = true;
                 cb.Size = new System.Drawing.Size(100, 24);
                 cb.CheckedChanged += CbOnCheckedChanged;

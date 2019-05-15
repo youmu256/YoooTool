@@ -1,0 +1,14 @@
+//------Level_1------
+set DungeonLevel_dataArr[1] = "Battle#EnemyGroup_1"
+set DungeonLevel_dataArr[2] = "Alive#EnemySpawnner_1"
+set DungeonLevel_dataArr[3] = "Interact#Interact_1"
+set DungeonLevel_dataArr[4] = "RandomBattle#1@?"
+set DungeonLevel_dataArr[5] = "RandomInteract#"
+call RecordConfig(5,true)
+
+//------Level_2------
+set DungeonLevel_dataArr[1] = "Battle#EnemyGroup_1"
+set DungeonLevel_dataArr[2] = "Alive#EnemySpawnner_1"
+set DungeonLevel_dataArr[3] = "Interact#Interact_1"
+call RecordConfig(3,true)
+

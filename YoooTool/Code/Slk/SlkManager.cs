@@ -238,12 +238,7 @@ namespace YoooTool.Code.Slk
         public override string GetJass()
         {
             //直接就是引用的
-            SlkDataObject data = SlkManager.Instance.GetSlkData(ConfigId);
-            if (data != null)
-            {
-                return data.GetJass();
-            }
-            return null;
+            return SlkParseUtil.GetIdRefObjectJass<SLK_RoomRule>(ConfigId);
         }
     }
     public class Slk_Level : SlkDataObject
@@ -299,36 +294,46 @@ namespace YoooTool.Code.Slk
 
         public override string GetJass()
         {
+            //没人会引用Level 不需要实现了
             return "";
+        }
+
+        public string GetJassConfig()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < RefRooms.Count; i++)
+            {
+                sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, SlkParseUtil.GetIdRefObjectJass<SLK_Room>(RefRooms[i])));
+            }
+            sb.AppendLine(string.Format("call RecordConfig({0},{1})", RefRooms.Count, this.IsRandom.ToString().ToLower()));
+            return sb.ToString();
         }
     }
     #endregion
     public class ExportHelper
     {
-        public void ExportLevel2Jass(Slk_Level level)
+        public void ExportAllLevel2Jass(bool split = false)
         {
-            var roomList = level.RefRooms;
-            //关卡配置导出
-            //Group导出
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < roomList.Count; i++)
+            var levels = SlkManager.Instance.LevelTab.GetAllData();
+            if (split)
             {
-                SLK_Room room = SlkManager.Instance.GetSlkData(roomList[i]) as SLK_Room;
-                string roomJass;
-                if (room == null)
+                foreach (var slkLevel in levels)
                 {
-                    roomJass = "无效房间引用 : " +roomList[i];
+                    File.WriteAllText("LevelCfg/" + slkLevel.Id + ".jass", slkLevel.GetJassConfig());
                 }
-                else
-                {
-                    roomJass = room.GetJass();
-                }
-                sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, roomJass));
             }
-            sb.AppendLine(string.Format("call RecordConfig({0},{1})", roomList.Count,level.IsRandom.ToString().ToLower()));
-            File.WriteAllText("LevelCfg/Level.jass", sb.ToString());
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var slkLevel in levels)
+                {
+                    sb.AppendLine(string.Format("//------{0}------",slkLevel.Id));
+                    sb.AppendLine(slkLevel.GetJassConfig());
+                }
+                File.WriteAllText("LevelCfg/" + "AllLevel" + ".jass", sb.ToString());
+            }
         }
-
+        
         public void ExportEnemySpawnner2Jass()
         {
             //导出Spawnner 的jass

@@ -70,7 +70,9 @@ namespace YoooTool
         {
             SlkManager.CreateInstance();
             var export = new ExportHelper();
-            export.ExportLevel2Jass(Slk_Level.TestLevel);
+            //export.ExportLevel2Jass(Slk_Level.TestLevel);
+            export.ExportAllLevel2Jass();
+
             /*
             var l = new LevelManager();
             l.TestInit();

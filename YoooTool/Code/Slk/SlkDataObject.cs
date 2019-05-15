@@ -116,6 +116,10 @@ namespace YoooTool.Code.Slk
         public abstract string Slk_Serialize();
 
         public abstract void Slk_DeSerialize(object data);
+        /// <summary>
+        /// 在Jass中对应的序列化形式
+        /// </summary>
+        /// <returns></returns>
         public abstract string GetJass();
     }
 

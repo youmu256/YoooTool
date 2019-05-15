@@ -10,7 +10,18 @@ namespace YoooTool.Code.Slk
 
     public class SlkParseUtil
     {
-        //TODO 专门定义用来存储SLK的LIST类？
+        public static string GetIdRefObjectJass<T>(string id) where  T: SlkDataObject
+        {
+            T slkDataObject = SlkManager.Instance.GetSlkData(id) as T;
+            if (slkDataObject == null)
+            {
+                return "InVaild Id Ref : " + id;
+            }
+            else
+            {
+                return slkDataObject.GetJass();
+            }
+        }
 
         public static string IdList2Config(List<string> idList)
         {

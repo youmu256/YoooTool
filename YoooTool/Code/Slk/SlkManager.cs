@@ -348,7 +348,7 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("//--ConfigBegin--{0}--", poolName));
                 foreach (var pair in spawnner.EnemyIdPool.GetMapCopy())
                 {
-                    var data = SlkManager.Instance.GetSlkData(pair.Key)?.GetJass();
+                    var data = SlkParseUtil.GetIdRefObjectJass<SLK_Unit>(pair.Key);
                     var weight = pair.Value.ToString("f2");
                     sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", poolName, data, weight));
                 }
@@ -369,8 +369,8 @@ namespace YoooTool.Code.Slk
                 var data = list[i];
                 for (int j = 0; j < data.EnemyList.Count; j++)
                 {
-                    var enemy = SlkManager.Instance.GetSlkData(data.EnemyList[j]) as SLK_Unit;
-                    sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, enemy.WeUnitTypeId));
+                    var enemy = SlkParseUtil.GetIdRefObjectJass<SLK_Unit>(data.EnemyList[j]);
+                    sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, enemy));
                 }
                 sb.AppendLine(string.Format("set dataLength = {0}", data.EnemyList.Count));
                 sb.AppendLine(string.Format("call RecordCurrentToLevel({0})", data.Level));

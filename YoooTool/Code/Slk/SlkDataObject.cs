@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -95,6 +96,18 @@ namespace YoooTool.Code.Slk
             var value = info.GetValue(obj);
             if (type.IsClass)
             {
+                object infoObj = info.GetValue(obj);
+                if (infoObj is IList)
+                {
+                    Type[] typeArguments = type.GetGenericArguments();
+                    var slkType = typeArguments[0];
+                    if (slkType.IsSubclassOf(typeof(SlkDataObject)))
+                    {
+                        IList ilist = infoObj as IList;
+                        return SlkParseUtil.SlkList2IdList(ilist);
+                    }
+                }
+
                 if (type == typeof(List<string>))//ID 池
                 {
                     return SlkParseUtil.IdList2Config((List<string>)value);
@@ -103,7 +116,7 @@ namespace YoooTool.Code.Slk
                 {
                     return SlkParseUtil.IdPool2Config((RandomWeightPool<string>)value);
                 }
-                else if (type.IsSubclassOf(typeof(SlkDataObject)))
+                if (type.IsSubclassOf(typeof(SlkDataObject)))
                 {
                     //--引用SLKData對象就返回ID--
                     return ((SlkDataObject)value).Id;
@@ -112,10 +125,14 @@ namespace YoooTool.Code.Slk
             return value.ToString();
         }
 
-
         public abstract string Slk_Serialize();
 
         public abstract void Slk_DeSerialize(object data);
+        /// <summary>
+        /// 延迟反序列化-处理直接引用对象的属性反序列化
+        /// </summary>
+        /// <param name="data"></param>
+        public virtual void Slk_LateDeSerialize(object data) { }
         /// <summary>
         /// 在Jass中对应的序列化形式
         /// </summary>

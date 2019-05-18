@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,6 +66,51 @@ namespace YoooTool
             }
             Console.ReadKey();
         }
+
+        static void TypeCheck(object obj)
+        {
+            var memberType = obj.GetType();
+            Type[] typeArguments = memberType.GetGenericArguments();
+            if (obj is IList)
+            {
+                IList ilist = obj as IList;
+                var ie = ilist.GetEnumerator();
+                while (ie.MoveNext())
+                {
+                    Console.WriteLine(ie.Current);
+                }
+                /*
+                foreach (var de in (tempvalue as ArrayList))
+                {
+                    var method = memberType.GetMethod("Add");
+                    method.Invoke(obj, new object[] { de });
+                }
+                */
+            }else if (obj is IDictionary)
+            {
+                IDictionary idct = obj as IDictionary;
+                var ie = idct.GetEnumerator();
+                while (ie.MoveNext())
+                {
+                    Console.WriteLine(ie.Entry.Key + "," + ie.Entry.Value);
+                }
+            }
+        }
+
+        static void TTT()
+        {
+            List<int> intList = new List<int>() {1,2,3,4,5};
+            TypeCheck(intList);
+            Dictionary<int,int> intDict = new Dictionary<int, int>()
+            {
+                {1,1 }, {2,2 }
+            };
+            TypeCheck(intDict);
+            int[] irr = new[] {1, 2, 3};
+            TypeCheck(irr);
+            Console.ReadKey();
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
@@ -72,7 +118,7 @@ namespace YoooTool
             var export = new ExportHelper();
             //export.ExportLevel2Jass(Slk_Level.TestLevel);
             export.ExportAllLevel2Jass();
-            SlkManager.Instance.GetSlkData<SlkDataObject>("Room_1");
+            //SlkManager.Instance.GetSlkData<SlkDataObject>("Room_1");
             /*
             var l = new LevelManager();
             l.TestInit();

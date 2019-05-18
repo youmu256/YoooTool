@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,35 @@ using YoooTool.Code.Utils;
 namespace YoooTool.Code.Slk
 {
 
-    public class SlkParseUtil
+    public static class SlkParseUtil
     {
+        #region StringParse2Somehting
+        public static int Parse2Int( string str, int defaultValue = 0)
+        {
+            int r;
+            if (int.TryParse(str, out r)) return r;
+            return defaultValue;
+        }
+        public static float Parse2Float(string str, float defaultValue = 0)
+        {
+            float r;
+            if (float.TryParse(str, out r)) return r;
+            return defaultValue;
+        }
+        public static double Parse2Double(string str, double defaultValue = 0)
+        {
+            double r;
+            if (double.TryParse(str, out r)) return r;
+            return defaultValue;
+        }
+        public static bool Parse2Bool(string str, bool defaultValue = false)
+        {
+            bool r;
+            if (bool.TryParse(str, out r)) return r;
+            return defaultValue;
+        }
+        #endregion
+
         public static string GetIdRefObjectJass<T>(string id) where  T: SlkDataObject
         {
             T slkDataObject = SlkManager.Instance.GetSlkData<T>(id) as T;
@@ -17,10 +45,31 @@ namespace YoooTool.Code.Slk
             {
                 return "InVaild Id Ref : " + id;
             }
-            else
+            return slkDataObject.GetJass();
+        }
+
+        /// <summary>
+        /// careful about ilist's object must is SlkDataObject
+        /// </summary>
+        /// <param name="slkList"></param>
+        /// <returns></returns>
+        public static string SlkList2IdList(IList slkList)
+        {
+            StringBuilder sb = new StringBuilder();
+            bool isFirst = true;
+            foreach (SlkDataObject slkObj in slkList)
             {
-                return slkDataObject.GetJass();
+                if (!isFirst)
+                {
+                    sb.Append(SplitChar);
+                }
+                else
+                {
+                    isFirst = false;
+                }
+                sb.Append(slkObj.Id);
             }
+            return sb.ToString();
         }
 
         public static string IdList2Config(List<string> idList)
@@ -53,6 +102,18 @@ namespace YoooTool.Code.Slk
             return list;
         }
 
+        public static List<T> Config2SlkList<T>(string data) where T:SlkDataObject
+        {
+            List<T> list = new List<T>();
+            string[] srr = data.Split(SplitChar);
+            foreach (var s in srr)
+            {
+                T slkObj = SlkManager.Instance.GetSlkData<T>(s) as T;
+                if(slkObj!=null)
+                    list.Add(slkObj);
+            }
+            return list;
+        }
 
         public const char SplitChar = ';';
 

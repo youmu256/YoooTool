@@ -12,11 +12,11 @@ namespace YoooTool.Code.Slk
         {
 
         }
-        public Slk_Level EditLevel { get; private set; } = new Slk_Level();
+        public SLK_Level EditLevel { get; private set; } = new SLK_Level();
         
         public void NewLevel()
         {
-            EditLevel = new Slk_Level();
+            EditLevel = new SLK_Level();
         }
 
         public void LoadLevel(string levelId)

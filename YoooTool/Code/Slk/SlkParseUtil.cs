@@ -11,6 +11,34 @@ namespace YoooTool.Code.Slk
 
     public static class SlkParseUtil
     {
+        public static object ParseByType(Type type, string str)
+        {
+            if (type == typeof(int))
+            {
+                return Parse2Int(str);
+            }else if (type == typeof(float))
+            {
+                return Parse2Float(str);
+            }else if (type == typeof(double))
+            {
+                return Parse2Double(str);
+            }
+            else if(type == typeof(bool))
+            {
+                return Parse2Bool(str);
+            }
+            
+            else if (type == typeof(List<string>))
+            {
+                return Config2IdList(str);
+            }
+            else if (type == typeof(RandomWeightPool<string>))
+            {
+                return Config2IdPool(str);
+            }
+            return null;
+        }
+
         #region StringParse2Somehting
         public static int Parse2Int( string str, int defaultValue = 0)
         {

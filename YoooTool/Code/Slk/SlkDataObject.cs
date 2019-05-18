@@ -128,6 +128,31 @@ namespace YoooTool.Code.Slk
         public abstract string Slk_Serialize();
 
         public abstract void Slk_DeSerialize(object data);
+
+        protected void CommonDeSerialize(object data)
+        {
+            //通用反序列化
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+                var properties = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).ToList();
+                //无标签的无效
+                properties.RemoveAll((info => info.GetCustomAttribute<SlkPropertyAttribute>() == null));
+                properties.Sort((p1, p2) =>
+                {
+                    var p1Index = p1.GetCustomAttribute<SlkPropertyAttribute>();
+                    var p2Index = p2.GetCustomAttribute<SlkPropertyAttribute>();
+                    var p1i = p1Index != null ? p1Index.Index : int.MaxValue;
+                    var p2i = p2Index != null ? p2Index.Index : int.MaxValue;
+                    return p1i - p2i;
+                });
+                int min = Math.Min(properties.Count, srr.Length);
+                for (int i = 0; i < min; i++)
+                {
+                    properties[i].SetValue(this,SlkParseUtil.ParseByType(properties[i].PropertyType, srr[i]));
+                }
+            }
+        }
         /// <summary>
         /// 延迟反序列化-处理直接引用对象的属性反序列化
         /// </summary>

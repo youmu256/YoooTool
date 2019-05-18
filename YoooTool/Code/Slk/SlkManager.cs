@@ -39,7 +39,9 @@ namespace YoooTool.Code.Slk
     }
 
     #region SLK_DataObject Classes
-
+    //避免把其他复DataObject作为需要序列化的属性。使用对象的Id,当做string来序列化
+    //反序列化的时候可以再延迟反序列化中重新赋值对象 ----如果有需要
+    //
 
     /// <summary>
     /// 交互对象
@@ -165,7 +167,6 @@ namespace YoooTool.Code.Slk
             //return Id;
         }
     }
-
 
     public enum RuleType
     {
@@ -601,6 +602,7 @@ namespace YoooTool.Code.Slk
             }
             return data;
         }
+        //TODO 无T规范的模糊查找 GetSlkData
 
         //--给UI来操作--
         public void ModifyId()
@@ -610,7 +612,16 @@ namespace YoooTool.Code.Slk
 
         public void SaveOut()
         {
-            
+            //TODO 整理
+            var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+            foreach (var propertyInfo in properties)
+            {
+                string file = propertyInfo.PropertyType.GetGenericArguments()[0].Name + ".csv";
+                Console.WriteLine("Handler_Serialize : " + file);
+                var des = propertyInfo.PropertyType.GetMethod("Handler_Serialize", BindingFlags.Public | BindingFlags.Instance);
+                string content = des.Invoke(propertyInfo.GetValue(this), new object[] { }) as string;
+                File.WriteAllText(file, content);
+            }
         }
 
 

@@ -95,7 +95,7 @@ namespace YoooTool.Code.Slk
 
         public override string GetJass()
         {
-            return WeUnitTypeId;
+            return "'"+WeUnitTypeId+"'";
         }
     }
 
@@ -201,6 +201,14 @@ namespace YoooTool.Code.Slk
         }
         public override string GetJass()
         {
+            /*
+            if (Type == RuleType.Battle)
+            {
+                //Battle 地图jass中没有管理 ID，所以直接返回解析 -特殊处理-
+                SLK_EnemyGroup group = SlkManager.Instance.GetSlkData<SLK_EnemyGroup>(Parameters) as SLK_EnemyGroup;
+                return string.Format("{0}#{1}", Type, group.Level+"@"+group.Index);
+            }
+            */
             return string.Format("{0}#{1}", Type, Parameters);
         }
     }
@@ -231,6 +239,7 @@ namespace YoooTool.Code.Slk
         public override string GetJass()
         {
             //直接就是引用的
+
             return SlkParseUtil.GetIdRefObjectJass<SLK_RoomRule>(ConfigId);
         }
     }
@@ -304,7 +313,8 @@ namespace YoooTool.Code.Slk
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < RefRooms.Count; i++)
             {
-                sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, SlkParseUtil.GetIdRefObjectJass<SLK_Room>(RefRooms[i])));
+                sb.AppendLine(string.Format("set dataArr[{0}] = \"{1}\"", i + 1, SlkParseUtil.GetIdRefObjectJass<SLK_Room>(RefRooms[i])));
+                //sb.AppendLine(string.Format("set DungeonLevel_dataArr[{0}] = \"{1}\"", i + 1, SlkParseUtil.GetIdRefObjectJass<SLK_Room>(RefRooms[i])));
             }
             sb.AppendLine(string.Format("call RecordConfig({0},{1})", RefRooms.Count, this.IsRandom.ToString().ToLower()));
             return sb.ToString();
@@ -354,7 +364,7 @@ namespace YoooTool.Code.Slk
                     sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", poolName, data, weight));
                 }
                 sb.AppendLine(string.Format("call RecordSpawnnerCfg(\"{0}\",{1},{2})", poolName, lastTime, interval));
-                sb.AppendLine(string.Format("//--ConfigEnd--{0}--", poolName));
+                sb.AppendLine();
             }
             File.WriteAllText("EnemySpawnner.jass", sb.ToString());
         }
@@ -374,7 +384,7 @@ namespace YoooTool.Code.Slk
                     sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, enemy));
                 }
                 sb.AppendLine(string.Format("set dataLength = {0}", data.EnemyList.Count));
-                sb.AppendLine(string.Format("call RecordCurrentToLevel({0})", data.Level));
+                sb.AppendLine(string.Format("call RecordCurrentToLevel_WithId(\"{0}\",{1})",data.Id, data.Level));
             }
             File.WriteAllText("EnemyGroup.jass", sb.ToString());
         }

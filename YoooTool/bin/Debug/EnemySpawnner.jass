@@ -1,12 +1,28 @@
-//--ConfigBegin--EnemySpawnner_1--
-call WeightPool_RegistPool_Int("EnemySpawnner_1",'e000',10.00)
-call WeightPool_RegistPool_Int("EnemySpawnner_1",'e001',10.00)
-call WeightPool_RegistPool_Int("EnemySpawnner_1",'e002',5.00)
-call WeightPool_RegistPool_Int("EnemySpawnner_1",'e003',5.00)
-call RecordSpawnnerCfg("EnemySpawnner_1",30.00,2.00)
-//--ConfigEnd--EnemySpawnner_1--
-//--ConfigBegin--EnemySpawnner_2--
-call WeightPool_RegistPool_Int("EnemySpawnner_2",'e000',10.00)
-call WeightPool_RegistPool_Int("EnemySpawnner_2",'e001',10.00)
-call RecordSpawnnerCfg("EnemySpawnner_2",30.00,2.00)
-//--ConfigEnd--EnemySpawnner_2--
+//--ConfigBegin--sp_1--
+call WeightPoolLib_RegistPool_Int("sp_1",'u002',10.00)
+call WeightPoolLib_RegistPool_Int("sp_1",'u004',10.00)
+call RecordSpawnnerCfg("sp_1",30.00,2.00)
+
+//--ConfigBegin--sp_2--
+call WeightPoolLib_RegistPool_Int("sp_2",'u002',10.00)
+call WeightPoolLib_RegistPool_Int("sp_2",'u004',10.00)
+call WeightPoolLib_RegistPool_Int("sp_2",'u009',2.00)
+call RecordSpawnnerCfg("sp_2",30.00,2.00)
+
+//--ConfigBegin--sp_3--
+call WeightPoolLib_RegistPool_Int("sp_3",'u001',20.00)
+call WeightPoolLib_RegistPool_Int("sp_3",'n003',5.00)
+call RecordSpawnnerCfg("sp_3",30.00,2.00)
+
+//--ConfigBegin--sp_4--
+call WeightPoolLib_RegistPool_Int("sp_4",'u001',20.00)
+call WeightPoolLib_RegistPool_Int("sp_4",'n003',5.00)
+call WeightPoolLib_RegistPool_Int("sp_4",'n005',1.00)
+call RecordSpawnnerCfg("sp_4",30.00,2.00)
+
+//--ConfigBegin--sp_5--
+call WeightPoolLib_RegistPool_Int("sp_5",'u001',20.00)
+call WeightPoolLib_RegistPool_Int("sp_5",'u007',10.00)
+call WeightPoolLib_RegistPool_Int("sp_5",'n002',5.00)
+call RecordSpawnnerCfg("sp_5",30.00,2.00)
+

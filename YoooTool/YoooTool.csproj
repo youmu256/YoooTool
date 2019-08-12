@@ -53,6 +53,7 @@
     <Compile Include="Code\Form\LevelEdit.Designer.cs">
       <DependentUpon>LevelEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\Other\ForUnity\ShieldHelper.cs" />
     <Compile Include="Code\Simulate\SimulateGame.cs" />
     <Compile Include="Code\Slk\ExportHelper.cs" />
     <Compile Include="Code\Slk\LevelEditor.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Code\Slk\SlkDataObject.cs" />
     <Compile Include="Code\Slk\SlkParseUtil.cs" />
     <Compile Include="Code\Utils\CsvReader.cs" />
+    <Compile Include="Code\Utils\ItemLniInfoPick.cs" />
     <Compile Include="Code\Utils\RandomWeightPool.cs" />
     <Compile Include="Code\Utils\StringUtil.cs" />
     <Compile Include="Program.cs" />
@@ -74,9 +76,7 @@
       <DependentUpon>LevelEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Code\Other\ForUnity\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

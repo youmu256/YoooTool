@@ -111,9 +111,18 @@ namespace YoooTool
             Console.ReadKey();
         }
 
+
+        static void ItemTest()
+        {
+            ItemLniInfoPick.ReadFile("item.ini");
+            Console.ReadKey();
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
+            ItemTest();
+            return;
             SlkManager.CreateInstance();
             var export = new ExportHelper();
             //export.ExportLevel2Jass(Slk_Level.TestLevel);

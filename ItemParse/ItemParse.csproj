@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8233C484-79ED-4B80-8A25-99BCACB9A0B5}</ProjectGuid>
+    <ProjectGuid>{A303C053-DAC6-4107-B583-03290EFD7028}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YoooTool</RootNamespace>
-    <AssemblyName>YoooTool</AssemblyName>
+    <RootNamespace>ItemParse</RootNamespace>
+    <AssemblyName>ItemParse</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,8 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,27 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Game.cs" />
-    <Compile Include="Code\LevelCfg.cs" />
-    <Compile Include="Code\Form\LevelEdit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Code\Form\LevelEdit.Designer.cs">
-      <DependentUpon>LevelEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Code\Other\ForUnity\ShieldHelper.cs" />
-    <Compile Include="Code\Simulate\SimulateGame.cs" />
-    <Compile Include="Code\Slk\ExportHelper.cs" />
-    <Compile Include="Code\Slk\LevelEditor.cs" />
-    <Compile Include="Code\Slk\SlkData_Handler.cs" />
-    <Compile Include="Code\Slk\SlkManager.cs" />
-    <Compile Include="Code\Slk\SlkDataObject.cs" />
-    <Compile Include="Code\Slk\SlkParseUtil.cs" />
-    <Compile Include="Code\Utils\CsvReader.cs" />
-    <Compile Include="Code\Utils\ItemLniInfoPick.cs" />
-    <Compile Include="Code\Utils\RandomWeightPool.cs" />
-    <Compile Include="Code\Utils\StringUtil.cs" />
-    <Compile Include="Code\Utils\XMLReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,11 +50,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Code\Form\LevelEdit.resx">
-      <DependentUpon>LevelEdit.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\YoooTool\YoooTool.csproj">
+      <Project>{8233c484-79ed-4b80-8a25-99bcacb9a0b5}</Project>
+      <Name>YoooTool</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

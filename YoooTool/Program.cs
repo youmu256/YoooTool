@@ -118,9 +118,25 @@ namespace YoooTool
             Console.ReadKey();
         }
 
+        static void XmlTest()
+        {
+            var reader = new XMLReader();
+            var data = reader.ReadTabelXml("tpl_weapon_resource.xml");
+            reader.XmlToBin("tpl_weapon_resource.xml");
+            var dd = reader.ReadBinData("tpl_weapon_resource.bytes");
+            foreach (var dict in dd)
+            {
+                Console.WriteLine(dict["codename"]);
+            }
+            Console.ReadKey();
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
+
+            XmlTest();
+            return;
             ItemTest();
             return;
             SlkManager.CreateInstance();

@@ -12,11 +12,11 @@ namespace YoooTool.Code.Utils
     public class ItemData
     {
         public string Id;
-        public string Name;
-
+        public string Name = "DEFAULT";
+        public string Ubertip = "DEFAULT";
         public string GetCsv()
         {
-            return Id + "," + Name;
+            return Id + "," + Name+","+Ubertip;
         }
 
         public static ItemData Create(List<string> content)
@@ -32,6 +32,10 @@ namespace YoooTool.Code.Utils
                 if (line.StartsWith("Name ="))
                 {
                     data.Name = line.Replace("Name =", "").Trim();
+                }
+                if (line.StartsWith("Ubertip ="))
+                {
+                    data.Ubertip = line.Replace("Ubertip =", "").Trim();
                 }
             }
             if (string.IsNullOrEmpty(data.Name))

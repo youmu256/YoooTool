@@ -135,8 +135,8 @@ namespace YoooTool
         static void Main(string[] args)
         {
 
-            XmlTest();
-            return;
+            //XmlTest();
+            //return;
             ItemTest();
             return;
             SlkManager.CreateInstance();

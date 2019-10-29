@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INIHelper.cs" />
+    <Compile Include="LniParser\LniInfoPick.cs" />
+    <Compile Include="LniParser\LniModifyData.cs" />
+    <Compile Include="LniParser\LniObject.cs" />
+    <Compile Include="LniParser\LniUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

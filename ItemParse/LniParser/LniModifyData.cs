@@ -48,6 +48,8 @@ namespace ItemParse.LniParser
                         modifies = new List<LniObjectModify>();
                         ObjModifyMap.Add(section, modifies);
                     }
+                    if(string.IsNullOrEmpty(modifyK)||string.IsNullOrEmpty(modifyV))continue;
+                    //Console.WriteLine(modifyK + "," + modifyV);
                     modifies.Add(new LniObjectModify(modifyK, modifyV));
                 }
             }
@@ -63,7 +65,7 @@ namespace ItemParse.LniParser
                     string k = modify.Key;
                     string v = modify.Value;
                     INIHelper.WriteString(section, k, v, dataTablePath);
-                    //Console.WriteLine(string.Format("modify {3}:{0},{1},{2}", section,k,v,r));
+                    Console.WriteLine(string.Format("modify:{0},{1},{2}", section,k,v));
                 }
             }
         }

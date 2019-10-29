@@ -14,6 +14,10 @@ namespace ItemParse
         [STAThread]
         static void Main(string[] args)
         {
+            foreach (var s in args)
+            {
+                Console.WriteLine(s);
+            }
             ItemTest();
         }
         static void ItemTest()

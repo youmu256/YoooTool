@@ -51,17 +51,6 @@ namespace ItemParse.LniParser
                     modifies.Add(new LniObjectModify(modifyK, modifyV));
                 }
             }
-
-            /*
-            foreach (var pair in ObjModifyMap)
-            {
-                Console.WriteLine(pair.Key + " ========== ");
-                foreach (var modify in pair.Value)
-                {
-                    Console.WriteLine(modify.Key + " ### "+modify.Value);
-                }
-            }
-            */
         }
 
         public static void Apply(string dataTablePath, LniModifyData modifyData)
@@ -73,8 +62,8 @@ namespace ItemParse.LniParser
                 {
                     string k = modify.Key;
                     string v = modify.Value;
-                    bool r = INIHelper.WriteString(section, k, v, dataTablePath);
-                    Console.WriteLine(string.Format("modify {3}:{0},{1},{2}", section,k,v,r));
+                    INIHelper.WriteString(section, k, v, dataTablePath);
+                    //Console.WriteLine(string.Format("modify {3}:{0},{1},{2}", section,k,v,r));
                 }
             }
         }

@@ -33,6 +33,7 @@ namespace ItemParse
             var pick = new LniInfoPick(pp, pc);
             string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
             pick.SaveOut(outFile);
+            ModifyReadTest();
         }
         static void ModifyReadTest()
         {

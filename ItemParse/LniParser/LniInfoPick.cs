@@ -27,8 +27,8 @@ namespace ItemParse.LniParser
                 sb.Append(data);
                 sb.Append(",");
             }
-            if(sb.Length>0)
-                sb.Remove(sb.Length - 1, 1);//最后的逗号
+            //if(sb.Length>0)
+            sb=sb.Remove(sb.Length - 1, 1);//最后的逗号
             return sb.ToString();
         }
     }
@@ -85,8 +85,8 @@ namespace ItemParse.LniParser
                 csv.Append(f);
                 csv.Append(",");
             }
+            csv = csv.Remove(csv.Length - 1, 1);//最后的逗号
             csv.AppendLine();
-            //csv.Remove(csv.Length - 1, 1);//最后的逗号
             foreach (var infoObject in table)
             {
                 csv.AppendLine(infoObject.GetCsv());

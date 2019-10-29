@@ -111,13 +111,7 @@ namespace YoooTool
             Console.ReadKey();
         }
 
-
-        static void ItemTest()
-        {
-            ItemLniInfoPick.ReadFile("item.ini");
-            Console.ReadKey();
-        }
-
+        
         static void XmlTest()
         {
             var reader = new XMLReader();
@@ -137,7 +131,6 @@ namespace YoooTool
 
             //XmlTest();
             //return;
-            ItemTest();
             return;
             SlkManager.CreateInstance();
             var export = new ExportHelper();

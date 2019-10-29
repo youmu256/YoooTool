@@ -62,7 +62,6 @@
     <Compile Include="Code\Slk\SlkDataObject.cs" />
     <Compile Include="Code\Slk\SlkParseUtil.cs" />
     <Compile Include="Code\Utils\CsvReader.cs" />
-    <Compile Include="Code\Utils\ItemLniInfoPick.cs" />
     <Compile Include="Code\Utils\RandomWeightPool.cs" />
     <Compile Include="Code\Utils\StringUtil.cs" />
     <Compile Include="Code\Utils\XMLReader.cs" />

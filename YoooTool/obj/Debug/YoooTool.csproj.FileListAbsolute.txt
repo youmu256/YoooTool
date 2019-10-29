@@ -8,7 +8,6 @@ D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.exe
 D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.pdb
 D:\GithubWork\YoooTool\YoooTool\bin\Debug\YoooTool.exe
 D:\GithubWork\YoooTool\YoooTool\bin\Debug\YoooTool.pdb
-D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.csprojResolveAssemblyReference.cache
 D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.Code.LevelEdit.resources
 D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.csproj.GenerateResource.Cache
 D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.Code.LevelEdit.resources

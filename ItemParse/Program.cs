@@ -22,9 +22,9 @@ namespace ItemParse
         }
         static void ItemTest()
         {
-            InfoPick();
+            //InfoPick();
             //new LniDataTable("item.ini");
-            //ModifyReadTest();
+            ModifyTest();
             //ItemLniInfoPick.ReadFile("item.ini");
             Console.ReadKey();
         }
@@ -37,9 +37,9 @@ namespace ItemParse
             var pick = new LniInfoPick(pp, pc);
             string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
             pick.SaveOut(outFile);
-            ModifyReadTest();
+            ModifyTest();
         }
-        static void ModifyReadTest()
+        static void ModifyTest()
         {
             string fp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");;
             var data = new LniModifyData(fp,Encoding.UTF8);

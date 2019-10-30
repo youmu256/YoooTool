@@ -18,17 +18,44 @@ namespace ItemParse
             {
                 string key = args[0];
                 Console.WriteLine(key);
-                switch (key)
+                int argsCount = args.Length;
+                if (argsCount == 1)
                 {
-                    case "-pick":
-                        InfoPick();
-                        break;
-                    case "-modify":
-                        ModifyApply();
-                        break;
+                    switch (key)
+                    {
+                        case "-pick":
+                            InfoPick();
+                            break;
+                        case "-modify":
+                            ModifyApply();
+                            break;
+                    }
+                }else if (argsCount == 2)
+                {
+                    switch (key)
+                    {
+                        case "-pick":
+                            InfoPick();
+                            break;
+                        case "-modify":
+                            CustomModify(args[1]);
+                            break;
+                    }
                 }
+                
             }
         }
+
+        static void CustomModify(string customFile)
+        {
+            string fp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
+            var fileEncode = FileEncodeUtil.EncodingType.GetType(fp);
+            var data = new LniModifyData(fp, fileEncode);
+            string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, customFile);
+            LniModifyData.Apply(tablePath, data);
+            Console.WriteLine("modify info finish..");
+        }
+
         static void InfoPick()
         {
             //从ini中读取需要的数据，导出成csv表格，要抽取的数据在InfoTemplate中，默认会抽取ID
@@ -41,13 +68,7 @@ namespace ItemParse
         }
         static void ModifyApply()
         {
-            string fp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
-            var fileEncode = FileEncodeUtil.EncodingType.GetType(fp);
-            Console.WriteLine("THE CSV CODE IS: " +fileEncode.EncodingName);
-            var data = new LniModifyData(fp, fileEncode);
-            string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "item.ini");
-            LniModifyData.Apply(tablePath, data);
-            Console.WriteLine("modify info finish..");
+            CustomModify("item.ini");
         }
     }
 }

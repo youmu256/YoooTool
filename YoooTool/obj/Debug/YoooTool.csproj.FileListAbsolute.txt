@@ -12,3 +12,4 @@ D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.Code.LevelEdit.resources
 D:\GithubWork\YoooTool\YoooTool\obj\Debug\YoooTool.csproj.GenerateResource.Cache
 D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.Code.LevelEdit.resources
 D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.csproj.GenerateResource.Cache
+D:\VS2015Work\YoooTool\YoooTool\obj\Debug\YoooTool.csprojResolveAssemblyReference.cache

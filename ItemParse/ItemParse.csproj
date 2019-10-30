@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="INIHelper.cs" />
+    <Compile Include="LniParser\FileEncodeUtil.cs" />
     <Compile Include="LniParser\LniInfoPick.cs" />
     <Compile Include="LniParser\LniModifyData.cs" />
     <Compile Include="LniParser\LniObject.cs" />

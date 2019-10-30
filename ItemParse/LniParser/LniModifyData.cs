@@ -13,11 +13,13 @@ namespace ItemParse.LniParser
     {
         public string Key { get; private set; }
         public string Value { get; private set; }
-
+        
         public LniObjectModify(string k, string v)
         {
             Key = k;
             Value = v;
+            //value 有一些需要加双引号...都加好像没问题？
+            Value = string.Format("\"{0}\"", v);
         }
     }
     public class LniModifyData
@@ -57,6 +59,7 @@ namespace ItemParse.LniParser
 
         public static void Apply(string dataTablePath, LniModifyData modifyData)
         {
+            //会丢失引号..
             foreach (var pair in modifyData.ObjModifyMap)
             {
                 string section = pair.Key;
@@ -65,7 +68,7 @@ namespace ItemParse.LniParser
                     string k = modify.Key;
                     string v = modify.Value;
                     INIHelper.WriteString(section, k, v, dataTablePath);
-                    Console.WriteLine(string.Format("modify:{0},{1},{2}", section,k,v));
+                    Console.WriteLine(string.Format("modify:{0}:{1},{2}", section,k,v));
                 }
             }
         }

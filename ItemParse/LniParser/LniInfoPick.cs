@@ -65,13 +65,13 @@ namespace ItemParse.LniParser
                 List<string> datas = new List<string>();
                 foreach (var dataFilter in dataFilterList)
                 {
-                    //--这里用普通的read 才对...
                     if (dataFilter == IDLabel)
                     {
                         datas.Add(section);
                     }
                     else
                     {
+                        //引号会丢失...貌似没问题？
                         string value = INIHelper.ReadString(section, dataFilter, "", FilePath);
                         datas.Add(value);
                     }

@@ -14,21 +14,21 @@ namespace ItemParse
         [STAThread]
         static void Main(string[] args)
         {
-            foreach (var s in args)
+            if (args.Length > 0)
             {
-                Console.WriteLine(s);
+                string key = args[0];
+                Console.WriteLine(key);
+                switch (key)
+                {
+                    case "-pick":
+                        InfoPick();
+                        break;
+                    case "-modify":
+                        ModifyApply();
+                        break;
+                }
             }
-            ItemTest();
         }
-        static void ItemTest()
-        {
-            //InfoPick();
-            //new LniDataTable("item.ini");
-            ModifyTest();
-            //ItemLniInfoPick.ReadFile("item.ini");
-            Console.ReadKey();
-        }
-
         static void InfoPick()
         {
             //从ini中读取需要的数据，导出成csv表格，要抽取的数据在InfoTemplate中，默认会抽取ID
@@ -37,15 +37,17 @@ namespace ItemParse
             var pick = new LniInfoPick(pp, pc);
             string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
             pick.SaveOut(outFile);
-            ModifyTest();
+            Console.WriteLine("pick info finish..");
         }
-        static void ModifyTest()
+        static void ModifyApply()
         {
-            string fp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");;
-            var data = new LniModifyData(fp,Encoding.UTF8);
+            string fp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
+            var fileEncode = FileEncodeUtil.EncodingType.GetType(fp);
+            Console.WriteLine("THE CSV CODE IS: " +fileEncode.EncodingName);
+            var data = new LniModifyData(fp, fileEncode);
             string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "item.ini");
             LniModifyData.Apply(tablePath, data);
-            Console.WriteLine(tablePath);
+            Console.WriteLine("modify info finish..");
         }
     }
 }

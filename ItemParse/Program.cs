@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ItemParse.LniParser;
-using YoooTool.Code.Utils;
+using ItemParse.Operate;
 
 namespace ItemParse
 {
@@ -24,10 +24,10 @@ namespace ItemParse
                     switch (key)
                     {
                         case "-pick":
-                            InfoPick();
+                            InfoPick("item.ini");
                             break;
                         case "-modify":
-                            ModifyApply();
+                            ModifyTable("item.ini");
                             break;
                     }
                 }else if (argsCount == 2)
@@ -35,40 +35,32 @@ namespace ItemParse
                     switch (key)
                     {
                         case "-pick":
-                            InfoPick();
+                            InfoPick(args[1]);
                             break;
                         case "-modify":
-                            CustomModify(args[1]);
+                            ModifyTable(args[1]);
                             break;
                     }
                 }
-                
             }
         }
 
-        static void CustomModify(string customFile)
+        //-pick 读取某个ini文件,把数据抽到InfoFile文件
+        //-modify 应用某个csv文件的内容，按照表中的各项装填给某个ini文件
+
+        private static string InfoFileName = "InfoPicked.csv";
+        static void ModifyTable(string table)
         {
-            string fp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
-            var fileEncode = FileEncodeUtil.EncodingType.GetType(fp);
-            var data = new LniModifyData(fp, fileEncode);
-            string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, customFile);
-            LniModifyData.Apply(tablePath, data);
-            Console.WriteLine("modify info finish..");
+            string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, table);
+            string infoFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, InfoFileName);
+            OperateMgr.Instance.ModifyTableWithInfoFile(tablePath, infoFile);
         }
 
-        static void InfoPick()
+        static void InfoPick(string table)
         {
-            //从ini中读取需要的数据，导出成csv表格，要抽取的数据在InfoTemplate中，默认会抽取ID
-            string pp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "item.ini");
-            string pc = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoTemplate.csv");
-            var pick = new LniInfoPick(pp, pc);
-            string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InfoPicked.csv");
-            pick.SaveOut(outFile);
-            Console.WriteLine("pick info finish..");
-        }
-        static void ModifyApply()
-        {
-            CustomModify("item.ini");
+            string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, table);
+            string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, InfoFileName);
+            OperateMgr.Instance.InfoPickFromTable(tablePath, outFile);
         }
     }
 }

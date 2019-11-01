@@ -5,11 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Win32.SafeHandles;
 
-namespace YoooTool.Code.Utils
+namespace ItemParse.Utils
 {
-
     /// <summary>
     /// 读取CSV文件
     /// CsvStreamReader[row,col]来读取，注意row,col都是从1开始的
@@ -43,7 +41,7 @@ namespace YoooTool.Code.Utils
             reader.LoadCsvFile();
             return reader;
         }
-        
+
         private ArrayList rowAL; //行链表,CSV文件的每一行就是一个链
         private string fileName; //文件名
         private Encoding encoding; //编码
@@ -215,8 +213,8 @@ namespace YoooTool.Code.Utils
                 }
             }
 
-            
-            
+
+
         }
         /// <summary>
         /// 判断字符串是否包含奇数个引号

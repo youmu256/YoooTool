@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YoooTool.Code.Utils;
-
+using ItemParse.Utils;
 namespace ItemParse.LniParser
 {
     public class InfoObject
@@ -41,10 +40,9 @@ namespace ItemParse.LniParser
         public string OutPutFile { get; private set; }
         public LniInfoPick(string file,string outputFile)
         {
+            //从ini中读取需要的数据，导出成csv表格，要抽取的数据在InfoTemplate中，默认会抽取ID
             FilePath = file;
             OutPutFile = outputFile;
-
-            
         }
 
         public void SaveOut(string path)

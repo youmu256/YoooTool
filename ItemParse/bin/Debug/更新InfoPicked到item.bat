@@ -1,4 +1,4 @@
-echo off
+@echo off
 set lniPath=D:\MyData\MyFiles\w3x2lni_zhCN_v2.5.2\w2l
 set dataPath=D:\VS2015Work\YoooTool\ItemParse\bin\Debug
 set mapName=DeadNight

@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YoooTool.Code.Utils;
-
+using ItemParse.Utils;
 namespace ItemParse.LniParser
 {
 
@@ -67,6 +66,11 @@ namespace ItemParse.LniParser
                 {
                     string k = modify.Key;
                     string v = modify.Value;
+                    if (INIHelper.ReadString(section, k, null, dataTablePath) == null)
+                    {
+                        Console.WriteLine("Can't To Write New Section : "+section);
+                        continue;
+                    }
                     INIHelper.WriteString(section, k, v, dataTablePath);
                     Console.WriteLine(string.Format("modify:{0}:{1},{2}", section,k,v));
                 }

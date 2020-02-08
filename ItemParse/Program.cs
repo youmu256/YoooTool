@@ -41,6 +41,17 @@ namespace ItemParse
                             ModifyTable(args[1]);
                             break;
                     }
+                }else if(argsCount == 3)
+                {
+                    switch (key)
+                    {
+                        case "-pick":
+                            InfoPick(args[1],args[2]);
+                            break;
+                        case "-modify":
+                            ModifyTable(args[1],args[2]);
+                            break;
+                    }
                 }
             }
         }
@@ -49,17 +60,21 @@ namespace ItemParse
         //-modify 应用某个csv文件的内容，按照表中的各项装填给某个ini文件
 
         private static string InfoFileName = "InfoPicked.csv";
-        static void ModifyTable(string table)
+        static void ModifyTable(string table,string applyTable = null)
         {
+            if (string.IsNullOrEmpty(applyTable))
+                applyTable = InfoFileName;
             string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, table);
-            string infoFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, InfoFileName);
+            string infoFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, applyTable);
             OperateMgr.Instance.ModifyTableWithInfoFile(tablePath, infoFile);
         }
 
-        static void InfoPick(string table)
+        static void InfoPick(string table,string outputFile = null)
         {
+            if (string.IsNullOrEmpty(outputFile))
+                outputFile = InfoFileName;
             string tablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, table);
-            string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, InfoFileName);
+            string outFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, outputFile);
             OperateMgr.Instance.InfoPickFromTable(tablePath, outFile);
         }
     }

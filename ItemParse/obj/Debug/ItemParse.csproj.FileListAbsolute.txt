@@ -6,8 +6,6 @@ D:\VS2015Work\YoooTool\ItemParse\obj\Debug\ItemParse.pdb
 D:\GithubWork\YoooTool\ItemParse\bin\Debug\ItemParse.exe.config
 D:\GithubWork\YoooTool\ItemParse\bin\Debug\ItemParse.exe
 D:\GithubWork\YoooTool\ItemParse\bin\Debug\ItemParse.pdb
-D:\GithubWork\YoooTool\ItemParse\bin\Debug\YoooTool.exe
-D:\GithubWork\YoooTool\ItemParse\bin\Debug\YoooTool.pdb
 D:\GithubWork\YoooTool\ItemParse\obj\Debug\ItemParse.csprojResolveAssemblyReference.cache
 D:\GithubWork\YoooTool\ItemParse\obj\Debug\ItemParse.exe
 D:\GithubWork\YoooTool\ItemParse\obj\Debug\ItemParse.pdb

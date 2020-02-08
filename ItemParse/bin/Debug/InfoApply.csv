@@ -1,0 +1,66 @@
+ID,Name,Tip,Description,Ubertip
+I00I,|cffffffcc新兵勋章|r - [Other],|cffffffcc新兵勋章|r - [Other],新兵勋章，鼓舞那些有勇气战斗的战士。|n|cffffcc00限制组:Other 生命:50 力量:5 敏捷:5 智力:5|r,新兵勋章，鼓舞那些有勇气战斗的战士。|n|cffffcc00限制组:Other 生命:50 力量:5 敏捷:5 智力:5|r
+I003,|cffffffccEOT-512全息瞄具|r - [Scope],|cffffffccEOT-512全息瞄具|r - [Scope],EOT-512全息瞄具，一般的配件，为武器增加稳定性|n|cffffcc00限制组:Scope 攻击:4 稳定百分比:50.0%|r,EOT-512全息瞄具，一般的配件，为武器增加稳定性|n|cffffcc00限制组:Scope 攻击:4 稳定百分比:50.0%|r
+I022,|cffffffccAMP红点瞄具|r - [Scope],|cffffffccAMP红点瞄具|r - [Scope],AMP红点瞄具，能够有效增加稳定。|n|cffffcc00限制组:Scope 稳定百分比:100.0%|r,AMP红点瞄具，能够有效增加稳定。|n|cffffcc00限制组:Scope 稳定百分比:100.0%|r
+I021,|cffffffccIOP外骨骼-X1|r - [Cloth],|cffffffccIOP外骨骼-X1|r - [Cloth],IOP外骨骼-X1型，能够得到小幅度的闪避提升|n|cffffcc00限制组:Cloth 生命:25 闪避百分比:8.0%|r,IOP外骨骼-X1型，能够得到小幅度的闪避提升|n|cffffcc00限制组:Cloth 生命:25 闪避百分比:8.0%|r
+I019,|cffffffccC-空尖弹|r - [Bullet],|cffffffccC-空尖弹|r - [Bullet],C级空尖弹，能够有效的提升攻击|n|cffffcc00限制组:Bullet 攻击百分比:20.0%|r,C级空尖弹，能够有效的提升攻击|n|cffffcc00限制组:Bullet 攻击百分比:20.0%|r
+I00X,|cffffffccC-穿甲弹|r - [Bullet],|cffffffccC-穿甲弹|r - [Bullet],C级穿甲弹，能够有效的击穿部分装甲|n|cffffcc00限制组:Bullet 穿透百分比:20.0%|r,C级穿甲弹，能够有效的击穿部分装甲|n|cffffcc00限制组:Bullet 穿透百分比:20.0%|r
+I00Y,|cffffffccC-高速弹|r - [Bullet],|cffffffccC-高速弹|r - [Bullet],C级高速弹，能够快速的射击|n|cffffcc00限制组:Bullet 敏捷:4 攻速百分比:15.0%|r,C级高速弹，能够快速的射击|n|cffffcc00限制组:Bullet 敏捷:4 攻速百分比:15.0%|r
+I00Z,|cffffffccType防弹插板|r - [Cloth],|cffffffccType防弹插板|r - [Cloth],Type防弹插板，战场上的钢板，属于第一代装备|n|cffffcc00限制组:Cloth 生命:20 防御:5 闪避百分比:-25.0% debuff抵抗百分比:10.0%|r,Type防弹插板，战场上的钢板，属于第一代装备|n|cffffcc00限制组:Cloth 生命:20 防御:5 闪避百分比:-25.0% debuff抵抗百分比:10.0%|r
+I010,|cffffffcc小型弹链箱|r - [Clip],|cffffffcc小型弹链箱|r - [Clip],能够扩充弹夹容量的小型模块|n|cffffcc00限制组:Clip 魔法百分比:10.0%|r,能够扩充弹夹容量的小型模块|n|cffffcc00限制组:Clip 魔法百分比:10.0%|r
+I012,|cffffffccIOP外骨骼-X2|r - [Cloth],|cffffffccIOP外骨骼-X2|r - [Cloth],IOP外骨骼-X2型，进一步提高效率，得到更好的闪避提升|n|cffffcc00限制组:Cloth 生命:20 闪避百分比:15.0%|r,IOP外骨骼-X2型，进一步提高效率，得到更好的闪避提升|n|cffffcc00限制组:Cloth 生命:20 闪避百分比:15.0%|r
+I013,|cffffffccEOT-516全息瞄具|r - [Scope],|cffffffccEOT-516全息瞄具|r - [Scope],EOT-516全息瞄具，进一步提高，为武器增加稳定性|n|cffffcc00限制组:Scope 攻击:4 稳定百分比:150.0%|r,EOT-516全息瞄具，进一步提高，为武器增加稳定性|n|cffffcc00限制组:Scope 攻击:4 稳定百分比:150.0%|r
+I014,|cffffffccCOG红点瞄具|r - [Scope],|cffffffccCOG红点瞄具|r - [Scope],COG红点瞄具，废弃的瞄具，能够略微提高稳定性|n|cffffcc00限制组:Scope 稳定百分比:150.0%|r,COG红点瞄具，废弃的瞄具，能够略微提高稳定性|n|cffffcc00限制组:Scope 稳定百分比:150.0%|r
+I015,|cffffffcc中型弹链箱|r - [Clip],|cffffffcc中型弹链箱|r - [Clip],中型弹链箱，能够通过模块化扩充子弹数量|n|cffffcc00限制组:Clip 闪避百分比:-10.0% 魔法百分比:25.0%|r,中型弹链箱，能够通过模块化扩充子弹数量|n|cffffcc00限制组:Clip 闪避百分比:-10.0% 魔法百分比:25.0%|r
+I016,|cffffffccType2防弹插板|r - [Cloth],|cffffffccType2防弹插板|r - [Cloth],Type2防弹插板，第二代装备，能够更有力的保护战士|n|cffffcc00限制组:Cloth 防御:10 闪避百分比:-10.0%|r,Type2防弹插板，第二代装备，能够更有力的保护战士|n|cffffcc00限制组:Cloth 防御:10 闪避百分比:-10.0%|r
+I017,|cffffffccAC3-消音器|r - [Silencer],|cffffffccAC3-消音器|r - [Silencer],AC3-消音器，为枪口添加配件，增加了稳定性|n|cffffcc00限制组:Silencer 稳定百分比:200.0%|r,AC3-消音器，为枪口添加配件，增加了稳定性|n|cffffcc00限制组:Silencer 稳定百分比:200.0%|r
+I03D,|cffffffccIOP外骨骼-T1|r - [Cloth],|cffffffccIOP外骨骼-T1|r - [Cloth],IOP外骨骼T1型，外骨骼装甲能够提高行动力|n|cffffcc00限制组:Cloth 生命:20 防御:5 闪避百分比:10.0%|r,IOP外骨骼T1型，外骨骼装甲能够提高行动力|n|cffffcc00限制组:Cloth 生命:20 防御:5 闪避百分比:10.0%|r
+I03C,|cffffffcc伪装披风|r - [Cloth],|cffffffcc伪装披风|r - [Cloth],伪装披风，在部分地形看起来可能会显得隐蔽一点|n|cffffcc00限制组:Cloth 敏捷:2 爆头百分比:8.0% 闪避百分比:15.0% debuff抵抗百分比:10.0%|r,伪装披风，在部分地形看起来可能会显得隐蔽一点|n|cffffcc00限制组:Cloth 敏捷:2 爆头百分比:8.0% 闪避百分比:15.0% debuff抵抗百分比:10.0%|r
+I03E,|cffffffcc中型防护服|r - [Cloth],|cffffffcc中型防护服|r - [Cloth],中型防护服，能够有效抵挡攻击|n|cffffcc00限制组:Cloth 生命:50 防御:10 闪避百分比:-10.0% debuff抵抗百分比:15.0%|r,中型防护服，能够有效抵挡攻击|n|cffffcc00限制组:Cloth 生命:50 防御:10 闪避百分比:-10.0% debuff抵抗百分比:15.0%|r
+I00H,|cffffffcc标准速射模块|r - [Other],|cffffffcc标准速射模块|r - [Other],标准式速射模块，能够有效的增加射速|n|cffffcc00限制组:Other 攻速百分比:10.0%|r,标准式速射模块，能够有效的增加射速|n|cffffcc00限制组:Other 攻速百分比:10.0%|r
+I01A,|cffffffcc突击勋章|r - [Other],|cffffffcc突击勋章|r - [Other],突击勋章，鼓舞前线士兵，进攻是最好的防守！|n|cffffcc00限制组:Other 力量:10 敏捷:15|r,突击勋章，鼓舞前线士兵，进攻是最好的防守！|n|cffffcc00限制组:Other 力量:10 敏捷:15|r
+I01B,|cffffffcc扩充弹夹箱|r - [Clip],|cffffffcc扩充弹夹箱|r - [Clip],扩充弹夹箱，为武器安装扩充模块，增加子弹上限|n|cffffcc00限制组:Clip 闪避百分比:-10.0% 魔法百分比:50.0%|r,扩充弹夹箱，为武器安装扩充模块，增加子弹上限|n|cffffcc00限制组:Clip 闪避百分比:-10.0% 魔法百分比:50.0%|r
+I01C,|cffffffcc全地行军鞋|r - [Shoes],|cffffffcc全地行军鞋|r - [Shoes],全地行军靴，据说能在各种地形上快速行走|n|cffffcc00限制组:Shoes 闪避百分比:15.0%|r,全地行军靴，据说能在各种地形上快速行走|n|cffffcc00限制组:Shoes 闪避百分比:15.0%|r
+I01D,|cffff00ff重型防护服|r - [Cloth],|cffff00ff重型防护服|r - [Cloth],重型防护服，能够有效抵挡攻击，但是会造成行动不便|n|cffffcc00限制组:Cloth 生命:100 防御:20 闪避百分比:-10.0% debuff抵抗百分比:25.0%|r,重型防护服，能够有效抵挡攻击，但是会造成行动不便|n|cffffcc00限制组:Cloth 生命:100 防御:20 闪避百分比:-10.0% debuff抵抗百分比:25.0%|r
+I01E,|cffffffcc精英勋章|r - [Other],|cffffffcc精英勋章|r - [Other],精英勋章，赞美那些勇往直前的战场精英。|n|cffffcc00限制组:Other 力量:15 敏捷:15 智力:15|r,精英勋章，赞美那些勇往直前的战场精英。|n|cffffcc00限制组:Other 力量:15 敏捷:15 智力:15|r
+I01F,|cffffff00中级速射模块|r - [Other],|cffffff00中级速射模块|r - [Other],在基础速射模块上做了调整，可以使得射速变得略快|n|cffffcc00限制组:Other 攻速百分比:25.0% 穿透百分比:10.0%|r,在基础速射模块上做了调整，可以使得射速变得略快|n|cffffcc00限制组:Other 攻速百分比:25.0% 穿透百分比:10.0%|r
+I01G,|cffff00ff大容量弹链箱|r - [Clip],|cffff00ff大容量弹链箱|r - [Clip],进一步扩大容量弹夹，能够增加大量子弹|n|cffffcc00限制组:Clip 魔法百分比:100.0%|r,进一步扩大容量弹夹，能够增加大量子弹|n|cffffcc00限制组:Clip 魔法百分比:100.0%|r
+I00G,|cffff00ff高级速射模块|r - [Other],|cffff00ff高级速射模块|r - [Other],在基础上进行了改进，能够进一步提升射速|n|cffffcc00限制组:Other 攻速百分比:50.0% 穿透百分比:20.0%|r,在基础上进行了改进，能够进一步提升射速|n|cffffcc00限制组:Other 攻速百分比:50.0% 穿透百分比:20.0%|r
+I01H,|cffffffcc葬送勋章|r - [Other],|cffffffcc葬送勋章|r - [Other],陪送给英勇奋战的每一位战士，沐浴鲜血，葬送敌人|n|cffffcc00限制组:Other 力量:25 敏捷:25 智力:25|r,陪送给英勇奋战的每一位战士，沐浴鲜血，葬送敌人|n|cffffcc00限制组:Other 力量:25 敏捷:25 智力:25|r
+I01I,|cffffffccITI 红点瞄准器|r - [Scope],|cffffffccITI 红点瞄准器|r - [Scope],ITI系列红点瞄准镜，具有特别精准的瞄准度|n|cffffcc00限制组:Scope 攻击:10 稳定百分比:400.0%|r,ITI系列红点瞄准镜，具有特别精准的瞄准度|n|cffffcc00限制组:Scope 攻击:10 稳定百分比:400.0%|r
+I01J,|cffff0000极限弹链箱|r - [Clip],|cffff0000极限弹链箱|r - [Clip],将弹链箱的能力扩充至最大，最大化子弹量|n|cffffcc00限制组:Clip 魔法百分比:200.0%|r,将弹链箱的能力扩充至最大，最大化子弹量|n|cffffcc00限制组:Clip 魔法百分比:200.0%|r
+I01K,|cffff0000心肺加速器|r - [Other],|cffff0000心肺加速器|r - [Other],心肺加速器，提高人体的各个器官的血液循环能力|n|cffffcc00限制组:Other 生命:450 攻速百分比:75.0%|r,心肺加速器，提高人体的各个器官的血液循环能力|n|cffffcc00限制组:Other 生命:450 攻速百分比:75.0%|r
+I01L,|cffff0000荣耀之星|r - [Other],|cffff0000荣耀之星|r - [Other],荣耀之星，属于士兵的最高级勋章|n|cffffcc00限制组:Other 生命:100 防御:10 力量:35 敏捷:35 智力:35 爆头百分比:20.0% 闪避百分比:20.0% 稳定百分比:20.0% 攻击百分比:20.0%|r,荣耀之星，属于士兵的最高级勋章|n|cffffcc00限制组:Other 生命:100 防御:10 力量:35 敏捷:35 智力:35 爆头百分比:20.0% 闪避百分比:20.0% 稳定百分比:20.0% 攻击百分比:20.0%|r
+I02I,|cffffffccD-空尖弹|r - [Bullet],|cffffffccD-空尖弹|r - [Bullet],D级空尖弹，效果有点劣质|n|cffffcc00限制组:Bullet 攻击百分比:20.0%|r,D级空尖弹，效果有点劣质|n|cffffcc00限制组:Bullet 攻击百分比:20.0%|r
+I02F,|cffffffccD-穿甲弹|r - [Bullet],|cffffffccD-穿甲弹|r - [Bullet],D级穿甲弹，效果有点劣质|n|cffffcc00限制组:Bullet 穿透百分比:10.0%|r,D级穿甲弹，效果有点劣质|n|cffffcc00限制组:Bullet 穿透百分比:10.0%|r
+I02E,|cffffffccD-高速弹|r - [Bullet],|cffffffccD-高速弹|r - [Bullet],D级高速弹，效果有点劣质|n|cffffcc00限制组:Bullet 攻速百分比:10.0% 攻击百分比:10.0%|r,D级高速弹，效果有点劣质|n|cffffcc00限制组:Bullet 攻速百分比:10.0% 攻击百分比:10.0%|r
+I02N,|cffffffccE-空尖弹|r - [Bullet],|cffffffccE-空尖弹|r - [Bullet],E级空尖弹，可能有点损坏？|n|cffffcc00限制组:Bullet 攻击百分比:10.0%|r,E级空尖弹，可能有点损坏？|n|cffffcc00限制组:Bullet 攻击百分比:10.0%|r
+I02K,|cffffffccE-穿甲弹|r - [Bullet],|cffffffccE-穿甲弹|r - [Bullet],E级穿甲弹，可能有点损坏？|n|cffffcc00限制组:Bullet 穿透百分比:5.0%|r,E级穿甲弹，可能有点损坏？|n|cffffcc00限制组:Bullet 穿透百分比:5.0%|r
+I02M,|cffffffccE-高速弹|r - [Bullet],|cffffffccE-高速弹|r - [Bullet],E级高速弹，可能有点损坏？|n|cffffcc00限制组:Bullet 攻速百分比:10.0%|r,E级高速弹，可能有点损坏？|n|cffffcc00限制组:Bullet 攻速百分比:10.0%|r
+I02C,|cffffffccB-空尖弹|r - [Bullet],|cffffffccB-空尖弹|r - [Bullet],B级空尖弹，表面有点光泽|n|cffffcc00限制组:Bullet 攻击百分比:30.0%|r,B级空尖弹，表面有点光泽|n|cffffcc00限制组:Bullet 攻击百分比:30.0%|r
+I02J,|cffffffccB-穿甲弹|r - [Bullet],|cffffffccB-穿甲弹|r - [Bullet],B级穿甲弹，能够穿透大部分敌人的穿甲|n|cffffcc00限制组:Bullet 力量:3 敏捷:3 智力:3 爆头百分比:10.0% 穿透百分比:35.0%|r,B级穿甲弹，能够穿透大部分敌人的穿甲|n|cffffcc00限制组:Bullet 力量:3 敏捷:3 智力:3 爆头百分比:10.0% 穿透百分比:35.0%|r
+I02O,|cffffffccB-高速弹|r - [Bullet],|cffffffccB-高速弹|r - [Bullet],B级高速弹，强力的子弹快速击打敌人|n|cffffcc00限制组:Bullet 攻速百分比:30.0% 攻击百分比:40.0%|r,B级高速弹，强力的子弹快速击打敌人|n|cffffcc00限制组:Bullet 攻速百分比:30.0% 攻击百分比:40.0%|r
+I02B,|cffffffccA-空尖弹|r - [Bullet],|cffffffccA-空尖弹|r - [Bullet],A级空尖弹，光滑尖锐的弹头击穿没有护甲的敌人|n|cffffcc00限制组:Bullet 攻击百分比:45.0%|r,A级空尖弹，光滑尖锐的弹头击穿没有护甲的敌人|n|cffffcc00限制组:Bullet 攻击百分比:45.0%|r
+I02H,|cffffffccA-穿甲弹|r - [Bullet],|cffffffccA-穿甲弹|r - [Bullet],A级穿甲弹，一枚子弹，一个敌人|n|cffffcc00限制组:Bullet 力量:6 敏捷:6 智力:6 爆头百分比:20.0% 穿透百分比:50.0%|r,A级穿甲弹，一枚子弹，一个敌人|n|cffffcc00限制组:Bullet 力量:6 敏捷:6 智力:6 爆头百分比:20.0% 穿透百分比:50.0%|r
+I027,|cffffffccA-高速弹|r - [Bullet],|cffffffccA-高速弹|r - [Bullet],A级高速弹，保护我的队友，痛击我的敌人|n|cffffcc00限制组:Bullet 攻速百分比:50.0% 攻击百分比:35.0%|r,A级高速弹，保护我的队友，痛击我的敌人|n|cffffcc00限制组:Bullet 攻速百分比:50.0% 攻击百分比:35.0%|r
+I02W,|cffffffcc防毒面具|r - [Bullet],|cffffffcc防毒面具|r - [Bullet],军用防毒面具，能够简单的保护不受感染|n|cffffcc00限制组:Bullet 生命:30 防御:3 力量:2 敏捷:2 智力:2 debuff抵抗百分比:35.0%|r,军用防毒面具，能够简单的保护不受感染|n|cffffcc00限制组:Bullet 生命:30 防御:3 力量:2 敏捷:2 智力:2 debuff抵抗百分比:35.0%|r
+I02V,|cffffffcc纳米装甲|r - [Cloth],|cffffffcc纳米装甲|r - [Cloth],用纳米材质打造而成的装甲，十分坚固，但由于技术问题，导致射击稳定和机能性质协调失衡|n|cffffcc00限制组:Cloth 生命:500 防御:20 闪避百分比:-100.0% 稳定百分比:-100.0% debuff抵抗百分比:100.0%|r,用纳米材质打造而成的装甲，十分坚固，但由于技术问题，导致射击稳定和机能性质协调失衡|n|cffffcc00限制组:Cloth 生命:500 防御:20 闪避百分比:-100.0% 稳定百分比:-100.0% debuff抵抗百分比:100.0%|r
+I02R,|cffffffcc机械义肢|r - [Other],|cffffffcc机械义肢|r - [Other],机械金属打造的义肢，也可以作为辅助手装备|n|cffffcc00限制组:Other 防御:-10 敏捷:10 攻速百分比:50.0% 爆头百分比:30.0% 稳定百分比:200.0%|r,机械金属打造的义肢，也可以作为辅助手装备|n|cffffcc00限制组:Other 防御:-10 敏捷:10 攻速百分比:50.0% 爆头百分比:30.0% 稳定百分比:200.0%|r
+I02Q,|cffffffcc英雄的遗产|r - [Other],|cffffffcc英雄的遗产|r - [Other],进攻是最好的防守|n|cffffcc00限制组:Other 稳定百分比:30.0% 穿透百分比:30.0% 攻击百分比:30.0%|r,进攻是最好的防守|n|cffffcc00限制组:Other 稳定百分比:30.0% 穿透百分比:30.0% 攻击百分比:30.0%|r
+I032,|cffffffcc夜莺的歌声|r - [Other],|cffffffcc夜莺的歌声|r - [Other],当炮火再次响起，夜莺敲响钟楼，城楼早已空无一人|n|cffffcc00限制组:Other 闪避百分比:45.0%|r,当炮火再次响起，夜莺敲响钟楼，城楼早已空无一人|n|cffffcc00限制组:Other 闪避百分比:45.0%|r
+I031,|cffffffcc鸡毛信|r - [Other],|cffffffcc鸡毛信|r - [Other],一份未拆封的鸡毛信|n|cffffcc00限制组:Other 力量:1 敏捷:1 智力:1|r,一份未拆封的鸡毛信|n|cffffcc00限制组:Other 力量:1 敏捷:1 智力:1|r
+I034,|cffffffcc托列斯夫军衣|r - [Cloth],|cffffffcc托列斯夫军衣|r - [Cloth],只是一件破旧的军衣|n|cffffcc00限制组:Cloth 防御:5 debuff抵抗百分比:10.0%|r,只是一件破旧的军衣|n|cffffcc00限制组:Cloth 防御:5 debuff抵抗百分比:10.0%|r
+I02S,|cffffffcc十字军的奖章|r - [Other],|cffffffcc十字军的奖章|r - [Other],向往着胜利的军章|n|cffffcc00限制组:Other 生命:50 魔法:10 攻击:5 防御:5 力量:5 敏捷:5 智力:5|r,向往着胜利的军章|n|cffffcc00限制组:Other 生命:50 魔法:10 攻击:5 防御:5 力量:5 敏捷:5 智力:5|r
+I02T,|cffffffcc绝缘衣|r - [Cloth],|cffffffcc绝缘衣|r - [Cloth],能够与“特殊物体”绝缘的衣物，请用途不明|n|cffffcc00限制组:Cloth 防御:5 debuff抵抗百分比:30.0%|r,能够与“特殊物体”绝缘的衣物，请用途不明|n|cffffcc00限制组:Cloth 防御:5 debuff抵抗百分比:30.0%|r
+I033,|cffffffcc军用锁甲披风|r - [Cloth],|cffffffcc军用锁甲披风|r - [Cloth],军用常备，披在身上显得特别威风|n|cffffcc00限制组:Cloth 防御:12 力量:6 智力:2|r,军用常备，披在身上显得特别威风|n|cffffcc00限制组:Cloth 防御:12 力量:6 智力:2|r
+I03B,|cffffffcc尼龙纤维面罩|r - [Mask],|cffffffcc尼龙纤维面罩|r - [Mask],军用常备，能够防止一定的灰尘沙土|n|cffffcc00限制组:Mask 防御:3 debuff抵抗百分比:20.0%|r,军用常备，能够防止一定的灰尘沙土|n|cffffcc00限制组:Mask 防御:3 debuff抵抗百分比:20.0%|r
+I02P,|cffffffcc护目镜|r - [Mask],|cffffffcc护目镜|r - [Mask],军用常备，能够抵挡一定的灰尘沙土及柔光|n|cffffcc00限制组:Mask 爆头百分比:20.0% 稳定百分比:50.0%|r,军用常备，能够抵挡一定的灰尘沙土及柔光|n|cffffcc00限制组:Mask 爆头百分比:20.0% 稳定百分比:50.0%|r
+I039,|cffffffcc战术护膝|r - [Other],|cffffffcc战术护膝|r - [Other],军用常备，能够防止膝盖受到严重损伤|n|cffffcc00限制组:Other 防御:3 力量:2|r,军用常备，能够防止膝盖受到严重损伤|n|cffffcc00限制组:Other 防御:3 力量:2|r
+I03A,|cffffffcc战术护肘|r - [Other],|cffffffcc战术护肘|r - [Other],军用常备，能够保护护肘免受严重损伤|n|cffffcc00限制组:Other 防御:3 智力:2|r,军用常备，能够保护护肘免受严重损伤|n|cffffcc00限制组:Other 防御:3 智力:2|r
+I036,|cffffffcc防弹裤式护踝|r - [Other],|cffffffcc防弹裤式护踝|r - [Other],防弹裤式护踝，具有防弹效果|n|cffffcc00限制组:Other 防御:5 敏捷:2|r,防弹裤式护踝，具有防弹效果|n|cffffcc00限制组:Other 防御:5 敏捷:2|r
+I037,|cffffffcc防弹作战靴|r - [Shoes],|cffffffcc防弹作战靴|r - [Shoes],防弹作战靴，具有防弹效果|n|cffffcc00限制组:Shoes 防御:5 力量:3|r,防弹作战靴，具有防弹效果|n|cffffcc00限制组:Shoes 防御:5 力量:3|r
+I035,|cffffffcc战术护手|r - [Other],|cffffffcc战术护手|r - [Other],军用常备，能够保护好手腕免受一定损伤|n|cffffcc00限制组:Other 防御:3 敏捷:3|r,军用常备，能够保护好手腕免受一定损伤|n|cffffcc00限制组:Other 防御:3 敏捷:3|r
+I038,|cffffffcc战术背心|r - [Cloth],|cffffffcc战术背心|r - [Cloth],军用常备，具有一定的保护作用|n|cffffcc00限制组:Cloth 生命:30 防御:2 debuff抵抗百分比:10.0%|r,军用常备，具有一定的保护作用|n|cffffcc00限制组:Cloth 生命:30 防御:2 debuff抵抗百分比:10.0%|r
+I03F,|cffffffcc防护镜|r - [Mask],|cffffffcc防护镜|r - [Mask],保护眼睛免受强烈裂风等影响|n|cffffcc00限制组:Mask 爆头百分比:10.0% 稳定百分比:100.0%|r,保护眼睛免受强烈裂风等影响|n|cffffcc00限制组:Mask 爆头百分比:10.0% 稳定百分比:100.0%|r
+I023,|cffffffcc防弹头盔|r - [Mask],|cffffffcc防弹头盔|r - [Mask],军用常备，免受些许子弹等击穿头盔|n|cffffcc00限制组:Mask 防御:3|r,军用常备，免受些许子弹等击穿头盔|n|cffffcc00限制组:Mask 防御:3|r
+I007,|cffffffcc轻型防护服|r - [Cloth],|cffffffcc轻型防护服|r - [Cloth],轻型防护服，轻装上阵必备|n|cffffcc00限制组:Cloth 生命:20 防御:5|r,轻型防护服，轻装上阵必备|n|cffffcc00限制组:Cloth 生命:20 防御:5|r

@@ -356,10 +356,11 @@ namespace YoooTool.Code.Slk
             var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
             foreach (var propertyInfo in properties)
             {
-                string file = propertyInfo.PropertyType.GetGenericArguments()[0].Name + ".csv";
-                Console.WriteLine("Handler_DeSerialize : " + file);
+                //string file = propertyInfo.PropertyType.GetGenericArguments()[0].Name + ".csv";
+                //Console.WriteLine("Handler_DeSerialize : " + file);
+                Console.WriteLine("Handler_DeSerialize : " + propertyInfo.PropertyType.GetGenericArguments()[0].Name);
                 var des = propertyInfo.PropertyType.GetMethod("Handler_DeSerialize", BindingFlags.Public | BindingFlags.Instance);
-                des.Invoke(propertyInfo.GetValue(this), new object[] { file });
+                des.Invoke(propertyInfo.GetValue(this), new object[] { null });
             }
             SearchMapInit();
             ExcuteOnDeserialize();

@@ -11,6 +11,10 @@ namespace YoooTool.Code.Slk
     public interface ISlkData_Handler
     {
         string Handler_Serialize();
+        /// <summary>
+        /// 反射调用
+        /// </summary>
+        /// <param name="data"></param>
         void Handler_DeSerialize(object data = null);
         /// <summary>
         /// 处理其他实例引用
@@ -74,11 +78,17 @@ namespace YoooTool.Code.Slk
         }
 
         private CsvStreamReader reader;
+        /// <summary>
+        /// 反射调用
+        /// </summary>
+        /// <param name="data"></param>
         public void Handler_DeSerialize(object data = null)
         {
             if (data == null)
             {
-                data = GetType().GetGenericArguments()[0].GetType().Name + ".csv";
+                //自动尝试找到file
+                //data = GetType().GetGenericArguments()[0].GetType().Name + ".csv";
+                data = ExportHelper.GetPathFileName(GetType().GetGenericArguments()[0].GetType().Name, ".csv");
             }
             Console.WriteLine(data);
             IdMap.Clear();

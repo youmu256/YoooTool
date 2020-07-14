@@ -14,6 +14,11 @@ namespace YoooTool.Code.Slk
 
     public class ExportHelper
     {
+        public static string GetPathFileName(string fileName, string ext=".jass")
+        {
+            return "LevelCfg/" + fileName + ext;
+        }
+
         public void ExportAllLevel2Jass(bool split = false)
         {
             var levels = SlkManager.Instance.LevelTab.GetAllData();
@@ -21,7 +26,7 @@ namespace YoooTool.Code.Slk
             {
                 foreach (var slkLevel in levels)
                 {
-                    File.WriteAllText("LevelCfg/" + slkLevel.Id + ".jass", slkLevel.GetJassConfig());
+                    File.WriteAllText(GetPathFileName(slkLevel.Id), slkLevel.GetJassConfig());
                 }
             }
             else
@@ -32,7 +37,7 @@ namespace YoooTool.Code.Slk
                     sb.AppendLine(string.Format("//------{0}------", slkLevel.Id));
                     sb.AppendLine(slkLevel.GetJassConfig());
                 }
-                File.WriteAllText("LevelCfg/" + "AllLevel" + ".jass", sb.ToString());
+                File.WriteAllText(GetPathFileName("AllLevel"), sb.ToString());
             }
         }
 
@@ -57,7 +62,7 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("call RecordSpawnnerCfg(\"{0}\",{1},{2})", poolName, lastTime, interval));
                 sb.AppendLine();
             }
-            File.WriteAllText("EnemySpawnner.jass", sb.ToString());
+            File.WriteAllText(GetPathFileName("EnemySpawnner"), sb.ToString());
         }
 
         public void ExportEnemyGroup2Jass()
@@ -77,7 +82,7 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("set dataLength = {0}", data.EnemyList.Count));
                 sb.AppendLine(string.Format("call RecordCurrentToLevel_WithId(\"{0}\",{1})", data.Id, data.Level));
             }
-            File.WriteAllText("EnemyGroup.jass", sb.ToString());
+            File.WriteAllText(GetPathFileName("EnemyGroup"), sb.ToString());
         }
     }
 

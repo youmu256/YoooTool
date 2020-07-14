@@ -8,6 +8,54 @@ library WeightPoolLib
 		return StringHash(poolName + "_Pool")
 	endfunction
 	
+	public function Clear takes pool returns nothing
+		//清理
+		local integer pk = GetPoolHash(targetPool)
+		//直接清理pk
+	endfunction
+	
+	//如果要一个临时的池的话
+	public function Clone takes string clonePool,string targetPool returns nothing
+		local integer pk = GetPoolHash(targetPool)
+		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))
+		local integer i = 0
+		local real weight
+		local integer data
+		loop
+			exitwhen i >= itemLength
+			set i = i + 1
+			set weight = LoadReal(ht,pk,StringHash("weight_"+I2S(i)))
+			set data = LoadInteger(ht,pk,StringHash("data_"+I2S(i)))
+			call RegistPool_Int(clonePool,data,weight)
+		endloop
+	endfunction
+	
+	public function ModifyData takes string pool,int matchData,real modifiedWeight returns nothing
+		local integer pk = GetPoolHash(pool)
+		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))
+		local real totalWeight = LoadReal(ht,pk,StringHash("totalWeight"))
+		local integer i = 0
+		local real weight
+		local integer data
+		local integer existIndex = -1
+		loop
+			exitwhen i >= itemLength
+			set i = i + 1
+			set weight = LoadReal(ht,pk,StringHash("weight_"+I2S(i)))
+			set data = LoadInteger(ht,pk,StringHash("data_"+I2S(i)))
+			if(matchData == data) then
+				set existIndex = i
+				exitwhen true
+			endif
+		endloop
+		if (existIndex>=0) then
+			//update
+			call SaveReal(ht,pk,StringHash("weight_"+I2S(existIndex)),modifiedWeight)
+			call SaveReal(ht,pk,StringHash("totalWeight"),totalWeight+modifiedWeight-weight)
+		endif
+		
+	endfunction
+	
 	public function GetRandom_Int takes string poolName returns integer data
 		local integer pk = GetPoolHash(poolName)
 		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))

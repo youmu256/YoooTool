@@ -320,6 +320,89 @@ namespace YoooTool.Code.Slk
             return sb.ToString();
         }
     }
+
+    public class SLK_LootItem : SlkDataObject
+    {
+        [SlkProperty(1)]
+        public string WeId { get; set; }
+
+        public override string Slk_Serialize()
+        {
+            return GetProperty2Csv();
+        }
+
+        public override void Slk_DeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+                Id = srr[0];
+                WeId = srr[1];
+            }
+        }
+
+        public override string GetJass()
+        {
+            return "'" + WeId + "'";
+        }
+    }
+
+    public class SLK_Loot : SlkDataObject
+    {
+        //固定
+        [SlkProperty(1)]
+        public List<string> Items { get; set; }
+
+        [SlkProperty(2)]
+        public int ConstCount { get; set; }
+
+        //随机
+        [SlkProperty(3)]
+        public RandomWeightPool<string> ItemIdPool { get; set; }
+
+        [SlkProperty(4)]
+        public int RandomCount { get; set; }
+        public override string Slk_Serialize()
+        {
+            return GetProperty2Csv();
+        }
+
+        public override void Slk_DeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+                Id = srr[0];
+                Items = SlkParseUtil.Config2IdList(srr[1]);
+                ConstCount = SlkParseUtil.Parse2Int(srr[2]);
+                ItemIdPool = SlkParseUtil.Config2IdPool(srr[3]);
+                RandomCount = SlkParseUtil.Parse2Int(srr[4]);
+            }
+        }
+
+        public override void Slk_LateDeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+
+            }
+        }
+
+        public override string GetJass()
+        {
+            return Id;
+            //string jass = string.Format("{0}@{1}@{2}", LastTime, Interval, Id);//SlkParseUtil.IdPool2Config(EnemyIdPool)
+            //return String.Format("{0}#{1}", "Loot", jass);
+        }
+        //导出配置
+        public string GetJassConfig()
+        {
+            StringBuilder sb = new StringBuilder();
+            return sb.ToString();
+        }
+    }
+
     #endregion
 
 

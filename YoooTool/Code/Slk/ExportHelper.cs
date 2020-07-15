@@ -90,6 +90,7 @@ namespace YoooTool.Code.Slk
             var list = SlkManager.Instance.LootTab.GetAllData();
             for (int i = 0; i < list.Count; i++)
             {
+                //列表存 随机池存
                 var data = list[i];
                 for (int j = 0; j < data.Items.Count; j++)
                 {

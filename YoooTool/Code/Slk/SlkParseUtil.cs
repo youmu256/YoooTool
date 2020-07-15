@@ -167,11 +167,13 @@ namespace YoooTool.Code.Slk
         public static RandomWeightPool<string> Config2IdPool(string data)
         {
             RandomWeightPool<string> pool = new RandomWeightPool<string>();
+            if (string.IsNullOrEmpty(data)) return pool;
             string[] srr = data.Split(SplitChar);
             foreach (var s in srr)
             {
                 string[] pair = s.Split('|');
-                pool.SetItemWeight(pair[0], float.Parse(pair[1]));
+                if(pair.Length>1)
+                    pool.SetItemWeight(pair[0], float.Parse(pair[1]));
             }
             return pool;
         }

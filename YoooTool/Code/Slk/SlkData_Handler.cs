@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +81,7 @@ namespace YoooTool.Code.Slk
         private CsvStreamReader reader;
         /// <summary>
         /// 反射调用
+        /// SLKManager.Init
         /// </summary>
         /// <param name="data"></param>
         public void Handler_DeSerialize(object data = null)
@@ -87,8 +89,12 @@ namespace YoooTool.Code.Slk
             if (data == null)
             {
                 //自动尝试找到file
-                //data = GetType().GetGenericArguments()[0].GetType().Name + ".csv";
-                data = ExportHelper.GetPathFileName(GetType().GetGenericArguments()[0].GetType().Name, ".csv");
+                string fileName = typeof(T).Name;
+                data = ExportHelper.GetPathFileName(fileName, ".csv");
+                if (!File.Exists(data.ToString()))
+                {
+                    Console.WriteLine("Not Load : "+fileName);
+                }
             }
             Console.WriteLine(data);
             IdMap.Clear();

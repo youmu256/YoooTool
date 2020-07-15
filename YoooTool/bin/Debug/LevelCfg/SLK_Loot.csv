@@ -1,3 +1,3 @@
 Id,Items,ConstCount,ItemPool,RandomCount
-1,exp|money,5,,
-2,exp|money,5,exp:10|money:5,10
+1,exp;money,5,,
+2,exp;money,5,exp|10;money|5,10

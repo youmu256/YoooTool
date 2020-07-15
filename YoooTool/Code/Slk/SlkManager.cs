@@ -256,7 +256,7 @@ namespace YoooTool.Code.Slk
         [SlkProperty(2)]
         public List<string> RefRooms { get; set; }
 
-        [SlkProperty(3)]
+        //[SlkProperty(3)]
         public List<SLK_Room> RefRooms_Ins { get; set; }
         /* TODO 将来实现
         /// <summary>
@@ -294,11 +294,14 @@ namespace YoooTool.Code.Slk
             if (srr != null)
             {
                 Console.WriteLine("----------------");
-                RefRooms_Ins = SlkParseUtil.Config2SlkList<SLK_Room>(srr[3]);
+                //引用Ins类型没有保存出去的数据
+                //存在的意义是什么呢？在代码中修改的时候，能按照引用正确记录？
+                RefRooms_Ins = SlkParseUtil.Config2SlkList<SLK_Room>(srr[2]);
                 foreach (var refRoomsIn in RefRooms_Ins)
                 {
                     Console.WriteLine(refRoomsIn.Id);
                 }
+                Console.WriteLine("----------------");
             }
         }
 
@@ -427,6 +430,7 @@ namespace YoooTool.Code.Slk
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
         public SlkData_Handler<SLK_Loot> LootTab { get; set; } = new SlkData_Handler<SLK_Loot>();
+        public SlkData_Handler<SLK_LootItem> LootItemTab { get; set; } = new SlkData_Handler<SLK_LootItem>();
 
 
         public static SlkManager Instance { get; private set; }
@@ -516,7 +520,7 @@ namespace YoooTool.Code.Slk
             }
             return data;
         }
-        //TODO 无T规范的模糊查找 GetSlkData
+        //TODO 无T规范的模糊查找 GetSlkData 有必要？
 
         //--给UI来操作--
         public void ModifyId()

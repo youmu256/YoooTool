@@ -1,0 +1,8 @@
+set dataArr[1] = 'expbook'
+set dataArr[2] = 'gold'
+set dataLength = 2
+call RecordLoot("1")
+set dataArr[1] = 'expbook'
+set dataArr[2] = 'gold'
+set dataLength = 2
+call RecordLoot("2")

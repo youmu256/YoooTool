@@ -92,13 +92,26 @@ namespace YoooTool.Code.Slk
             {
                 //列表存 随机池存
                 var data = list[i];
+
+                var dataKey = data.Id;
+                sb.AppendLine(string.Format("//--ConfigBegin--{0}--", dataKey));
                 for (int j = 0; j < data.Items.Count; j++)
                 {
                     var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(data.Items[j]);
                     sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, item));
                 }
                 sb.AppendLine(string.Format("set dataLength = {0}", data.Items.Count));
-                sb.AppendLine(string.Format("call RecordLoot(\"{0}\")", data.Id));
+
+                foreach (var pair in data.ItemPool.GetMapCopy())
+                {
+                    var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(pair.Key);
+                    var weight = pair.Value.ToString("f2");
+                    sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", dataKey, item, weight));
+                }
+                //key poolname count list count
+                //jass里按照dataArr等记录数据
+                sb.AppendLine(string.Format("call RecordLoot(\"{0}\",{1},{2})", dataKey,data.ConstCount,data.RandomCount));
+                sb.AppendLine();
             }
             File.WriteAllText(GetPathFileName("Loot"), sb.ToString());
         }

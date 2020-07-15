@@ -1,0 +1,7 @@
+每个SLK_x.csv中配置的ID，都以一个独特的前缀开始来区分。
+
+Level-Rooms
+Room-Rule
+Rule-Type-Paramter
+	Type-固定
+	Pramter-抽象对象参数

@@ -1,3 +1,3 @@
-Id,IsRandom,RefRooms,RefRooms_Ins
-Level_1,TRUE,Room_1;Room_2;Room_3;Room_4;Room_5,
-Level_2,TRUE,Room_6;Room_7;Room_8;Room_9;Room_10,
+Id,IsRandom,RefRooms
+Level_1,TRUE,Room_1;Room_2;Room_3;Room_4;Room_5
+Level_2,TRUE,Room_6;Room_7;Room_8;Room_9;Room_10

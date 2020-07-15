@@ -99,7 +99,7 @@ namespace YoooTool.Code.Slk
         }
     }
 
-    public class SLK_EnemyGroup : SlkDataObject
+    public class SLK_UnitGroup : SlkDataObject
     {
         [SlkProperty(1)]
         public int Level { get; set; }
@@ -133,7 +133,7 @@ namespace YoooTool.Code.Slk
         }
     }
 
-    public class SLK_EnemySpawnner : SlkDataObject
+    public class SLK_UnitSpawnner : SlkDataObject
     {
         [SlkProperty(1)]
         public float LastTime { get; set; }
@@ -274,6 +274,15 @@ namespace YoooTool.Code.Slk
         */
         public override string Slk_Serialize()
         {
+            if (RefRooms != null)
+            {
+                //Ins实例转序列化数据
+                RefRooms.Clear();
+                foreach (var room in RefRooms_Ins)
+                {
+                    RefRooms.Add(room.ConfigId);
+                }
+            }
             return GetProperty2Csv();
         }
 
@@ -295,7 +304,7 @@ namespace YoooTool.Code.Slk
             {
                 Console.WriteLine("----------------");
                 //引用Ins类型没有保存出去的数据
-                //存在的意义是什么呢？在代码中修改的时候，能按照引用正确记录？
+                //存在的意义是什么呢？在代码中修改的时候，能按照引用正确记录？比如改名
                 RefRooms_Ins = SlkParseUtil.Config2SlkList<SLK_Room>(srr[2]);
                 foreach (var refRoomsIn in RefRooms_Ins)
                 {
@@ -389,15 +398,6 @@ namespace YoooTool.Code.Slk
             }
         }
 
-        public override void Slk_LateDeSerialize(object data)
-        {
-            string[] srr = (string[])data;
-            if (srr != null)
-            {
-
-            }
-        }
-
         public override string GetJass()
         {
             return Id;
@@ -424,8 +424,8 @@ namespace YoooTool.Code.Slk
         }
         public  SlkData_Handler<SLK_Interact> InteractTab { get; set; } = new SlkData_Handler<SLK_Interact>();
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
-        public  SlkData_Handler<SLK_EnemySpawnner> EnemySpawnnerTab { get; set; } = new SlkData_Handler<SLK_EnemySpawnner>();
-        public  SlkData_Handler<SLK_EnemyGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_EnemyGroup>();
+        public  SlkData_Handler<SLK_UnitSpawnner> EnemySpawnnerTab { get; set; } = new SlkData_Handler<SLK_UnitSpawnner>();
+        public  SlkData_Handler<SLK_UnitGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_UnitGroup>();
         public SlkData_Handler<SLK_RoomRule> RoomRuleTab { get; set; } = new SlkData_Handler<SLK_RoomRule>();
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
@@ -557,8 +557,8 @@ namespace YoooTool.Code.Slk
             unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_2", WeUnitTypeId = "'e003'", });
             File.WriteAllText("SLK_Unit.csv", unitTab.Handler_Serialize());
 
-            SlkData_Handler<SLK_EnemySpawnner> spawnnerTab = new SlkData_Handler<SLK_EnemySpawnner>();
-            spawnnerTab.AddData(new SLK_EnemySpawnner()
+            SlkData_Handler<SLK_UnitSpawnner> spawnnerTab = new SlkData_Handler<SLK_UnitSpawnner>();
+            spawnnerTab.AddData(new SLK_UnitSpawnner()
             {
                 EnemyIdPool = new RandomWeightPool<string>()
                     .SetItemWeight("enemy_1", 10)
@@ -572,8 +572,8 @@ namespace YoooTool.Code.Slk
             });
             File.WriteAllText("SLK_EnemySpawnner.csv", spawnnerTab.Handler_Serialize());
 
-            SlkData_Handler<SLK_EnemyGroup> enemyGroupTab = new SlkData_Handler<SLK_EnemyGroup>();
-            enemyGroupTab.AddData(new SLK_EnemyGroup()
+            SlkData_Handler<SLK_UnitGroup> enemyGroupTab = new SlkData_Handler<SLK_UnitGroup>();
+            enemyGroupTab.AddData(new SLK_UnitGroup()
             {
                 Id = "EnemyGroup_1",
                 Level = 1,

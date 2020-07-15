@@ -1,8 +1,14 @@
+//--ConfigBegin--Loot_1--
 set dataArr[1] = 'expbook'
 set dataArr[2] = 'gold'
 set dataLength = 2
-call RecordLoot("1")
+call RecordLoot("Loot_1",5,0)
+
+//--ConfigBegin--Loot_2--
 set dataArr[1] = 'expbook'
 set dataArr[2] = 'gold'
 set dataLength = 2
-call RecordLoot("2")
+call WeightPoolLib_RegistPool_Int("Loot_2",'expbook',10.00)
+call WeightPoolLib_RegistPool_Int("Loot_2",'gold',5.00)
+call RecordLoot("Loot_2",5,10)
+

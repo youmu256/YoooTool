@@ -1,21 +1,8 @@
-set dataArr[1] = 'u007'
+set dataArr[1] = 'u001'
+set dataArr[2] = 'n003'
+set dataLength = 2
+call RecordCurrentToLevel_WithId("UnitGroup_1",1)
+set dataArr[1] = 'n005'
 set dataArr[2] = 'u007'
-set dataArr[3] = 'n003'
-set dataArr[4] = 'n005'
-set dataArr[5] = 'u001'
-set dataArr[6] = 'u001'
-set dataArr[7] = 'u001'
-set dataLength = 7
-call RecordCurrentToLevel_WithId("eg_1",1)
-set dataArr[1] = 'u000'
-set dataArr[2] = 'u000'
-set dataArr[3] = 'n002'
-set dataArr[4] = 'n002'
-set dataArr[5] = 'n004'
-set dataArr[6] = 'n004'
-set dataArr[7] = 'u004'
-set dataArr[8] = 'u004'
-set dataArr[9] = 'n005'
-set dataArr[10] = 'n005'
-set dataLength = 10
-call RecordCurrentToLevel_WithId("eg_2",2)
+set dataLength = 2
+call RecordCurrentToLevel_WithId("UnitGroup_2",2)

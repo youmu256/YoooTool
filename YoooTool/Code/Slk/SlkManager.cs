@@ -424,8 +424,8 @@ namespace YoooTool.Code.Slk
         }
         public  SlkData_Handler<SLK_Interact> InteractTab { get; set; } = new SlkData_Handler<SLK_Interact>();
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
-        public  SlkData_Handler<SLK_UnitSpawnner> EnemySpawnnerTab { get; set; } = new SlkData_Handler<SLK_UnitSpawnner>();
-        public  SlkData_Handler<SLK_UnitGroup> EnemyGroupTab { get; set; } = new SlkData_Handler<SLK_UnitGroup>();
+        public  SlkData_Handler<SLK_UnitSpawnner> UnitSpawnnerTab { get; set; } = new SlkData_Handler<SLK_UnitSpawnner>();
+        public  SlkData_Handler<SLK_UnitGroup> UnitGroupTab { get; set; } = new SlkData_Handler<SLK_UnitGroup>();
         public SlkData_Handler<SLK_RoomRule> RoomRuleTab { get; set; } = new SlkData_Handler<SLK_RoomRule>();
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();

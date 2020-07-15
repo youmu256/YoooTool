@@ -25,6 +25,11 @@ namespace YoooTool.Code.Slk
     }
     public class SlkData_Handler<T> : ISlkData_Handler where T : SlkDataObject
     {
+        public string GetExportFileName()
+        {
+            return typeof(T).Name;
+        }
+
         //reflect call
         public void RegistToMap(Dictionary<string, SlkDataObject> map)
         {

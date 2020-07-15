@@ -45,7 +45,7 @@ namespace YoooTool.Code.Slk
         {
             //导出Spawnner 的jass
             StringBuilder sb = new StringBuilder();
-            var list = SlkManager.Instance.EnemySpawnnerTab.GetAllData();
+            var list = SlkManager.Instance.UnitSpawnnerTab.GetAllData();
             for (int i = 0; i < list.Count; i++)
             {
                 var spawnner = list[i];
@@ -62,14 +62,14 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("call RecordSpawnnerCfg(\"{0}\",{1},{2})", poolName, lastTime, interval));
                 sb.AppendLine();
             }
-            File.WriteAllText(GetPathFileName("EnemySpawnner"), sb.ToString());
+            File.WriteAllText(GetPathFileName(SlkManager.Instance.UnitSpawnnerTab.GetExportFileName()), sb.ToString());
         }
 
         public void ExportEnemyGroup2Jass()
         {
             //导出EnemyGroup
             StringBuilder sb = new StringBuilder();
-            var list = SlkManager.Instance.EnemyGroupTab.GetAllData();
+            var list = SlkManager.Instance.UnitGroupTab.GetAllData();
             for (int i = 0; i < list.Count; i++)
             {
                 var data = list[i];
@@ -81,7 +81,7 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("set dataLength = {0}", data.EnemyList.Count));
                 sb.AppendLine(string.Format("call RecordCurrentToLevel_WithId(\"{0}\",{1})", data.Id, data.Level));
             }
-            File.WriteAllText(GetPathFileName("EnemyGroup"), sb.ToString());
+            File.WriteAllText(GetPathFileName(SlkManager.Instance.UnitGroupTab.GetExportFileName()), sb.ToString());
         }
         public void ExportLoot2Jass()
         {
@@ -113,7 +113,7 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("call RecordLoot(\"{0}\",{1},{2})", dataKey,data.ConstCount,data.RandomCount));
                 sb.AppendLine();
             }
-            File.WriteAllText(GetPathFileName("Loot"), sb.ToString());
+            File.WriteAllText(GetPathFileName(SlkManager.Instance.LootTab.GetExportFileName()), sb.ToString());
         }
     }
 

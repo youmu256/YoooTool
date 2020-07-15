@@ -321,6 +321,11 @@ namespace YoooTool.Code.Slk
         }
     }
 
+    /// <summary>
+    /// 不一定对应真正的一个物品
+    /// 比如金币 经验都可以作为一个LootItem
+    /// 金币单位为100 经验书
+    /// </summary>
     public class SLK_LootItem : SlkDataObject
     {
         [SlkProperty(1)]
@@ -347,19 +352,20 @@ namespace YoooTool.Code.Slk
         }
     }
 
+    /// <summary>
+    /// 奖励
+    /// 可以用开宝箱的形式，在宝箱附近刷出LootItem
+    /// </summary>
     public class SLK_Loot : SlkDataObject
     {
         //固定
         [SlkProperty(1)]
         public List<string> Items { get; set; }
-
         [SlkProperty(2)]
         public int ConstCount { get; set; }
-
         //随机
         [SlkProperty(3)]
-        public RandomWeightPool<string> ItemIdPool { get; set; }
-
+        public RandomWeightPool<string> ItemPool { get; set; }
         [SlkProperty(4)]
         public int RandomCount { get; set; }
         public override string Slk_Serialize()
@@ -375,7 +381,7 @@ namespace YoooTool.Code.Slk
                 Id = srr[0];
                 Items = SlkParseUtil.Config2IdList(srr[1]);
                 ConstCount = SlkParseUtil.Parse2Int(srr[2]);
-                ItemIdPool = SlkParseUtil.Config2IdPool(srr[3]);
+                ItemPool = SlkParseUtil.Config2IdPool(srr[3]);
                 RandomCount = SlkParseUtil.Parse2Int(srr[4]);
             }
         }
@@ -420,7 +426,9 @@ namespace YoooTool.Code.Slk
         public SlkData_Handler<SLK_RoomRule> RoomRuleTab { get; set; } = new SlkData_Handler<SLK_RoomRule>();
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
-        
+        public SlkData_Handler<SLK_Loot> LootTab { get; set; } = new SlkData_Handler<SLK_Loot>();
+
+
         public static SlkManager Instance { get; private set; }
 
         public static SlkManager CreateInstance()

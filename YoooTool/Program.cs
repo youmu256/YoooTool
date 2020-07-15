@@ -131,13 +131,14 @@ namespace YoooTool
 
             //XmlTest();
             //return;
-            return;
+            //return;
             SlkManager.CreateInstance();
             var export = new ExportHelper();
             //export.ExportLevel2Jass(Slk_Level.TestLevel);
             export.ExportAllLevel2Jass();
             export.ExportEnemyGroup2Jass();
             export.ExportEnemySpawnner2Jass();
+            export.ExportLoot2Jass();
             //SlkManager.Instance.GetSlkData<SlkDataObject>("Room_1");
             /*
             var l = new LevelManager();

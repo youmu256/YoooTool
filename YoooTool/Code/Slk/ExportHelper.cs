@@ -68,7 +68,6 @@ namespace YoooTool.Code.Slk
         public void ExportEnemyGroup2Jass()
         {
             //导出EnemyGroup
-            //EnemyGroup需要重新审视..实际JASS引用的是2个坐标，再存一个ID映射2个坐标？
             StringBuilder sb = new StringBuilder();
             var list = SlkManager.Instance.EnemyGroupTab.GetAllData();
             for (int i = 0; i < list.Count; i++)
@@ -83,6 +82,24 @@ namespace YoooTool.Code.Slk
                 sb.AppendLine(string.Format("call RecordCurrentToLevel_WithId(\"{0}\",{1})", data.Id, data.Level));
             }
             File.WriteAllText(GetPathFileName("EnemyGroup"), sb.ToString());
+        }
+        public void ExportLoot2Jass()
+        {
+            //导出Loot
+            StringBuilder sb = new StringBuilder();
+            var list = SlkManager.Instance.LootTab.GetAllData();
+            for (int i = 0; i < list.Count; i++)
+            {
+                var data = list[i];
+                for (int j = 0; j < data.Items.Count; j++)
+                {
+                    var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(data.Items[j]);
+                    sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, item));
+                }
+                sb.AppendLine(string.Format("set dataLength = {0}", data.Items.Count));
+                sb.AppendLine(string.Format("call RecordLoot(\"{0}\")", data.Id));
+            }
+            File.WriteAllText(GetPathFileName("Loot"), sb.ToString());
         }
     }
 

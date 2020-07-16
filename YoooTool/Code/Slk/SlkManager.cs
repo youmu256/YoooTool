@@ -99,7 +99,7 @@ namespace YoooTool.Code.Slk
         }
     }
     
-    public class SLK_UnitSpawnner : SlkDataObject
+    public class SLK_Spawnner : SlkDataObject
     {
         [SlkProperty(1)]
         public float PoolLastTime { get; set; }
@@ -361,7 +361,7 @@ namespace YoooTool.Code.Slk
         }
         public  SlkData_Handler<SLK_Interact> InteractTab { get; set; } = new SlkData_Handler<SLK_Interact>();
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
-        public  SlkData_Handler<SLK_UnitSpawnner> UnitSpawnnerTab { get; set; } = new SlkData_Handler<SLK_UnitSpawnner>();
+        public  SlkData_Handler<SLK_Spawnner> UnitSpawnnerTab { get; set; } = new SlkData_Handler<SLK_Spawnner>();
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
         public SlkData_Handler<SLK_Loot> LootTab { get; set; } = new SlkData_Handler<SLK_Loot>();
@@ -494,8 +494,8 @@ namespace YoooTool.Code.Slk
             unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_2", WeUnitTypeId = "'e003'", });
             File.WriteAllText("SLK_Unit.csv", unitTab.Handler_Serialize());
 
-            SlkData_Handler<SLK_UnitSpawnner> spawnnerTab = new SlkData_Handler<SLK_UnitSpawnner>();
-            spawnnerTab.AddData(new SLK_UnitSpawnner()
+            SlkData_Handler<SLK_Spawnner> spawnnerTab = new SlkData_Handler<SLK_Spawnner>();
+            spawnnerTab.AddData(new SLK_Spawnner()
             {
                 UnitPool = new RandomWeightPool<string>()
                     .SetItemWeight("enemy_1", 10)

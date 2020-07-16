@@ -136,7 +136,7 @@ namespace YoooTool
             var export = new ExportHelper();
             //export.ExportLevel2Jass(Slk_Level.TestLevel);
             export.ExportAllLevel2Jass();
-            export.ExportEnemySpawnner2Jass();
+            export.ExportSpawnner2Jass();
             export.ExportLoot2Jass();
             SlkManager.Instance.SaveOut();
             //SlkManager.Instance.GetSlkData<SlkDataObject>("Room_1");

@@ -1,0 +1,6 @@
+Id,PoolLastTime,PoolInterval,UnitPool,ListInterval,UnitList
+Spawnner_1,30,2,Unit_8|10;Unit_9|10,,
+Spawnner_2,30,2,Unit_8|10;Unit_9|10;Unit_10|2,,
+Spawnner_3,30,2,,1,Unit_1;Unit_2
+Spawnner_4,30,2,Unit_1|20;Unit_2|5;Unit_3|1,,
+Spawnner_5,30,2,Unit_1|20;Unit_4|10;Unit_6|5,,

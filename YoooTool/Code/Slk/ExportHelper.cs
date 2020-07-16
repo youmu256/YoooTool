@@ -41,7 +41,7 @@ namespace YoooTool.Code.Slk
             }
         }
 
-        public void ExportEnemySpawnner2Jass()
+        public void ExportSpawnner2Jass()
         {
             //导出Spawnner 的jass
             StringBuilder sb = new StringBuilder();

@@ -1,6 +1,0 @@
-Id,PoolLastTime,PoolInterval,UnitPool,ListInterval,UnitList
-UnitSpawnner_1,30,2,Unit_8|10;Unit_9|10,,
-UnitSpawnner_2,30,2,Unit_8|10;Unit_9|10;Unit_10|2,,
-UnitSpawnner_3,30,2,,1,Unit_1;Unit_2
-UnitSpawnner_4,30,2,Unit_1|20;Unit_2|5;Unit_3|1,,
-UnitSpawnner_5,30,2,Unit_1|20;Unit_4|10;Unit_6|5,,

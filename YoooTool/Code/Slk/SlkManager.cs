@@ -58,6 +58,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -84,6 +86,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -118,6 +122,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -162,6 +168,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -225,6 +233,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -287,6 +297,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -322,6 +334,8 @@ namespace YoooTool.Code.Slk
 
         public override void Slk_DeSerialize(object data)
         {
+            TryAutoDeSerialize(data);
+            return;
             string[] srr = (string[])data;
             if (srr != null)
             {
@@ -346,6 +360,60 @@ namespace YoooTool.Code.Slk
         }
     }
 
+
+    /// <summary>
+    /// 交互 界面+文字 选项:结果
+    /// 最多3个回答
+    /// </summary>
+    public class SLK_Event : SlkDataObject
+    {
+        //SlkProperty相同的话 就会按照代码编写顺序 上至下导出
+        [SlkProperty(1)]
+        public string ImagePath { get; set; }
+        [SlkProperty(1)]
+        public string Description { get; set; }
+        [SlkProperty(1)]
+        public string Question { get; set; }
+        [SlkProperty(1)]
+        public string Anwser1 { get; set; }
+        [SlkProperty(1)]
+        public string Anwser2 { get; set; }
+        [SlkProperty(1)]
+        public string Anwser3 { get; set; }
+        //resulttype#resultparam
+        [SlkProperty(1)]
+        public string Result1 { get; set; }
+        [SlkProperty(1)]
+        public string Result2 { get; set; }
+        [SlkProperty(1)]
+        public string Result3 { get; set; }
+        [SlkProperty(1)]
+        public float LimitTime { get; set; }
+        [SlkProperty(1)]
+        public string OverTimeResult { get; set; }
+
+        //Result固定解析    多个结果操作用;区分
+        //ToEvent#{eventid}                     //可以实现连续连续对话  注意不要多个一起用
+        //ChangeProperty#{propertyid|value}     //修改属性
+        //ChangeResource#{resourceid|value}     //奖励金钱 木头 Gold|Wood
+        //Loot#{lootid}                         //奖励一次Loot
+        //ChangeResource#Gold|1000;ChangeResource#Wood|10
+
+        public override string Slk_Serialize()
+        {
+            return GetProperty2Csv();
+        }
+
+        public override void Slk_DeSerialize(object data)
+        {
+            TryAutoDeSerialize(data);
+        }
+
+        public override string GetJass()
+        {
+            return "";
+        }
+    }
     #endregion
 
 
@@ -363,6 +431,7 @@ namespace YoooTool.Code.Slk
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
         public SlkData_Handler<SLK_Loot> LootTab { get; set; } = new SlkData_Handler<SLK_Loot>();
         public SlkData_Handler<SLK_LootItem> LootItemTab { get; set; } = new SlkData_Handler<SLK_LootItem>();
+        public SlkData_Handler<SLK_Event> EventTab { get; set; } = new SlkData_Handler<SLK_Event>();
 
 
         public static SlkManager Instance { get; private set; }

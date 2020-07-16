@@ -54,6 +54,79 @@ namespace YoooTool.Code.Slk
             }
             return sb.ToString();
         }
+
+        /// <summary>
+        /// 尝试直接自动转换掉
+        /// </summary>
+        /// <param name="data"></param>
+        public void TryAutoDeSerialize(object data)
+        {
+            string[] srr = (string[])data;
+            if (srr != null)
+            {
+                Id = srr[0];
+                StringBuilder sb = new StringBuilder();
+                var properties = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).ToList();
+                //无标签的无效
+                properties.RemoveAll((info => info.GetCustomAttribute<SlkPropertyAttribute>() == null));
+                properties.Sort((p1, p2) =>
+                {
+                    var p1Index = p1.GetCustomAttribute<SlkPropertyAttribute>();
+                    var p2Index = p2.GetCustomAttribute<SlkPropertyAttribute>();
+                    var p1i = p1Index != null ? p1Index.Index : int.MaxValue;
+                    var p2i = p2Index != null ? p2Index.Index : int.MaxValue;
+                    return p1i - p2i;
+                });
+                int lastIndex = 0;
+                foreach (var propertyInfo in properties)
+                {
+                    var atb = propertyInfo.GetCustomAttribute<SlkPropertyAttribute>();
+                    var index = atb.Index;
+                    if (index == lastIndex)
+                    {
+                        //保证相同的标签 都为1 也一样能自增
+                        index++;
+                    }
+                    index = Math.Max(0, index);
+                    lastIndex = index;
+                    if (propertyInfo.PropertyType == typeof(int))
+                    {
+                        propertyInfo.SetValue(this, SlkParseUtil.Parse2Int(srr[index]));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(float))
+                    {
+                        propertyInfo.SetValue(this, SlkParseUtil.Parse2Float(srr[index]));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(double))
+                    {
+                        propertyInfo.SetValue(this, SlkParseUtil.Parse2Double(srr[index]));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(bool))
+                    {
+                        propertyInfo.SetValue(this, SlkParseUtil.Parse2Bool(srr[index]));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(string))
+                    {
+                        propertyInfo.SetValue(this, srr[index]);
+                    }
+                    else if (propertyInfo.PropertyType == typeof(RandomWeightPool<string>))
+                    {
+                        propertyInfo.SetValue(this, SlkParseUtil.Config2IdPool(srr[index]));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(List<string>))
+                    {
+                        propertyInfo.SetValue(this, SlkParseUtil.Config2IdList(srr[index]));
+                    }
+                    else if (propertyInfo.PropertyType.IsSubclassOf(typeof(SlkDataObject)))
+                    {
+                        //现在都不直接饮用对象了，都是用ID
+                        var obj = SlkManager.Instance.GetSlkData<SlkDataObject>(srr[index]);
+                        propertyInfo.SetValue(this, obj);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// SLK Serialize主要使用的方法
         /// </summary>

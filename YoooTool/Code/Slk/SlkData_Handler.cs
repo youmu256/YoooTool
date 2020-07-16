@@ -99,6 +99,7 @@ namespace YoooTool.Code.Slk
                 if (!File.Exists(data.ToString()))
                 {
                     Console.WriteLine("Not Load : "+fileName);
+                    return;
                 }
             }
             Console.WriteLine(data);

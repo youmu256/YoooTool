@@ -12,6 +12,10 @@ namespace YoooTool.Code.Slk
 
     public abstract class SlkDataObject : ISlkSerialize, IExport2Jass
     {
+        public string GetLabel()
+        {
+            return GetType().Name.Replace("SLK_", "");
+        }
         public SlkDataObject() { }
         /// <summary>
         /// 索引ID

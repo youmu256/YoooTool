@@ -98,50 +98,19 @@ namespace YoooTool.Code.Slk
             return "'"+WeUnitTypeId+"'";
         }
     }
-
-    public class SLK_UnitGroup : SlkDataObject
-    {
-        [SlkProperty(1)]
-        public int Level { get; set; }
-        [SlkProperty(2)]
-        public int Index { get; set; }
-        [SlkProperty(3)]
-        public List<string> EnemyList { get; set; }
-
-        public override string Slk_Serialize()
-        {
-            return GetProperty2Csv();
-        }
-
-        public override void Slk_DeSerialize(object data)
-        {
-            string[] srr = (string[])data;
-            if (srr != null)
-            {
-                Id = srr[0];
-                Level = SlkParseUtil.Parse2Int(srr[1]);
-                Index = SlkParseUtil.Parse2Int(srr[2]);
-                //拆分content
-                EnemyList = SlkParseUtil.Config2IdList(srr[3]);
-            }
-        }
-
-        public override string GetJass()
-        {
-            string jass = string.Format("{0}@{1}", Level, Index);
-            return String.Format("{0}#{1}", "EnemyGroup", jass);
-        }
-    }
-
+    
     public class SLK_UnitSpawnner : SlkDataObject
     {
         [SlkProperty(1)]
-        public float LastTime { get; set; }
+        public float PoolLastTime { get; set; }
         [SlkProperty(2)]
-        public float Interval { get; set; }
+        public float PoolInterval { get; set; }
         [SlkProperty(3)]
-        public RandomWeightPool<string> EnemyIdPool { get; set; }
-
+        public RandomWeightPool<string> UnitPool { get; set; }
+        [SlkProperty(4)]
+        public float ListInterval { get; set; }
+        [SlkProperty(5)]
+        public List<string> UnitList { get; set; }
         public override string Slk_Serialize()
         {
             return GetProperty2Csv();
@@ -153,17 +122,21 @@ namespace YoooTool.Code.Slk
             if (srr != null)
             {
                 Id = srr[0];
-                LastTime = SlkParseUtil.Parse2Float(srr[1]);
-                Interval = SlkParseUtil.Parse2Float(srr[2]);
-                EnemyIdPool = SlkParseUtil.Config2IdPool(srr[3]);
+                PoolLastTime = SlkParseUtil.Parse2Float(srr[1]);
+                PoolInterval = SlkParseUtil.Parse2Float(srr[2]);
+                UnitPool = SlkParseUtil.Config2IdPool(srr[3]);
+                ListInterval = SlkParseUtil.Parse2Float(srr[4]);
+                UnitList = SlkParseUtil.Config2IdList(srr[5]);
             }
         }
 
         public override string GetJass()
         {
+            //并不需要导出 实际JASS中整个Spawnner会再抽象成一个ID，指向该配置
             //对应WE解析所需
-            string jass = string.Format("{0}@{1}@{2}", LastTime, Interval,Id );//SlkParseUtil.IdPool2Config(EnemyIdPool)
-            return String.Format("{0}#{1}", "EnemySpawn", jass);
+            return "Not Implement GetJass Method";
+            string jass = string.Format("{0}@{1}@{2}", PoolLastTime, PoolInterval,Id );
+            return String.Format("{0}#{1}", GetLabel(), jass);
             //return Id;
         }
     }
@@ -389,7 +362,6 @@ namespace YoooTool.Code.Slk
         public  SlkData_Handler<SLK_Interact> InteractTab { get; set; } = new SlkData_Handler<SLK_Interact>();
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
         public  SlkData_Handler<SLK_UnitSpawnner> UnitSpawnnerTab { get; set; } = new SlkData_Handler<SLK_UnitSpawnner>();
-        public  SlkData_Handler<SLK_UnitGroup> UnitGroupTab { get; set; } = new SlkData_Handler<SLK_UnitGroup>();
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
         public SlkData_Handler<SLK_Loot> LootTab { get; set; } = new SlkData_Handler<SLK_Loot>();
@@ -483,7 +455,6 @@ namespace YoooTool.Code.Slk
             }
             return data;
         }
-        //TODO 无T规范的模糊查找 GetSlkData 有必要？
 
         //--给UI来操作--
         public void ModifyId()
@@ -491,14 +462,17 @@ namespace YoooTool.Code.Slk
             //修改一个SLK的ID，并且更新引用相关？
         }
 
+        /// <summary>
+        /// 保存出所有SLK数据
+        /// </summary>
         public void SaveOut()
         {
-            //TODO 整理
+            return;
             var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
             foreach (var propertyInfo in properties)
             {
-                string file = propertyInfo.PropertyType.GetGenericArguments()[0].Name + ".csv";
-                Console.WriteLine("Handler_Serialize : " + file);
+                string file = ExportHelper.GetPathFileName("save_"+propertyInfo.PropertyType.GetGenericArguments()[0].Name,".csv");
+                Console.WriteLine("Save... Handler_Serialize : " + file);
                 var des = propertyInfo.PropertyType.GetMethod("Handler_Serialize", BindingFlags.Public | BindingFlags.Instance);
                 string content = des.Invoke(propertyInfo.GetValue(this), new object[] { }) as string;
                 File.WriteAllText(file, content);
@@ -523,33 +497,17 @@ namespace YoooTool.Code.Slk
             SlkData_Handler<SLK_UnitSpawnner> spawnnerTab = new SlkData_Handler<SLK_UnitSpawnner>();
             spawnnerTab.AddData(new SLK_UnitSpawnner()
             {
-                EnemyIdPool = new RandomWeightPool<string>()
+                UnitPool = new RandomWeightPool<string>()
                     .SetItemWeight("enemy_1", 10)
                     .SetItemWeight("enemy_2", 10)
                     .SetItemWeight("bigEnemy_1", 5)
                     .SetItemWeight("bigEnemy_2", 5)
                 ,
                 Id = "EnemySpawnner_1",
-                Interval = 2,
-                LastTime = 30,
+                PoolInterval = 2,
+                PoolLastTime = 30,
             });
             File.WriteAllText("SLK_EnemySpawnner.csv", spawnnerTab.Handler_Serialize());
-
-            SlkData_Handler<SLK_UnitGroup> enemyGroupTab = new SlkData_Handler<SLK_UnitGroup>();
-            enemyGroupTab.AddData(new SLK_UnitGroup()
-            {
-                Id = "EnemyGroup_1",
-                Level = 1,
-                Index = 1,
-                EnemyList = new List<string>()
-                {
-                    "enemy_1",
-                    "enemy_1",
-                    "enemy_2",
-                    "enemy_2",
-                }
-            });
-            File.WriteAllText("SLK_EnemyGroup.csv", enemyGroupTab.Handler_Serialize());
 
             SlkData_Handler<SLK_Room> roomTab = new SlkData_Handler<SLK_Room>();
             roomTab.AddData(new SLK_Room()

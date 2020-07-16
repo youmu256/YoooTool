@@ -56,7 +56,16 @@ library WeightPoolLib
 		
 	endfunction
 	
-	public function GetRandom_Int takes string poolName returns integer data
+	public function GetIndex_Int takes string poolName,integer index returns integer
+		local integer pk = GetPoolHash(poolName)
+		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))
+		if(index>0 && index<=itemLength) then
+			return LoadInteger(ht,pk,StringHash("data_"+I2S(index)))
+		endif
+		return 0
+	endfunction
+	
+	public function GetRandom_Int takes string poolName returns integer
 		local integer pk = GetPoolHash(poolName)
 		local integer itemLength = LoadInteger(ht,pk,StringHash("itemLength"))
 		local real totalWeight = LoadReal(ht,pk,StringHash("totalWeight"))

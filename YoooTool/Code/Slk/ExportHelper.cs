@@ -49,40 +49,40 @@ namespace YoooTool.Code.Slk
             for (int i = 0; i < list.Count; i++)
             {
                 var spawnner = list[i];
-                var poolName = spawnner.Id;
-                var lastTime = spawnner.LastTime.ToString("f2");
-                var interval = spawnner.Interval.ToString("f2");
-                sb.AppendLine(string.Format("//--ConfigBegin--{0}--", poolName));
-                foreach (var pair in spawnner.EnemyIdPool.GetMapCopy())
+                var poolName = "";
+                var lastTime = spawnner.PoolLastTime.ToString("f2");
+                var poolInterval = spawnner.PoolInterval.ToString("f2");
+                var listName = "";
+                var listInterval = spawnner.ListInterval.ToString("f2");
+                sb.AppendLine(string.Format("//--ConfigBegin--{0}--", spawnner.Id));
+                if (!spawnner.UnitPool.IsEmpty())
                 {
-                    var data = SlkParseUtil.GetIdRefObjectJass<SLK_Unit>(pair.Key);
-                    var weight = pair.Value.ToString("f2");
-                    sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", poolName, data, weight));
+                    poolName = "pool_" + spawnner.Id;
+                    foreach (var pair in spawnner.UnitPool.GetMapCopy())
+                    {
+                        var data = SlkParseUtil.GetIdRefObjectJass<SLK_Unit>(pair.Key);
+                        var weight = pair.Value.ToString("f2");
+                        sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", poolName, data,
+                            weight));
+                    }
                 }
-                sb.AppendLine(string.Format("call RecordSpawnnerCfg(\"{0}\",{1},{2})", poolName, lastTime, interval));
+                if (spawnner.UnitList.Count > 0)
+                {
+                    listName = "list_" + spawnner.Id;
+                    foreach (var unit in spawnner.UnitList)
+                    {
+                        var data = SlkParseUtil.GetIdRefObjectJass<SLK_Unit>(unit);
+                        var weight = 1;
+                        sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", listName, data,
+                            weight));
+                    }
+                }
+                sb.AppendLine(string.Format("call RecordSpawnnerCfg(\"{0}\",{1},{2},\"{3}\",{4})", poolName, lastTime, poolInterval,listName,listInterval));
                 sb.AppendLine();
             }
             File.WriteAllText(GetPathFileName(SlkManager.Instance.UnitSpawnnerTab.GetExportFileName()), sb.ToString());
         }
-
-        public void ExportEnemyGroup2Jass()
-        {
-            //导出EnemyGroup
-            StringBuilder sb = new StringBuilder();
-            var list = SlkManager.Instance.UnitGroupTab.GetAllData();
-            for (int i = 0; i < list.Count; i++)
-            {
-                var data = list[i];
-                for (int j = 0; j < data.EnemyList.Count; j++)
-                {
-                    var enemy = SlkParseUtil.GetIdRefObjectJass<SLK_Unit>(data.EnemyList[j]);
-                    sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, enemy));
-                }
-                sb.AppendLine(string.Format("set dataLength = {0}", data.EnemyList.Count));
-                sb.AppendLine(string.Format("call RecordCurrentToLevel_WithId(\"{0}\",{1})", data.Id, data.Level));
-            }
-            File.WriteAllText(GetPathFileName(SlkManager.Instance.UnitGroupTab.GetExportFileName()), sb.ToString());
-        }
+        
         public void ExportLoot2Jass()
         {
             //导出Loot

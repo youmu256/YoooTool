@@ -18,6 +18,10 @@ namespace YoooTool.Code.Utils
             Dictionary<T, float> copy = new Dictionary<T, float>(ObjectWeightMap);
             return copy;
         }
+        public bool IsEmpty()
+        {
+            return ObjectWeightMap.Count == 0;
+        }
 
         protected Dictionary<T, float> ObjectWeightMap = new Dictionary<T, float>();
 

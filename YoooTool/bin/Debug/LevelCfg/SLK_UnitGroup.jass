@@ -1,8 +1,0 @@
-set dataArr[1] = 'u001'
-set dataArr[2] = 'n003'
-set dataLength = 2
-call RecordCurrentToLevel_WithId("UnitGroup_1",1)
-set dataArr[1] = 'n005'
-set dataArr[2] = 'u007'
-set dataLength = 2
-call RecordCurrentToLevel_WithId("UnitGroup_2",2)

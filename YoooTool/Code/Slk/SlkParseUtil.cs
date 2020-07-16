@@ -122,10 +122,13 @@ namespace YoooTool.Code.Slk
         public static List<string> Config2IdList(string data)
         {
             List<string> list = new List<string>();
-            string[] srr = data.Split(SplitChar);
-            foreach (var s in srr)
+            if (!string.IsNullOrEmpty(data))
             {
-                list.Add(s);
+                string[] srr = data.Split(SplitChar);
+                foreach (var s in srr)
+                {
+                    list.Add(s);
+                }
             }
             return list;
         }

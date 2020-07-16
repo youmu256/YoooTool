@@ -149,7 +149,6 @@ namespace YoooTool
             //OpenLevelForm();
             Console.ReadKey();
             return;
-            new SlkManager().OutPutTest();
             Console.ReadKey();
             return;
             var game = new Game();

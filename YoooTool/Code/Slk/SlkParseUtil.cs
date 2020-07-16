@@ -100,21 +100,61 @@ namespace YoooTool.Code.Slk
             return sb.ToString();
         }
 
-        public static string IdList2Config(List<string> idList)
+        public static string IdList2Config(List<string> idList,bool merge = true)
         {
             StringBuilder sb = new StringBuilder();
             bool isFirst = true;
-            foreach (var s in idList)
+            if (merge)
             {
-                if (!isFirst)
+                //转成 x*number的形式
+                Dictionary<string, int> countMap = new Dictionary<string, int>();
+                foreach (var s in idList)
                 {
-                    sb.Append(SplitChar);
+                    if (countMap.ContainsKey(s))
+                    {
+                        countMap[s]++;
+                    }
+                    else
+                    {
+                        countMap.Add(s, 1);
+                    }
                 }
-                else
+                foreach (var pair in countMap)
                 {
-                    isFirst = false;
+                    if (!isFirst)
+                    {
+                        sb.Append(SplitChar);
+                    }
+                    else
+                    {
+                        isFirst = false;
+                    }
+
+                    if (pair.Value > 1)
+                    {
+                        sb.Append(string.Format("{0}*{1}", pair.Key, pair.Value));
+                    }
+                    else
+                    {
+                        //缺省形式
+                        sb.Append(pair.Key);
+                    }
                 }
-                sb.Append(s);
+            }
+            else
+            {
+                foreach (var s in idList)
+                {
+                    if (!isFirst)
+                    {
+                        sb.Append(SplitChar);
+                    }
+                    else
+                    {
+                        isFirst = false;
+                    }
+                    sb.Append(s);
+                }
             }
             return sb.ToString();
         }
@@ -127,7 +167,18 @@ namespace YoooTool.Code.Slk
                 string[] srr = data.Split(SplitChar);
                 foreach (var s in srr)
                 {
-                    list.Add(s);
+                    string[] exp = s.Split(MergeChar);
+                    int count = 1;
+                    string id = s;
+                    if (exp.Length > 1)
+                    {
+                        id = exp[0];
+                        count = int.Parse(exp[1]);
+                    }
+                    for (int i = 0; i < count; i++)
+                    {
+                        list.Add(id);
+                    }
                 }
             }
             return list;
@@ -136,17 +187,18 @@ namespace YoooTool.Code.Slk
         public static List<T> Config2SlkList<T>(string data) where T:SlkDataObject
         {
             List<T> list = new List<T>();
-            string[] srr = data.Split(SplitChar);
-            foreach (var s in srr)
+            var idList = Config2IdList(data);
+            foreach (var id in idList)
             {
-                T slkObj = SlkManager.Instance.GetSlkData<T>(s) as T;
-                if(slkObj!=null)
+                T slkObj = SlkManager.Instance.GetSlkData<T>(id) as T;
+                if (slkObj != null)
                     list.Add(slkObj);
             }
             return list;
         }
 
         public const char SplitChar = ';';
+        public const char MergeChar = '*';
 
         public static string IdPool2Config(RandomWeightPool<string> idPool)
         {

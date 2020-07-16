@@ -143,11 +143,11 @@ namespace YoooTool.Code.Slk
 
     public enum RuleType
     {
-        Battle,
-        RandomBattle,
-        Alive,
-        Interact,
-        RandomInteract,
+        Battle,//战斗
+        Interact,//交互事件
+        Rest,//休息
+        Shop,//商店
+        RandomEvent,//随机事件 没的选
     }
     public class SLK_Room : SlkDataObject
     {
@@ -478,51 +478,5 @@ namespace YoooTool.Code.Slk
                 File.WriteAllText(file, content);
             }
         }
-
-
-        public void OutPutTest()
-        {
-            SlkData_Handler<SLK_Interact> interTab = new SlkData_Handler<SLK_Interact>();
-            interTab.AddData(new SLK_Interact() { Id = "Interact_1", WeUnitTypeId = "'e000'" });
-            interTab.AddData(new SLK_Interact() { Id = "Interact_2", WeUnitTypeId = "'e001'"});
-            File.WriteAllText("SLK_Interact.csv", interTab.Handler_Serialize());
-            return;
-            SlkData_Handler<SLK_Unit> unitTab = new SlkData_Handler<SLK_Unit>();
-            unitTab.AddData(new SLK_Unit() { Id = "enemy_1", WeUnitTypeId = "'e000'",});
-            unitTab.AddData(new SLK_Unit() { Id = "enemy_2", WeUnitTypeId = "'e001'",});
-            unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_1", WeUnitTypeId = "'e002'", });
-            unitTab.AddData(new SLK_Unit() { Id = "bigEnemy_2", WeUnitTypeId = "'e003'", });
-            File.WriteAllText("SLK_Unit.csv", unitTab.Handler_Serialize());
-
-            SlkData_Handler<SLK_Spawnner> spawnnerTab = new SlkData_Handler<SLK_Spawnner>();
-            spawnnerTab.AddData(new SLK_Spawnner()
-            {
-                UnitPool = new RandomWeightPool<string>()
-                    .SetItemWeight("enemy_1", 10)
-                    .SetItemWeight("enemy_2", 10)
-                    .SetItemWeight("bigEnemy_1", 5)
-                    .SetItemWeight("bigEnemy_2", 5)
-                ,
-                Id = "EnemySpawnner_1",
-                PoolInterval = 2,
-                PoolLastTime = 30,
-            });
-            File.WriteAllText("SLK_EnemySpawnner.csv", spawnnerTab.Handler_Serialize());
-
-            SlkData_Handler<SLK_Room> roomTab = new SlkData_Handler<SLK_Room>();
-            roomTab.AddData(new SLK_Room()
-            {
-                Id = "Room_1",
-                Type = RuleType.RandomInteract,
-            });
-            File.WriteAllText("SLK_LevelRoom.csv", roomTab.Handler_Serialize());
-
-            return;
-            SlkData_Handler<SLK_Unit> newTab = new SlkData_Handler<SLK_Unit>();
-            newTab.Handler_DeSerialize("SLK_Unit.csv");
-            Console.WriteLine("====================");
-        }
-
-        
     }
 }

@@ -111,8 +111,7 @@ namespace YoooTool.Code.Slk
                         return SlkParseUtil.SlkList2IdList(ilist);
                     }
                 }
-
-                if (type == typeof(List<string>))//ID 池
+                if (type == typeof(List<string>))//ID 表
                 {
                     return SlkParseUtil.IdList2Config((List<string>)value);
                 }
@@ -153,6 +152,7 @@ namespace YoooTool.Code.Slk
                 int min = Math.Min(properties.Count, srr.Length);
                 for (int i = 0; i < min; i++)
                 {
+                    //全部merge输出
                     properties[i].SetValue(this,SlkParseUtil.ParseByType(properties[i].PropertyType, srr[i]));
                 }
             }

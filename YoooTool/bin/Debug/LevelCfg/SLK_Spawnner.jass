@@ -1,0 +1,28 @@
+//--ConfigBegin--Spawnner_1--
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_1",'u002',10.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_1",'u004',10.00)
+call RecordSpawnnerCfg("pool_Spawnner_1",30.00,2.00,"",0.00)
+
+//--ConfigBegin--Spawnner_2--
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_2",'u002',10.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_2",'u004',10.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_2",'u009',2.00)
+call RecordSpawnnerCfg("pool_Spawnner_2",30.00,2.00,"",0.00)
+
+//--ConfigBegin--Spawnner_3--
+call WeightPoolLib_RegistPool_Int("list_Spawnner_3",'u001',1)
+call WeightPoolLib_RegistPool_Int("list_Spawnner_3",'n003',1)
+call RecordSpawnnerCfg("",30.00,2.00,"list_Spawnner_3",1.00)
+
+//--ConfigBegin--Spawnner_4--
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_4",'u001',20.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_4",'n003',5.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_4",'n005',1.00)
+call RecordSpawnnerCfg("pool_Spawnner_4",30.00,2.00,"",0.00)
+
+//--ConfigBegin--Spawnner_5--
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_5",'u001',20.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_5",'u007',10.00)
+call WeightPoolLib_RegistPool_Int("pool_Spawnner_5",'n002',5.00)
+call RecordSpawnnerCfg("pool_Spawnner_5",30.00,2.00,"",0.00)
+

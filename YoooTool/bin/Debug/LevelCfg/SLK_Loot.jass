@@ -1,6 +1,6 @@
 //--ConfigBegin--Loot_1--
 set dataArr[1] = 'expbook'
-set dataArr[2] = 'gold'
+set dataArr[2] = 'expbook'
 set dataLength = 2
 call RecordLoot("Loot_1",5,0)
 

@@ -1,9 +1,9 @@
 Id,Type,Parameters,
 Room_1,Battle,Spawnner_3,Battle
-Room_2,Battle,Spawnner_1,Alive
-Room_3,Battle,Spawnner_3,Interact
-Room_4,Battle,Spawnner_2,RandomBattle
-Room_5,Battle,Spawnner_2,RandomInteract
+Room_2,Battle,Spawnner_1,Interact
+Room_3,Battle,Spawnner_3,
+Room_4,Battle,Spawnner_2,
+Room_5,Battle,Spawnner_2,
 Room_6,Battle,Spawnner_3,
 Room_7,Battle,Spawnner_1,
 Room_8,Battle,Spawnner_3,

@@ -1,16 +1,16 @@
 //------Level_1------
-set dataArr[1] = "Alive#UnitSpawnner_3"
-set dataArr[2] = "Alive#UnitSpawnner_1"
-set dataArr[3] = "Alive#UnitSpawnner_3"
-set dataArr[4] = "Alive#UnitSpawnner_2"
-set dataArr[5] = "Battle#UnitGroup_1"
+set dataArr[1] = "Battle#Spawnner_3"
+set dataArr[2] = "Battle#Spawnner_1"
+set dataArr[3] = "Battle#Spawnner_3"
+set dataArr[4] = "Battle#Spawnner_2"
+set dataArr[5] = "Battle#Spawnner_2"
 call RecordConfig(5,true)
 
 //------Level_2------
-set dataArr[1] = "Alive#UnitSpawnner_3"
-set dataArr[2] = "Alive#UnitSpawnner_1"
-set dataArr[3] = "Alive#UnitSpawnner_3"
-set dataArr[4] = "Alive#UnitSpawnner_2"
-set dataArr[5] = "Battle#UnitGroup_2"
+set dataArr[1] = "Battle#Spawnner_3"
+set dataArr[2] = "Battle#Spawnner_1"
+set dataArr[3] = "Battle#Spawnner_3"
+set dataArr[4] = "Battle#Spawnner_2"
+set dataArr[5] = "Battle#Spawnner_2"
 call RecordConfig(5,true)
 

@@ -176,7 +176,7 @@ namespace YoooTool.Code.Slk
         Interact,
         RandomInteract,
     }
-    public class SLK_RoomRule : SlkDataObject
+    public class SLK_Room : SlkDataObject
     {
         [SlkProperty(1)]
         public RuleType Type { get; set; }
@@ -186,6 +186,7 @@ namespace YoooTool.Code.Slk
         {
             return GetProperty2Csv();
         }
+
         public override void Slk_DeSerialize(object data)
         {
             string[] srr = (string[])data;
@@ -199,48 +200,11 @@ namespace YoooTool.Code.Slk
             }
             //throw new Exception("Must Override This");
         }
-        public override string GetJass()
-        {
-            /*
-            if (Type == RuleType.Battle)
-            {
-                //Battle 地图jass中没有管理 ID，所以直接返回解析 -特殊处理-
-                SLK_EnemyGroup group = SlkManager.Instance.GetSlkData<SLK_EnemyGroup>(Parameters) as SLK_EnemyGroup;
-                return string.Format("{0}#{1}", Type, group.Level+"@"+group.Index);
-            }
-            */
-            return string.Format("{0}#{1}", Type, Parameters);
-        }
-    }
-    public class SLK_Room : SlkDataObject
-    {
-        /// <summary>
-        /// 引用的一个配置 解析的时候根据ID得到具体类型的配置
-        /// SLK_EnemyGroup / SLK_EnemySpawnner
-        /// </summary>
-        [SlkProperty(1)]
-        public string ConfigId { get; set; }
-        
-        public override string Slk_Serialize()
-        {
-            return GetProperty2Csv();
-        }
-
-        public override void Slk_DeSerialize(object data)
-        {
-            string[] srr = (string[])data;
-            if (srr != null)
-            {
-                Id = srr[0];
-                ConfigId = srr[1];
-            }
-        }
 
         public override string GetJass()
         {
             //直接就是引用的
-
-            return SlkParseUtil.GetIdRefObjectJass<SLK_RoomRule>(ConfigId);
+            return string.Format("{0}#{1}", Type, Parameters);
         }
     }
     public class SLK_Level : SlkDataObject
@@ -280,7 +244,7 @@ namespace YoooTool.Code.Slk
                 RefRooms.Clear();
                 foreach (var room in RefRooms_Ins)
                 {
-                    RefRooms.Add(room.ConfigId);
+                    RefRooms.Add(room.Id);
                 }
             }
             return GetProperty2Csv();
@@ -426,7 +390,6 @@ namespace YoooTool.Code.Slk
         public  SlkData_Handler<SLK_Unit> UnitTab { get; set; } = new SlkData_Handler<SLK_Unit>();
         public  SlkData_Handler<SLK_UnitSpawnner> UnitSpawnnerTab { get; set; } = new SlkData_Handler<SLK_UnitSpawnner>();
         public  SlkData_Handler<SLK_UnitGroup> UnitGroupTab { get; set; } = new SlkData_Handler<SLK_UnitGroup>();
-        public SlkData_Handler<SLK_RoomRule> RoomRuleTab { get; set; } = new SlkData_Handler<SLK_RoomRule>();
         public  SlkData_Handler<SLK_Room> RoomTab { get; set; } = new SlkData_Handler<SLK_Room>();
         public SlkData_Handler<SLK_Level> LevelTab { get; set; } = new SlkData_Handler<SLK_Level>();
         public SlkData_Handler<SLK_Loot> LootTab { get; set; } = new SlkData_Handler<SLK_Loot>();
@@ -592,7 +555,7 @@ namespace YoooTool.Code.Slk
             roomTab.AddData(new SLK_Room()
             {
                 Id = "Room_1",
-                ConfigId = "EnemyGroup_1",
+                Type = RuleType.RandomInteract,
             });
             File.WriteAllText("SLK_LevelRoom.csv", roomTab.Handler_Serialize());
 

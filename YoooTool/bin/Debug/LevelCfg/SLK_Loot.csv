@@ -1,3 +1,3 @@
-Id,Items,ConstCount,ItemPool{loot道具id|权重值;},RandomCount
-Loot_1,LootItem_exp*2,5,,
-Loot_2,LootItem_exp;LootItem_money,5,LootItem_exp|10;LootItem_money|5,10
+Id,Items,ItemPool{loot_id|weight;},RandomCount
+Loot_1,LootItem_exp*2;LootItem_money*5,,
+Loot_2,LootItem_exp;LootItem_money,LootItem_exp|10;LootItem_money|5,10

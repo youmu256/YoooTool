@@ -92,29 +92,33 @@ namespace YoooTool.Code.Slk
             {
                 //列表存 随机池存
                 var data = list[i];
-
-                var dataKey = data.Id;
-                sb.AppendLine(string.Format("//--ConfigBegin--{0}--", dataKey));
-                for (int j = 0; j < data.Items.Count; j++)
+                sb.AppendLine(string.Format("//--ConfigBegin--{0}--", data.Id));
+                var listName = "";
+                if (data.Items.Count > 0)
                 {
-                    var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(data.Items[j]);
-                    sb.AppendLine(string.Format("set dataArr[{0}] = {1}", j + 1, item));
+                    listName = "list_" + data.Id;
+                    foreach (var id in data.Items)
+                    {
+                        var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(id);
+                        var weight = 1;
+                        sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", listName, item, weight));
+                    }
                 }
-                sb.AppendLine(string.Format("set dataLength = {0}", data.Items.Count));
-
-                foreach (var pair in data.ItemPool.GetMapCopy())
+                var poolName = "";
+                if (!data.ItemPool.IsEmpty())
                 {
-                    var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(pair.Key);
-                    var weight = pair.Value.ToString("f2");
-                    sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", dataKey, item, weight));
+                    poolName = "pool_" + data.Id;
+                    foreach (var pair in data.ItemPool.GetMapCopy())
+                    {
+                        var item = SlkParseUtil.GetIdRefObjectJass<SLK_LootItem>(pair.Key);
+                        var weight = pair.Value.ToString("f2");
+                        sb.AppendLine(string.Format("call WeightPoolLib_RegistPool_Int(\"{0}\",{1},{2})", poolName, item, weight));
+                    }
                 }
-                //key poolname count list count
-                //jass里按照dataArr等记录数据
-                sb.AppendLine(string.Format("call RecordLoot(\"{0}\",{1},{2})", dataKey,data.ConstCount,data.RandomCount));
+                sb.AppendLine(string.Format("call RecordLoot(\"{0}\",\"{1}\",{2},\"{3}\")", data.Id,poolName,data.RandomCount,listName));
                 sb.AppendLine();
             }
             File.WriteAllText(GetPathFileName(SlkManager.Instance.LootTab.GetExportFileName()), sb.ToString());
         }
     }
-
 }

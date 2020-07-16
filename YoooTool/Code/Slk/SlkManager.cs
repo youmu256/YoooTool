@@ -310,12 +310,10 @@ namespace YoooTool.Code.Slk
         //固定
         [SlkProperty(1)]
         public List<string> Items { get; set; }
-        [SlkProperty(2)]
-        public int ConstCount { get; set; }
         //随机
-        [SlkProperty(3)]
+        [SlkProperty(2)]
         public RandomWeightPool<string> ItemPool { get; set; }
-        [SlkProperty(4)]
+        [SlkProperty(3)]
         public int RandomCount { get; set; }
         public override string Slk_Serialize()
         {
@@ -329,9 +327,8 @@ namespace YoooTool.Code.Slk
             {
                 Id = srr[0];
                 Items = SlkParseUtil.Config2IdList(srr[1]);
-                ConstCount = SlkParseUtil.Parse2Int(srr[2]);
-                ItemPool = SlkParseUtil.Config2IdPool(srr[3]);
-                RandomCount = SlkParseUtil.Parse2Int(srr[4]);
+                ItemPool = SlkParseUtil.Config2IdPool(srr[2]);
+                RandomCount = SlkParseUtil.Parse2Int(srr[3]);
             }
         }
 
